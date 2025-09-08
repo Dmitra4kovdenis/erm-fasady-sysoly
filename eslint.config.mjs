@@ -20,6 +20,9 @@ const eslintConfig = [
       "next-env.d.ts",
     ],
   },
+  ...compat.config({
+    extends: ['next', 'prettier'],
+  }),
 ];
 
 export default eslintConfig;
