@@ -1,8 +1,8 @@
-import { FC, ReactNode } from "react";
+import { ButtonHTMLAttributes, FC, ReactNode } from "react";
 import css from "./button.module.scss";
 import cn from "classnames";
 
-export interface ButtonProps {
+export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   children: ReactNode;
   variant?: "primary" | "neutral";
   disabled?: boolean;
@@ -16,9 +16,14 @@ const Button: FC<ButtonProps> = ({
   startIcon,
   disabled,
   variant = "primary",
+  ...props
 }) => {
   return (
-    <button className={cn(css.common, css[variant])} disabled={disabled}>
+    <button
+      {...props}
+      className={cn(css.common, css[variant])}
+      disabled={disabled}
+    >
       {startIcon && <span className={css.icon}>{startIcon}</span>}
       {children}
       {endIcon && <span className={css.icon}>{endIcon}</span>}
