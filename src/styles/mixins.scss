@@ -1,0 +1,32 @@
+$tablet: 1023px;
+$mobile: 767px;
+
+@mixin for-tablet {
+  @media screen and (max-width: $tablet) {
+    @content;
+  }
+}
+
+@mixin for-mobile {
+  @media screen and (max-width: $mobile) {
+    @content;
+  }
+}
+
+@mixin layout {
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+
+  @include for-tablet {
+    max-width: 100%;
+    padding-left: 40px;
+    padding-right: 40px;
+  };
+
+  @include for-mobile {
+    max-width: 100%;
+    padding-left: 24px;
+    padding-right: 24px;
+  };
+}

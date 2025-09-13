@@ -1,17 +1,13 @@
-"use client";
+"use server";
+import { getUserData } from "@/lib/get-user-data";
+import HeaderClient from "@/components/header/header-client";
 
-import Button from "@/components/button/button";
-
-function Header() {
-  async function logout() {
-    await fetch("/api/logout", { method: "POST" });
-    window.location.href = "/login"; // перенаправляем на страницу логина
-  }
+async function Header() {
+  const userData = await getUserData();
+  if (!userData) return null;
 
   return (
-    <div>
-      <Button onClick={logout}>Разлогин</Button>
-    </div>
+    <HeaderClient name={userData.name ?? userData.email} role={userData.role} />
   );
 }
 

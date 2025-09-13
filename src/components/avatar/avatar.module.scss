@@ -1,0 +1,14 @@
+@use '@/styles/colors' as *;
+
+.common {
+  height: 48px;
+  width: 48px;
+  color: #fff;
+  border-radius: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  text-transform: uppercase;
+  background: $background-neutral-default;
+}

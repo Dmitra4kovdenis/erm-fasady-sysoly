@@ -1,0 +1,40 @@
+@use '@/styles/mixins' as *;
+
+.bg {
+  border-bottom: 1px solid #b6b6b6;
+
+}
+
+.wrapper {
+  @include layout;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo {
+  font-size: 32px;
+  font-weight: bold;
+}
+
+.right {
+  display: flex;
+  align-items: center;
+  gap: 60px;
+}
+
+.user {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.email {
+  font-size: 16px;
+}
+
+.role {
+  font-size: 16px;
+  color: #b6b6b6;
+}

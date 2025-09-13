@@ -51,7 +51,7 @@ address {
 
 /* Form */
 
-input, textarea, button, select {
+:where(input, textarea, button, select) {
   font-family: inherit;
   font-size: inherit;
   color: inherit;

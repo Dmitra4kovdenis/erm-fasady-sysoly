@@ -1,0 +1,23 @@
+@use '@/styles/colors' as *;
+
+.common {
+  height: 48px;
+  width: 48px;
+  color: #fff;
+  border-radius: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.primary {
+  background: $background-brand-default;
+
+  &:hover {
+    background: $background-brand-hover;
+  }
+}
+
+.neutral {
+
+}
