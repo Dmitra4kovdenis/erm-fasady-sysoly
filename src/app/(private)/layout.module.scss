@@ -1,0 +1,17 @@
+@use '@/styles/mixins' as *;
+
+.container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+
+}
+
+.wrapper {
+  display: flex;
+  min-height: 100%;
+}
+
+.content {
+  padding: 40px;
+}

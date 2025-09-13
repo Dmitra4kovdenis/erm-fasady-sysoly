@@ -6,6 +6,7 @@ import Avatar from "@/components/avatar/avatar";
 import { useRef, useState } from "react";
 import Button from "@/components/button/button";
 import useClickOutside from "@/hooks/click-outside";
+import Link from "next/link";
 
 interface HeaderClientProps {
   name: string;
@@ -27,7 +28,9 @@ function HeaderClient({ name, role }: HeaderClientProps) {
   return (
     <div className={css.bg}>
       <div className={css.wrapper}>
-        <div className={css.logo}>Фасады Сысолы</div>
+        <Link href="/" className={css.logo}>
+          Фасады Сысолы
+        </Link>
         <div className={css.right}>
           <div className={css.user} onClick={() => setIsOpen(!isOpen)}>
             <div>
