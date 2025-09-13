@@ -1,7 +1,6 @@
 "use client";
 
 import css from "./header.module.scss";
-import IconButton from "@/components/icon-button/icon-button";
 import { IconLogout } from "@/icons";
 import Avatar from "@/components/avatar/avatar";
 import { useRef, useState } from "react";
