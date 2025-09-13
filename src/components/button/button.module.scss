@@ -5,6 +5,9 @@
   padding: 0 54px;
   color: #fff;
   border-radius: 8px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
 }
 
 .primary {
@@ -12,5 +15,14 @@
 }
 
 .neutral {
+  background: $background-neutral-default;
+}
 
+.outline {
+  background: white;
+  color: black;
+
+  &:hover {
+    background: $background-default-secondary;
+  }
 }

@@ -4,7 +4,7 @@ import cn from "classnames";
 
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   children: ReactNode;
-  variant?: "primary" | "neutral";
+  variant?: "primary" | "neutral" | "outline";
   disabled?: boolean;
   startIcon?: ReactNode;
   endIcon?: ReactNode;
