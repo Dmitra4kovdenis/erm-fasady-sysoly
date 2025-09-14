@@ -7,8 +7,12 @@
     "build": "next build --turbopack",
     "start": "next start",
     "lint": "eslint",
+    "-----storybook-----": "-----",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "-----database-----": "-----",
+    "initialize": "npx ts-node scripts/init.js",
+    "prisma-generate-types": " npx prisma generate"
   },
   "dependencies": {
     "@next-auth/prisma-adapter": "^1.0.7",
