@@ -18,12 +18,15 @@
   font-size: 32px;
   font-weight: bold;
   color: #2c3e50;
+  width: 30%;
 }
 
 .right {
   display: flex;
   align-items: center;
+  justify-content: flex-end;
   gap: 60px;
+  width: 30%;
 }
 
 .user {
@@ -48,4 +51,25 @@
   top: 100%;
   background: #fff;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.center {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.link {
+  display: flex;
+  align-items: center;
+  color: black;
+  gap: 8px;
+  svg {
+    width: 24px;
+    display: none;
+  }
+
+  &:hover {
+    opacity: 0.8;
+  }
 }

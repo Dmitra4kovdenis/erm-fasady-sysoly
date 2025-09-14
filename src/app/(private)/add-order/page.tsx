@@ -1,8 +1,19 @@
+"use client";
+
 import css from "./page.module.scss";
 import Button from "@/components/button/button";
 import Input from "@/app/login/components/input/input";
+import { useState } from "react";
+import IconButton from "@/components/icon-button/icon-button";
+import { IconEdit } from "@/icons";
 
 export default function AddOrderPage() {
+  const [blocks, setBlocks] = useState([1]);
+
+  const addBlock = () => setBlocks(blocks.concat(blocks.length + 1));
+  const removeBlock = (index: number) =>
+    setBlocks(blocks.filter((el) => el !== index));
+
   return (
     <div className={css.wrapper}>
       <h1 className={css.title}>Добавление нового заказа</h1>
@@ -16,20 +27,23 @@ export default function AddOrderPage() {
         <Input className={css.col_3} label="Вид работ" />
       </div>
 
-      <div className={css.block}>
-        <div className={css.row}>
-          <Input className={css.col_1} label="Высота, мм" />
-          <Input className={css.col_1} label="Ширина, мм" />
-          <Input className={css.col_1} label="Толщина" />
-          <Input className={css.col_1} label="Ручка интегрированная" />
-          <Input className={css.col_1} label="Радиус завала торца" />
-          <Input className={css.col_1} label="Фрезеровка" />
-          <Input className={css.col_1} label="Цвет" />
-          <Input className={css.col_1} label="Количество" />
+      {blocks.map((el) => (
+        <div className={css.block} key={el}>
+          <div className={css.row}>
+            <Input className={css.col_1} label="Высота, мм" />
+            <Input className={css.col_1} label="Ширина, мм" />
+            <Input className={css.col_1} label="Толщина" />
+            <Input className={css.col_1} label="Ручка интегрированная" />
+            <Input className={css.col_1} label="Радиус завала торца" />
+            <Input className={css.col_1} label="Фрезеровка" />
+            <Input className={css.col_1} label="Цвет" />
+            <Input className={css.col_1} label="Количество" />
+          </div>
+          <IconButton icon={<IconEdit />} onClick={() => removeBlock(el)} />
         </div>
-      </div>
+      ))}
 
-      <Button className={css.buttonAdd} variant="neutral">
+      <Button className={css.buttonAdd} variant="neutral" onClick={addBlock}>
         Добавить фасад
       </Button>
 

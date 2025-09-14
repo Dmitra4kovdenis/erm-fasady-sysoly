@@ -1,7 +1,7 @@
 "use client";
 
 import css from "./header.module.scss";
-import { IconLogout } from "@/icons";
+import { IconEdit, IconList, IconLogout } from "@/icons";
 import Avatar from "@/components/avatar/avatar";
 import { useRef, useState } from "react";
 import Button from "@/components/button/button";
@@ -31,6 +31,16 @@ function HeaderClient({ name, role }: HeaderClientProps) {
         <Link href="/" className={css.logo}>
           Фасады Сысолы
         </Link>
+        <div className={css.center}>
+          <Link className={css.link} href="/add-order/">
+            <IconEdit />
+            Новый заказ
+          </Link>
+          <Link className={css.link} href="/order-list/">
+            <IconList />
+            Список заказов
+          </Link>
+        </div>
         <div className={css.right}>
           <div className={css.user} onClick={() => setIsOpen(!isOpen)}>
             <div>
