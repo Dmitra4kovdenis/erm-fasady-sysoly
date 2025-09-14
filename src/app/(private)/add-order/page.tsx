@@ -3,16 +3,29 @@
 import css from "./page.module.scss";
 import Button from "@/components/button/button";
 import Input from "@/app/login/components/input/input";
-import { useState } from "react";
 import IconButton from "@/components/icon-button/icon-button";
-import { IconEdit } from "@/icons";
+import { IconTrash } from "@/icons";
+import { useFieldArray, useForm } from "react-hook-form";
+
+interface OrderField {
+  height: string;
+}
+
+interface FormValues {
+  orders: OrderField[];
+}
 
 export default function AddOrderPage() {
-  const [blocks, setBlocks] = useState([1]);
+  const { control, register } = useForm<FormValues>({
+    defaultValues: {
+      orders: [{}],
+    },
+  });
 
-  const addBlock = () => setBlocks(blocks.concat(blocks.length + 1));
-  const removeBlock = (index: number) =>
-    setBlocks(blocks.filter((el) => el !== index));
+  const { fields, append, remove } = useFieldArray({
+    control,
+    name: "orders",
+  });
 
   return (
     <div className={css.wrapper}>
@@ -27,10 +40,14 @@ export default function AddOrderPage() {
         <Input className={css.col_3} label="Вид работ" />
       </div>
 
-      {blocks.map((el) => (
-        <div className={css.block} key={el}>
+      {fields.map((field, index) => (
+        <div className={css.block} key={field.id}>
           <div className={css.row}>
-            <Input className={css.col_1} label="Высота, мм" />
+            <Input
+              className={css.col_1}
+              label="Высота, мм"
+              {...register(`orders.${index}.height`)}
+            />
             <Input className={css.col_1} label="Ширина, мм" />
             <Input className={css.col_1} label="Толщина" />
             <Input className={css.col_1} label="Ручка интегрированная" />
@@ -39,11 +56,15 @@ export default function AddOrderPage() {
             <Input className={css.col_1} label="Цвет" />
             <Input className={css.col_1} label="Количество" />
           </div>
-          <IconButton icon={<IconEdit />} onClick={() => removeBlock(el)} />
+          <IconButton icon={<IconTrash />} onClick={() => remove(index)} />
         </div>
       ))}
 
-      <Button className={css.buttonAdd} variant="neutral" onClick={addBlock}>
+      <Button
+        className={css.buttonAdd}
+        variant="neutral"
+        onClick={() => append({ height: "" })}
+      >
         Добавить фасад
       </Button>
 
