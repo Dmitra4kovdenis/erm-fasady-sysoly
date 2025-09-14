@@ -56,7 +56,11 @@ export default function AddOrderPage() {
             <Input className={css.col_1} label="Цвет" />
             <Input className={css.col_1} label="Количество" />
           </div>
-          <IconButton icon={<IconTrash />} onClick={() => remove(index)} />
+          <IconButton
+            className={css.remove}
+            icon={<IconTrash />}
+            onClick={() => remove(index)}
+          />
         </div>
       ))}
 

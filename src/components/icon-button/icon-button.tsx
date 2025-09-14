@@ -12,12 +12,13 @@ const IconButton: FC<ButtonProps> = ({
   icon,
   disabled,
   variant = "primary",
+  className,
   ...props
 }) => {
   return (
     <button
       {...props}
-      className={cn(css.common, css[variant])}
+      className={cn(css.common, css[variant], className)}
       disabled={disabled}
     >
       {icon}

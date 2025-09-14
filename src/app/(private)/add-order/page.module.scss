@@ -46,7 +46,14 @@
   }
 }
 
+.remove {
+  position: absolute;
+  right: 24px;
+  bottom: 24px;
+}
+
 .block {
+  position: relative;
   border: solid 1px $border-default-default;
   border-radius: 16px;
   margin-bottom: 24px;
