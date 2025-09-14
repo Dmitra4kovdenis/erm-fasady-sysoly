@@ -4569,3 +4569,8 @@ yocto-queue@^1.0.0:
   version "1.2.1"
   resolved "https://registry.npmjs.org/yocto-queue/-/yocto-queue-1.2.1.tgz"
   integrity sha512-AyeEbWOu/TAXdxlV9wmGcR0+yh2j3vYPGOECcIj2S7MkrLyC7ne+oye2BKTItt0ii2PHk4cDy+95+LshzbXnGg==
+
+zod@^4.1.8:
+  version "4.1.8"
+  resolved "https://registry.npmjs.org/zod/-/zod-4.1.8.tgz"
+  integrity sha512-5R1P+WwQqmmMIEACyzSvo4JXHY5WiAFHRMg+zBZKgKS+Q1viRa0C1hmUKtHltoIFKtIdki3pRxkmpP74jnNYHQ==

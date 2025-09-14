@@ -6,33 +6,54 @@ import Input from "@/app/login/components/input/input";
 import IconButton from "@/components/icon-button/icon-button";
 import { IconTrash } from "@/icons";
 import { useFieldArray, useForm } from "react-hook-form";
+import { OrderModelType } from "@/models/order-model";
 
-interface OrderField {
-  height: string;
-}
-
-interface FormValues {
-  orders: OrderField[];
-}
+const defaultFields = {
+  height: 0,
+  width: 0,
+  thinkness: 0,
+  handleId: 0,
+  radius: 0,
+  millingId: 0,
+  color: "",
+  count: 1,
+  orderId: 0,
+};
 
 export default function AddOrderPage() {
-  const { control, register } = useForm<FormValues>({
+  const { control, register, handleSubmit } = useForm<OrderModelType>({
     defaultValues: {
-      orders: [{}],
+      items: [defaultFields],
     },
   });
 
   const { fields, append, remove } = useFieldArray({
     control,
-    name: "orders",
+    name: "items",
+  });
+
+  const onSubmit = handleSubmit(async (values) => {
+    await fetch("/api/create-order", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(values),
+    });
   });
 
   return (
     <div className={css.wrapper}>
       <h1 className={css.title}>Добавление нового заказа</h1>
       <div className={css.row}>
-        <Input className={css.col_1} label="Номер заказа" />
-        <Input className={css.col_2} label="Заказчик" />
+        <Input
+          className={css.col_1}
+          label="Номер заказа"
+          {...register("orderNumber")}
+        />
+        <Input
+          className={css.col_2}
+          label="Заказчик"
+          {...register("customerId")}
+        />
         <Input className={css.col_1} label="Телефон заказчика" />
         <Input className={css.col_1} label="Дата приемки" />
         <Input className={css.col_1} label="Дата выдачи" />
@@ -46,15 +67,43 @@ export default function AddOrderPage() {
             <Input
               className={css.col_1}
               label="Высота, мм"
-              {...register(`orders.${index}.height`)}
+              {...register(`items.${index}.height`)}
             />
-            <Input className={css.col_1} label="Ширина, мм" />
-            <Input className={css.col_1} label="Толщина" />
-            <Input className={css.col_1} label="Ручка интегрированная" />
-            <Input className={css.col_1} label="Радиус завала торца" />
-            <Input className={css.col_1} label="Фрезеровка" />
-            <Input className={css.col_1} label="Цвет" />
-            <Input className={css.col_1} label="Количество" />
+            <Input
+              className={css.col_1}
+              label="Ширина, мм"
+              {...register(`items.${index}.width`)}
+            />
+            <Input
+              className={css.col_1}
+              label="Толщина"
+              {...register(`items.${index}.thinkness`)}
+            />
+            <Input
+              className={css.col_1}
+              label="Ручка интегрированная"
+              {...register(`items.${index}.handleId`)}
+            />
+            <Input
+              className={css.col_1}
+              label="Радиус завала торца"
+              {...register(`items.${index}.radius`)}
+            />
+            <Input
+              className={css.col_1}
+              label="Фрезеровка"
+              {...register(`items.${index}.millingId`)}
+            />
+            <Input
+              className={css.col_1}
+              label="Цвет"
+              {...register(`items.${index}.color`)}
+            />
+            <Input
+              className={css.col_1}
+              label="Количество"
+              {...register(`items.${index}.count`)}
+            />
           </div>
           <IconButton
             className={css.remove}
@@ -67,7 +116,7 @@ export default function AddOrderPage() {
       <Button
         className={css.buttonAdd}
         variant="neutral"
-        onClick={() => append({ height: "" })}
+        onClick={() => append(defaultFields)}
       >
         Добавить фасад
       </Button>
@@ -82,7 +131,7 @@ export default function AddOrderPage() {
         <div>
           <Button variant="neutral">Распечатать Excel</Button>
         </div>
-        <Button>Добавить заказ</Button>
+        <Button onClick={onSubmit}>Добавить заказ</Button>
       </div>
     </div>
   );

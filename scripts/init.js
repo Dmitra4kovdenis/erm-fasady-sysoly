@@ -20,28 +20,55 @@ async function main() {
     });
     console.log("Создан пользователь:", user);
   } catch {}
+  try {
+    await prisma.handle.createMany({
+      data: [
+        {
+          id: 0,
+          title: "Тип L",
+        },
+        {
+          id: 1,
+          title: "Тип C",
+        },
+      ],
+    });
+  } catch {}
+  try {
+    await prisma.milling.createMany({
+      data: [
+        {
+          id: 0,
+          title: "Прямой",
+        },
+        {
+          id: 1,
+          title: "Классик",
+        },
+      ],
+    });
+  } catch (e) {
+    console.log(e);
+  }
 
-  await prisma.handle.createMany({
-    data: [
-      {
-        title: "Тип L",
-      },
-      {
-        title: "Тип C",
-      },
-    ],
-  });
-
-  await prisma.milling.createMany({
-    data: [
-      {
-        title: "Прямой",
-      },
-      {
-        title: "Классик",
-      },
-    ],
-  });
+  try {
+    await prisma.customer.createMany({
+      data: [
+        {
+          id: 0,
+          name: "Иван Петров",
+          phone: "73243242134",
+        },
+        {
+          id: 1,
+          name: "Сергей Бурунов",
+          phone: "73243242134",
+        },
+      ],
+    });
+  } catch (e) {
+    console.log(e);
+  }
 }
 
 main()
