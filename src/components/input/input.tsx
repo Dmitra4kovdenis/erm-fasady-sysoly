@@ -10,12 +10,12 @@ interface InputProps extends OutlinedInputProps {
   className?: string;
 }
 
-export default function Input({ label, className }: InputProps) {
+export default function Input({ label, className, ...inputProps }: InputProps) {
   return (
     <div className={className}>
       <FormControl variant="outlined" fullWidth>
         <div>{label}</div>
-        <OutlinedInput />
+        <OutlinedInput {...inputProps} />
       </FormControl>
     </div>
   );

@@ -27,17 +27,8 @@
   color: black;
 }
 
-.button {
-  width: 100%;
-  padding: 12px;
-  margin-top: 24px;
-  background: gray;
-  border: none;
-  border-radius: 6px;
-  font-size: 15px;
-  color: white;
-  cursor: pointer;
-  transition: background 0.3s;
+.field {
+  margin-bottom: 24px;
 }
 
 .button:hover {

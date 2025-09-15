@@ -1,15 +1,13 @@
 "use client";
 
 import css from "./page.module.scss";
-import Input from "@/app/auth/login/components/input/input";
+import Input from "@/components/input/input";
 import IconButton from "@mui/material/IconButton";
 import IconDelete from "@mui/icons-material/Delete";
 import { useFieldArray, useForm, FormProvider } from "react-hook-form";
 import { OrderModelType } from "@/zod-models/order-model";
 import { Button } from "@mui/material";
-import Select, {
-  SelectOption,
-} from "@/app/auth/login/components/select/select";
+import Select, { SelectOption } from "@/components/select/select";
 
 const defaultFields = {
   height: 0,
