@@ -3,7 +3,7 @@
 import css from "./page.module.scss";
 import Input from "@/components/input/input";
 import { useRouter } from "next/navigation";
-import { useForm } from "react-hook-form";
+import { FormProvider, useForm } from "react-hook-form";
 import { Button } from "@mui/material";
 
 interface FormValues {
@@ -28,7 +28,7 @@ export default function Login() {
     if (data.success) router.push("/");
   };
 
-  const { handleSubmit } = useForm<FormValues>({
+  const form = useForm<FormValues>({
     defaultValues: {
       email: "admin@example.com",
       password: "123456",
@@ -36,24 +36,30 @@ export default function Login() {
   });
 
   return (
-    <div className={css.container}>
-      <h2 className={css.title}>Вход</h2>
-      <div className={css.loginBox}>
-        <div className={css.field}>
-          <Input placeholder="+73423423434" label="Login" name="email" />
+    <FormProvider {...form}>
+      <div className={css.container}>
+        <h2 className={css.title}>Вход</h2>
+        <div className={css.loginBox}>
+          <div className={css.field}>
+            <Input placeholder="+73423423434" label="Login" name="email" />
+          </div>
+          <div className={css.field}>
+            <Input
+              placeholder="Введите пароль"
+              label="Password"
+              type="password"
+              name="password"
+            />
+          </div>
+          <Button
+            variant="contained"
+            fullWidth
+            onClick={form.handleSubmit(submit)}
+          >
+            Войти
+          </Button>
         </div>
-        <div className={css.field}>
-          <Input
-            placeholder="Введите пароль"
-            label="Password"
-            type="password"
-            name="password"
-          />
-        </div>
-        <Button variant="contained" fullWidth onClick={handleSubmit(submit)}>
-          Войти
-        </Button>
       </div>
-    </div>
+    </FormProvider>
   );
 }

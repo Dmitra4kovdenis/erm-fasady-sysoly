@@ -6,7 +6,7 @@ import IconButton from "@mui/material/IconButton";
 import IconDelete from "@mui/icons-material/Delete";
 import { useFieldArray, useForm, FormProvider } from "react-hook-form";
 import { OrderModel } from "@/zod-models/order-model";
-import { Button } from "@mui/material";
+import { Button, Container, Typography } from "@mui/material";
 import Select, { SelectOption } from "@/components/select/select";
 import Grid from "@mui/material/Grid";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -60,8 +60,10 @@ export default function AddOrderClient({
 
   return (
     <FormProvider {...form}>
-      <div className={css.wrapper}>
-        <h1 className={css.title}>Добавление нового заказа</h1>
+      <Container sx={{ mb: "100px" }}>
+        <Typography variant="h1" component="h1">
+          Добавление нового заказа
+        </Typography>
         <Grid container spacing={2}>
           <Grid size={4}>
             <Input label="Номер заказа" name="orderNumber" />
@@ -165,7 +167,7 @@ export default function AddOrderClient({
             Добавить заказ
           </Button>
         </div>
-      </div>
+      </Container>
     </FormProvider>
   );
 }

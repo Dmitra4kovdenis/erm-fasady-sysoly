@@ -15,7 +15,9 @@ const theme = createTheme({
   typography: {
     fontFamily: "Roboto, sans-serif",
     h1: {
-      fontSize: "2rem",
+      fontSize: "32px",
+      fontWeight: 700,
+      marginBottom: "32px",
     },
   },
   shape: {
