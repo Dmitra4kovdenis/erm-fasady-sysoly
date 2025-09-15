@@ -1,29 +1,22 @@
-import css from "./input.module.scss";
-import { InputHTMLAttributes } from "react";
-interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
-  placeholder?: string;
-  label?: string;
-  type?: string;
-  name?: string;
+import {
+  FormControl,
+  InputLabel,
+  OutlinedInput,
+  OutlinedInputProps,
+} from "@mui/material";
+
+interface InputProps extends OutlinedInputProps {
+  label: string;
   className?: string;
 }
 
-export default function Input({
-  placeholder,
-  label,
-  type,
-  className,
-  ...props
-}: InputProps) {
+export default function Input({ label, className }: InputProps) {
   return (
     <div className={className}>
-      <div className={css.label}>{label}</div>
-      <input
-        className={css.input}
-        placeholder={placeholder}
-        type={type}
-        {...props}
-      />
+      <FormControl variant="outlined" fullWidth>
+        <div>{label}</div>
+        <OutlinedInput />
+      </FormControl>
     </div>
   );
 }

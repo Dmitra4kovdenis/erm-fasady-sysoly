@@ -1,12 +1,12 @@
 "use client";
 
 import css from "./page.module.scss";
-import Button from "@/components/button/button";
 import Input from "@/app/auth/login/components/input/input";
-import IconButton from "@/components/icon-button/icon-button";
-import { IconTrash } from "@/icons";
+import IconButton from "@mui/material/IconButton";
+import IconDelete from "@mui/icons-material/Delete";
 import { useFieldArray, useForm } from "react-hook-form";
-import { OrderModelType } from "@/models/order-model";
+import { OrderModelType } from "@/zod-models/order-model";
+import { Button } from "@mui/material";
 
 const defaultFields = {
   height: 0,
@@ -105,19 +105,13 @@ export default function AddOrderPage() {
               {...register(`items.${index}.count`)}
             />
           </div>
-          <IconButton
-            className={css.remove}
-            icon={<IconTrash />}
-            onClick={() => remove(index)}
-          />
+          <IconButton className={css.remove} onClick={() => remove(index)}>
+            <IconDelete />
+          </IconButton>
         </div>
       ))}
 
-      <Button
-        className={css.buttonAdd}
-        variant="neutral"
-        onClick={() => append(defaultFields)}
-      >
+      <Button className={css.buttonAdd} onClick={() => append(defaultFields)}>
         Добавить фасад
       </Button>
 
@@ -129,9 +123,11 @@ export default function AddOrderPage() {
 
       <div className={css.footer}>
         <div>
-          <Button variant="neutral">Распечатать Excel</Button>
+          <Button variant="outlined">Распечатать Excel</Button>
         </div>
-        <Button onClick={onSubmit}>Добавить заказ</Button>
+        <Button onClick={onSubmit} variant="contained">
+          Добавить заказ
+        </Button>
       </div>
     </div>
   );
