@@ -1,7 +1,7 @@
 "use client";
 
 import css from "./page.module.scss";
-import Input from "@/app/login/components/input/input";
+import Input from "@/app/auth/login/components/input/input";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 

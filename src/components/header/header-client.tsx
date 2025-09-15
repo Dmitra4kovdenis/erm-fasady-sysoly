@@ -16,7 +16,7 @@ interface HeaderClientProps {
 function HeaderClient({ name, role }: HeaderClientProps) {
   async function logout() {
     await fetch("/api/logout", { method: "POST" });
-    window.location.href = "/login"; // перенаправляем на страницу логина
+    window.location.href = "/auth/login"; // перенаправляем на страницу логина
   }
 
   const [isOpen, setIsOpen] = useState(false);

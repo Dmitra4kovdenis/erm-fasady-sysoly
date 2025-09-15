@@ -1,6 +1,6 @@
 import { cookies } from "next/headers";
 import * as jose from "jose";
-import { prisma } from "@/lib/prisma";
+import { prisma } from "@/prisma-helpers/prisma";
 
 const secret = new TextEncoder().encode(process.env.JWT_SECRET!);
 
@@ -12,11 +12,11 @@ export async function getUserData() {
 
   try {
     const { payload } = await jose.jwtVerify(token, secret);
-    const user = await prisma.user.findUnique({
+
+    return await prisma.user.findUnique({
       where: { id: payload.id as number },
       select: { id: true, email: true, name: true, role: true },
     });
-    return user;
   } catch {
     return null;
   }

@@ -2,7 +2,7 @@
 
 import css from "./page.module.scss";
 import Button from "@/components/button/button";
-import Input from "@/app/login/components/input/input";
+import Input from "@/app/auth/login/components/input/input";
 import IconButton from "@/components/icon-button/icon-button";
 import { IconTrash } from "@/icons";
 import { useFieldArray, useForm } from "react-hook-form";

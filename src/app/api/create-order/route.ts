@@ -1,7 +1,7 @@
-import { prisma } from "@/lib/prisma";
+import { prisma } from "@/prisma-helpers/prisma";
 
 import { NextResponse } from "next/server";
-import { OrderModel } from "@/models/order-model";
+import { OrderModel } from "@/zod-models/order-model";
 
 export async function POST(req: Request) {
   const data = await req.json();
@@ -29,7 +29,5 @@ export async function POST(req: Request) {
     },
   });
 
-  const res = NextResponse.json({ success: true });
-
-  return res;
+  return NextResponse.json({ success: true });
 }
