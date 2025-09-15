@@ -5,10 +5,11 @@ import Input from "@/components/input/input";
 import IconButton from "@mui/material/IconButton";
 import IconDelete from "@mui/icons-material/Delete";
 import { useFieldArray, useForm, FormProvider } from "react-hook-form";
-import { OrderModelType } from "@/zod-models/order-model";
+import { OrderModel } from "@/zod-models/order-model";
 import { Button } from "@mui/material";
 import Select, { SelectOption } from "@/components/select/select";
 import Grid from "@mui/material/Grid";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 const defaultFields = {
   height: 0,
@@ -33,14 +34,16 @@ export default function AddOrderClient({
   handles,
   millings,
 }: AddOrderClientProps) {
-  const form = useForm<OrderModelType>({
+  const form = useForm({
     defaultValues: {
       items: [defaultFields],
       customerId: 0,
     },
+    mode: "onChange",
+    resolver: zodResolver(OrderModel),
   });
 
-  const { control, register, handleSubmit } = form;
+  const { control, handleSubmit } = form;
 
   const { fields, append, remove } = useFieldArray({
     control,
@@ -61,36 +64,27 @@ export default function AddOrderClient({
         <h1 className={css.title}>Добавление нового заказа</h1>
         <Grid container spacing={2}>
           <Grid size={4}>
-            <Input label="Номер заказа" {...register("orderNumber")} />
+            <Input label="Номер заказа" name="orderNumber" />
           </Grid>
           <Grid size={8}>
-            <Select
-              label="Заказчик"
-              options={customers}
-              {...register("customerId")}
-            />
+            <Select label="Заказчик" options={customers} name={"customerId"} />
           </Grid>
           <Grid size={4}>
-            <Input label="Дата приемки" {...register("startDate")} />
+            <Input label="Дата приемки" name="startDate" />
           </Grid>
           <Grid size={4}>
-            <Input label="Дата выдачи" {...register("endDate")} />
+            <Input label="Дата выдачи" name="endDate" />
           </Grid>
           <Grid size={10}>
             <Input
               multiline
               rows={2}
               label="Адрес доставки"
-              {...register("deliveryAddress")}
+              name="deliveryAddress"
             />
           </Grid>
           <Grid size={10}>
-            <Input
-              multiline
-              rows={2}
-              label="Вид работ"
-              {...register("workType")}
-            />
+            <Input multiline rows={2} label="Вид работ" name="workType" />
           </Grid>
         </Grid>
 
@@ -100,44 +94,44 @@ export default function AddOrderClient({
               <Input
                 className={css.col_1}
                 label="Высота, мм"
-                {...register(`items.${index}.height`)}
+                name={`items.${index}.height`}
               />
               <Input
                 className={css.col_1}
                 label="Ширина, мм"
-                {...register(`items.${index}.width`)}
+                name={`items.${index}.width`}
               />
               <Input
                 className={css.col_1}
                 label="Толщина"
-                {...register(`items.${index}.thickness`)}
+                name={`items.${index}.thickness`}
               />
               <Select
                 className={css.col_1}
                 label="Ручка интегрированная"
                 options={handles}
-                {...register(`items.${index}.handleId`)}
+                name={`items.${index}.handleId`}
               />
               <Input
                 className={css.col_1}
                 label="Радиус завала торца"
-                {...register(`items.${index}.radius`)}
+                name={`items.${index}.radius`}
               />
               <Select
                 className={css.col_1}
                 label="Фрезеровка"
                 options={millings}
-                {...register(`items.${index}.millingId`)}
+                name={`items.${index}.millingId`}
               />
               <Input
                 className={css.col_1}
                 label="Цвет"
-                {...register(`items.${index}.color`)}
+                name={`items.${index}.color`}
               />
               <Input
                 className={css.col_1}
                 label="Количество"
-                {...register(`items.${index}.count`)}
+                name={`items.${index}.count`}
               />
             </div>
             <div className={css.remove}>
@@ -154,11 +148,14 @@ export default function AddOrderClient({
           </Button>
         </div>
 
-        <div className={css.row}>
-          <Input className={css.col_1} label="Аванс" />
-          <Input className={css.col_1} label="Скидка" />
-          <Input className={css.col_1} label="Стоимость 1 кв.м" />
-        </div>
+        <Grid container size={10} spacing={2}>
+          <Grid size={4}>
+            <Input label="Аванс" name="advance" />
+          </Grid>
+          <Grid size={4}>
+            <Input label="Скидка" name="discount" />
+          </Grid>
+        </Grid>
 
         <div className={css.footer}>
           <div>
