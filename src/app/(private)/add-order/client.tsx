@@ -79,11 +79,11 @@ export default function AddOrderClient({
           <Grid size={4}>
             <Input label="Дата выдачи" />
           </Grid>
-          <Grid size={12}>
-            <Input label="Адрес доставки" />
+          <Grid size={10}>
+            <Input multiline rows={2} label="Адрес доставки" />
           </Grid>
-          <Grid size={12}>
-            <Input label="Вид работ" />
+          <Grid size={10}>
+            <Input multiline rows={2} label="Вид работ" />
           </Grid>
         </Grid>
 
