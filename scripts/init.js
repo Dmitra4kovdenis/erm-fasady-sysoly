@@ -13,7 +13,7 @@ async function main() {
     const user = await prisma.user.create({
       data: {
         email: "admin@example.com",
-        name: "Админ",
+        name: "Администратор",
         role: "admin",
         password: hashedPassword,
       },
@@ -25,11 +25,11 @@ async function main() {
       data: [
         {
           id: 0,
-          title: "Тип L",
+          title: "Ручка типа L",
         },
         {
           id: 1,
-          title: "Тип C",
+          title: "Ручка типа C",
         },
       ],
     });
@@ -39,11 +39,11 @@ async function main() {
       data: [
         {
           id: 0,
-          title: "Прямой",
+          title: "Фасад Прямой",
         },
         {
           id: 1,
-          title: "Классик",
+          title: "Фасад Классик",
         },
       ],
     });
@@ -63,6 +63,11 @@ async function main() {
           id: 1,
           name: "Сергей Бурунов",
           phone: "73243242134",
+        },
+        {
+          id: 2,
+          name: "Леруа Мерлен",
+          phone: "73243242136",
         },
       ],
     });

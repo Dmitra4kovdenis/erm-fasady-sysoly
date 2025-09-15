@@ -13,7 +13,7 @@ import Grid from "@mui/material/Grid";
 const defaultFields = {
   height: 0,
   width: 0,
-  thinkness: 0,
+  thickness: 0,
   handleId: 0,
   radius: 0,
   millingId: 0,
@@ -71,19 +71,26 @@ export default function AddOrderClient({
             />
           </Grid>
           <Grid size={4}>
-            <Input label="Телефон заказчика" />
+            <Input label="Дата приемки" {...register("startDate")} />
           </Grid>
           <Grid size={4}>
-            <Input label="Дата приемки" />
-          </Grid>
-          <Grid size={4}>
-            <Input label="Дата выдачи" />
+            <Input label="Дата выдачи" {...register("endDate")} />
           </Grid>
           <Grid size={10}>
-            <Input multiline rows={2} label="Адрес доставки" />
+            <Input
+              multiline
+              rows={2}
+              label="Адрес доставки"
+              {...register("deliveryAddress")}
+            />
           </Grid>
           <Grid size={10}>
-            <Input multiline rows={2} label="Вид работ" />
+            <Input
+              multiline
+              rows={2}
+              label="Вид работ"
+              {...register("workType")}
+            />
           </Grid>
         </Grid>
 
@@ -103,7 +110,7 @@ export default function AddOrderClient({
               <Input
                 className={css.col_1}
                 label="Толщина"
-                {...register(`items.${index}.thinkness`)}
+                {...register(`items.${index}.thickness`)}
               />
               <Select
                 className={css.col_1}

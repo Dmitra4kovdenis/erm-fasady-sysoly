@@ -19,3 +19,7 @@
 4. Узнать статус `npx prisma migrate status`
 
 
+Удаление данных в БД `npx prisma migrate reset`
+
+
+

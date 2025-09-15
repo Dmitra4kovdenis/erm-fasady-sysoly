@@ -3,7 +3,13 @@ import * as z from "zod";
 export const OrderModel = z.object({
   orderNumber: z.string(),
   status: z.string().default("new"),
-  customerId: z.coerce.number().int().positive().default(0),
+  customerId: z.coerce.number().int(),
+  deliveryAddress: z.string(),
+  workType: z.string(),
+  startDate: z.coerce.date(),
+  endDate: z.coerce.date(),
+  advance: z.coerce.number().default(0),
+  discount: z.coerce.number().default(0),
   items: z.array(
     z.object({
       id: z.number().int().optional(),
@@ -15,13 +21,13 @@ export const OrderModel = z.object({
         .number()
         .positive()
         .min(0.1, "Ширина должна быть положительной"),
-      thinkness: z.coerce
+      thickness: z.coerce
         .number()
         .positive()
         .min(0.1, "Толщина должна быть положительной"),
-      handleId: z.coerce.number().int().positive("ID ручки обязательно"),
+      handleId: z.coerce.number("ID ручки обязательно"),
       radius: z.coerce.number().min(0).default(0),
-      millingId: z.coerce.number().int().positive("ID фрезеровки обязательно"),
+      millingId: z.coerce.number("ID фрезеровки обязательно"),
       color: z.string().min(1, "Цвет обязателен"),
       count: z.coerce
         .number()

@@ -24,7 +24,7 @@ model User {
 model Customer {
   id       Int      @id @default(autoincrement())
   name     String
-  phone    String?
+  phone    String
   orders   Order[]
 }
 
@@ -44,12 +44,12 @@ model Facade {
   id          Int      @id @default(autoincrement())
   height      Float
   width       Float
-  thinkness   Float
+  thickness   Float
   handle      Handle @relation(fields: [handleId], references: [id])
   handleId    Int
   radius      Float
   milling     Milling @relation(fields: [millingId], references: [id])
-  millingId     Int
+  millingId   Int
   color       String
   count       Int
   order       Order @relation(fields: [orderId], references: [id])
@@ -57,11 +57,17 @@ model Facade {
 }
 
 model Order {
-  id          Int        @id @default(autoincrement())
-  createdAt   DateTime   @default(now())
-  customer    Customer   @relation(fields: [customerId], references: [id])
-  customerId  Int
-  items       Facade[]
-  orderNumber String
-  status      String     // "new" | "in_progress" | "done"
+  id              Int        @id @default(autoincrement())
+  createdAt       DateTime   @default(now())
+  customer        Customer   @relation(fields: [customerId], references: [id])
+  customerId      Int
+  items           Facade[]
+  orderNumber     String
+  deliveryAddress String
+  workType        String
+  startDate       DateTime
+  endDate         DateTime
+  advance         Float
+  discount        Float
+  status          String     // "new" | "in_progress" | "done"
 }
