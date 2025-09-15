@@ -28,7 +28,7 @@ export default function Login() {
     if (data.success) router.push("/");
   };
 
-  const { register, handleSubmit } = useForm<FormValues>({
+  const { handleSubmit } = useForm<FormValues>({
     defaultValues: {
       email: "admin@example.com",
       password: "123456",
@@ -40,18 +40,14 @@ export default function Login() {
       <h2 className={css.title}>Вход</h2>
       <div className={css.loginBox}>
         <div className={css.field}>
-          <Input
-            placeholder="+73423423434"
-            label="Login"
-            {...register("email")}
-          />
+          <Input placeholder="+73423423434" label="Login" name="email" />
         </div>
         <div className={css.field}>
           <Input
             placeholder="Введите пароль"
             label="Password"
             type="password"
-            {...register("password")}
+            name="password"
           />
         </div>
         <Button variant="contained" fullWidth onClick={handleSubmit(submit)}>
