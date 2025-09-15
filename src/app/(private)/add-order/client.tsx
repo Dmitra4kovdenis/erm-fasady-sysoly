@@ -8,6 +8,7 @@ import { useFieldArray, useForm, FormProvider } from "react-hook-form";
 import { OrderModelType } from "@/zod-models/order-model";
 import { Button } from "@mui/material";
 import Select, { SelectOption } from "@/components/select/select";
+import Grid from "@mui/material/Grid";
 
 const defaultFields = {
   height: 0,
@@ -58,24 +59,33 @@ export default function AddOrderClient({
     <FormProvider {...form}>
       <div className={css.wrapper}>
         <h1 className={css.title}>Добавление нового заказа</h1>
-        <div className={css.row}>
-          <Input
-            className={css.col_1}
-            label="Номер заказа"
-            {...register("orderNumber")}
-          />
-          <Select
-            className={css.col_2}
-            label="Заказчик"
-            options={customers}
-            {...register("customerId")}
-          />
-          <Input className={css.col_1} label="Телефон заказчика" />
-          <Input className={css.col_1} label="Дата приемки" />
-          <Input className={css.col_1} label="Дата выдачи" />
-          <Input className={css.col_3} label="Адрес доставки" />
-          <Input className={css.col_3} label="Вид работ" />
-        </div>
+        <Grid container spacing={2}>
+          <Grid size={4}>
+            <Input label="Номер заказа" {...register("orderNumber")} />
+          </Grid>
+          <Grid size={8}>
+            <Select
+              label="Заказчик"
+              options={customers}
+              {...register("customerId")}
+            />
+          </Grid>
+          <Grid size={4}>
+            <Input label="Телефон заказчика" />
+          </Grid>
+          <Grid size={4}>
+            <Input label="Дата приемки" />
+          </Grid>
+          <Grid size={4}>
+            <Input label="Дата выдачи" />
+          </Grid>
+          <Grid size={12}>
+            <Input label="Адрес доставки" />
+          </Grid>
+          <Grid size={12}>
+            <Input label="Вид работ" />
+          </Grid>
+        </Grid>
 
         {fields.map((field, index) => (
           <div className={css.block} key={field.id}>
