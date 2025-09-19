@@ -2,10 +2,14 @@ import type { Metadata } from "next";
 import { Geist } from "next/font/google";
 import "../styles/globals.scss";
 import Provider from "@/app/theme";
+import dayjs from "dayjs";
+import "dayjs/locale/ru"
 
 const geist = Geist({
   subsets: ["latin"],
 });
+
+dayjs.locale('ru')
 
 export const metadata: Metadata = {
   title: "Create Next App",

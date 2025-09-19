@@ -2,6 +2,10 @@
 
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { ReactNode } from "react";
+import "dayjs/locale/ru"
+import dayjs from "dayjs";
+
+dayjs.locale('ru')
 
 const theme = createTheme({
   palette: {

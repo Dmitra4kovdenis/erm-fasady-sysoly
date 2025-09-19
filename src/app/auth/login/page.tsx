@@ -1,65 +1,96 @@
 "use client";
 
-import css from "./page.module.scss";
-import Input from "@/components/input/input";
 import { useRouter } from "next/navigation";
 import { FormProvider, useForm } from "react-hook-form";
-import { Button } from "@mui/material";
+import { Grid, Typography, Button, Paper, Box } from "@mui/material";
+import Input from "@/components/input/input";
 
 interface FormValues {
-  email: string;
-  password: string;
+    email: string;
+    password: string;
 }
 
 export default function Login() {
-  const router = useRouter();
+    const router = useRouter();
 
-  const submit = async ({ email, password }: FormValues) => {
-    const res = await fetch("/api/login", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        email,
-        password,
-      }),
+    const submit = async ({ email, password }: FormValues) => {
+        const res = await fetch("/api/login", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ email, password }),
+        });
+
+        const data = await res.json();
+        if (data.success) router.push("/");
+    };
+
+    const form = useForm<FormValues>({
+        defaultValues: {
+            email: "admin@example.com",
+            password: "123456",
+        },
     });
 
-    const data = await res.json();
-    if (data.success) router.push("/");
-  };
+    return (
+        <FormProvider {...form}>
+            <Grid
+                container
+                justifyContent="center"
+                alignItems="center"
+                sx={{ minHeight: "100vh" }}
+            >
+                <Paper
+                    elevation={3}
+                    sx={{
+                        p: 4,
+                        borderRadius: 2,
+                        width: "100%",
+                        maxWidth: 700,
+                        mx: "auto",
+                    }}
+                >
+                    <Typography
+                        variant="h5"
+                        align="center"
+                        fontWeight="bold"
+                        mb={4}
+                    >
+                        Вход
+                    </Typography>
 
-  const form = useForm<FormValues>({
-    defaultValues: {
-      email: "admin@example.com",
-      password: "123456",
-    },
-  });
+                    <Box component="form" onSubmit={form.handleSubmit(submit)}>
+                        <Grid container spacing={3} direction="column">
+                            <Grid >
+                                <Input
+                                    label="Login"
+                                    name="email"
+                                    placeholder="+73423423434"
+                                />
+                            </Grid>
 
-  return (
-    <FormProvider {...form}>
-      <div className={css.container}>
-        <h2 className={css.title}>Вход</h2>
-        <div className={css.loginBox}>
-          <div className={css.field}>
-            <Input placeholder="+73423423434" label="Login" name="email" />
-          </div>
-          <div className={css.field}>
-            <Input
-              placeholder="Введите пароль"
-              label="Password"
-              type="password"
-              name="password"
-            />
-          </div>
-          <Button
-            variant="contained"
-            fullWidth
-            onClick={form.handleSubmit(submit)}
-          >
-            Войти
-          </Button>
-        </div>
-      </div>
-    </FormProvider>
-  );
+                            <Grid >
+                                <Input
+                                    label="Password"
+                                    name="password"
+                                    type="password"
+                                    placeholder="Введите пароль"
+                                />
+                            </Grid>
+
+                            <Grid >
+                                <Button
+                                    type="submit"
+                                    variant="contained"
+                                    fullWidth
+                                    sx={{ py: 1.5 }}
+                                >
+                                    Войти
+                                </Button>
+                            </Grid>
+                        </Grid>
+                    </Box>
+                </Paper>
+            </Grid>
+        </FormProvider>
+    );
 }

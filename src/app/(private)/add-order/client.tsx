@@ -58,7 +58,6 @@ export default function AddOrderClient({
     });
   });
 
-  // @ts-ignore
     return (
     <FormProvider {...form}>
       <Container sx={{ mb: "100px" }}>

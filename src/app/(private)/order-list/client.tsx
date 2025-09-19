@@ -12,6 +12,7 @@ import {
 } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import { OrdersType } from "@/prisma-helpers/get-orders";
+import dayjs from "dayjs";
 
 interface OrderListProps {
     orders: OrdersType;
@@ -40,16 +41,15 @@ function OrderListClient({ orders }: OrderListProps) {
                         <TableRow key={order.orderNumber}>
                             <TableCell>{order.orderNumber}</TableCell>
                             <TableCell>
-                                {order.customer.name}{" "}
-                                {order.customer.company && `(${order.customer.company})`}
+                                {order.customer.name}
                             </TableCell>
-                            <TableCell>{order.status  }</TableCell>
-                            <TableCell>{order.product}</TableCell>
+                            <TableCell>{order.status}</TableCell>
+                            <TableCell>{order.workType}</TableCell>
                             <TableCell>
                                 {new Date(order.startDate).toLocaleDateString()}
                             </TableCell>
                             <TableCell>
-                                {new Date(order.deadline).toLocaleDateString()}
+                                {dayjs(order.endDate).locale("ru").format("D MMMM YYYY")}
                             </TableCell>
                             <TableCell align="center">
                                 <IconButton
