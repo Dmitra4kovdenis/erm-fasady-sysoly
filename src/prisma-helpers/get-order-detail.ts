@@ -2,7 +2,7 @@
 
 import { prisma } from "@/prisma-helpers/prisma";
 
-export const getOrderDetail = async (orderNumber: string) => {
+export const getOrderDetail = async (orderNumber: number) => {
   return prisma.order.findFirst({
     where: {
       orderNumber: orderNumber, // Добавляем условие поиска по номеру заказа

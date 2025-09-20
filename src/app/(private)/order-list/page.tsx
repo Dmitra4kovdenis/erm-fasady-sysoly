@@ -14,7 +14,7 @@ export default async function OrderListPage({
   return (
     <>
       <OrderListClient orders={orders} />
-      {orderNumber && <Server orderNumber={orderNumber.toString()} />}
+      {orderNumber && <Server orderNumber={+orderNumber} />}
     </>
   );
 }
