@@ -52,6 +52,51 @@ async function main() {
   }
 
   try {
+    await prisma.orderStatus.createMany({
+      data: [
+        {
+          id: 0,
+          title: "TODO",
+          slug: "todo",
+          index: 0,
+        },
+        {
+          id: 1,
+          title: "Раскройка",
+          slug: "shaving",
+          index: 1,
+        },
+        {
+          id: 2,
+          title: "Шлифовка",
+          slug: "grinding",
+          index: 2,
+        },
+        {
+          id: 3,
+          title: "Покраска",
+          slug: "painting",
+          index: 3,
+        },
+        {
+          id: 4,
+          title: "Готово к отгрузке",
+          slug: "ready-for-shipment",
+          index: 4,
+        },
+        {
+          id: 5,
+          title: "Отправлено",
+          slug: "sent",
+          index: 4,
+        },
+      ],
+    });
+  } catch (e) {
+    console.log(e);
+  }
+
+  try {
     await prisma.customer.createMany({
       data: [
         {

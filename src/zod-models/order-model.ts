@@ -1,8 +1,6 @@
 import * as z from "zod";
 
 export const OrderModel = z.object({
-  orderNumber: z.string().min(1, "Поле обязательно"),
-  status: z.string().default("new"),
   customerId: z.coerce.number().int(),
   deliveryAddress: z.string().min(1, "Поле обязательно"),
   workType: z.string().min(1, "Поле обязательно"),

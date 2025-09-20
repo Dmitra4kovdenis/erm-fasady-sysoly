@@ -56,18 +56,27 @@ model Facade {
   orderId     Int
 }
 
+model OrderStatus {
+  id          Int           @id @default(autoincrement())
+  title       String
+  index       Int
+  slug        String
+  orders      Order[]
+}
+
 model Order {
   id              Int        @id @default(autoincrement())
   createdAt       DateTime   @default(now())
   customer        Customer   @relation(fields: [customerId], references: [id])
   customerId      Int
   items           Facade[]
-  orderNumber     String
+  orderNumber     Int        @unique
   deliveryAddress String
   workType        String
   startDate       DateTime
   endDate         DateTime
   advance         Float
   discount        Float
-  status          String     // "new" | "in_progress" | "done"
+  status          OrderStatus @relation(fields: [statusId], references: [id])
+  statusId        Int
 }

@@ -58,16 +58,13 @@ export default function AddOrderClient({
     });
   });
 
-    return (
+  return (
     <FormProvider {...form}>
       <Container sx={{ mb: "100px" }}>
         <Typography variant="h1" component="h1">
           Добавление нового заказа
         </Typography>
-        <Grid container spacing={5} sx={{ mt:"50px" }}>
-          <Grid size={4}>
-            <Input label="Номер заказа" name="orderNumber"  />
-          </Grid>
+        <Grid container spacing={5} sx={{ mt: "50px" }}>
           <Grid size={8}>
             <Select label="Заказчик" options={customers} name={"customerId"} />
           </Grid>
@@ -90,62 +87,64 @@ export default function AddOrderClient({
           </Grid>
         </Grid>
 
-          {fields.map((field, index) => (
-              <Grid
-                  container
-                  spacing={5}
-                  key={field.id}
-                  alignItems="center"
-                  sx={{ mt: 5, p: 2, border: "1px solid #ddd", borderRadius: 2 }}
-              >
-                  <Grid >
-                      <Input label="Высота, мм" name={`items.${index}.height`} />
-                  </Grid>
-                  <Grid >
-                      <Input label="Ширина, мм" name={`items.${index}.width`} />
-                  </Grid>
-                  <Grid >
-                      <Input label="Толщина" name={`items.${index}.thickness`} />
-                  </Grid>
-                  <Grid >
-                      <Select
-                          label="Ручка интегрированная"
-                          options={handles}
-                          name={`items.${index}.handleId`}
-                      />
-                  </Grid>
-                  <Grid >
-                      <Input label="Радиус завала торца" name={`items.${index}.radius`} />
-                  </Grid>
-                  <Grid >
-                      <Select
-                          label="Фрезеровка"
-                          options={millings}
-                          name={`items.${index}.millingId`}
-                      />
-                  </Grid>
-                  <Grid >
-                      <Input label="Цвет" name={`items.${index}.color`} />
-                  </Grid>
-                  <Grid >
-                      <Input label="Количество" name={`items.${index}.count`} />
-                  </Grid>
-                  <Grid >
-                      <IconButton onClick={() => remove(index)}>
-                          <IconDelete />
-                      </IconButton>
-                  </Grid>
-              </Grid>
-          ))}
-
-          <Grid  sx={{ mt: 3 }}>
-              <Button variant="contained" onClick={() => append(defaultFields)}>
-                  Добавить фасад
-              </Button>
+        {fields.map((field, index) => (
+          <Grid
+            container
+            spacing={5}
+            key={field.id}
+            alignItems="center"
+            sx={{ mt: 5, p: 2, border: "1px solid #ddd", borderRadius: 2 }}
+          >
+            <Grid>
+              <Input label="Высота, мм" name={`items.${index}.height`} />
+            </Grid>
+            <Grid>
+              <Input label="Ширина, мм" name={`items.${index}.width`} />
+            </Grid>
+            <Grid>
+              <Input label="Толщина" name={`items.${index}.thickness`} />
+            </Grid>
+            <Grid>
+              <Select
+                label="Ручка интегрированная"
+                options={handles}
+                name={`items.${index}.handleId`}
+              />
+            </Grid>
+            <Grid>
+              <Input
+                label="Радиус завала торца"
+                name={`items.${index}.radius`}
+              />
+            </Grid>
+            <Grid>
+              <Select
+                label="Фрезеровка"
+                options={millings}
+                name={`items.${index}.millingId`}
+              />
+            </Grid>
+            <Grid>
+              <Input label="Цвет" name={`items.${index}.color`} />
+            </Grid>
+            <Grid>
+              <Input label="Количество" name={`items.${index}.count`} />
+            </Grid>
+            <Grid>
+              <IconButton onClick={() => remove(index)}>
+                <IconDelete />
+              </IconButton>
+            </Grid>
           </Grid>
+        ))}
 
+        <Grid sx={{ mt: 3 }}>
+          <Button variant="contained" onClick={() => append(defaultFields)}>
+            Добавить фасад
+          </Button>
+        </Grid>
 
-          <Grid container size={10} spacing={2} sx={{ mt: 5 }}>
+        <Grid container size={10} spacing={2} sx={{ mt: 5 }}>
           <Grid size={4}>
             <Input label="Аванс" name="advance" />
           </Grid>
@@ -154,16 +153,21 @@ export default function AddOrderClient({
           </Grid>
         </Grid>
 
-          <Grid container spacing={2} justifyContent="flex-end" className={css.footer}>
-              <Grid>
-                  <Button variant="outlined">Распечатать Excel</Button>
-              </Grid>
-              <Grid>
-                  <Button onClick={onSubmit} variant="contained">
-                      Добавить заказ
-                  </Button>
-              </Grid>
+        <Grid
+          container
+          spacing={2}
+          justifyContent="flex-end"
+          className={css.footer}
+        >
+          <Grid>
+            <Button variant="outlined">Распечатать Excel</Button>
           </Grid>
+          <Grid>
+            <Button onClick={onSubmit} variant="contained">
+              Добавить заказ
+            </Button>
+          </Grid>
+        </Grid>
       </Container>
     </FormProvider>
   );

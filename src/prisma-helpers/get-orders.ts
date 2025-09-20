@@ -6,6 +6,7 @@ export const getOrders = async () => {
   return prisma.order.findMany({
     include: {
       customer: true,
+      status: true,
     },
   });
 };
