@@ -1,4 +1,4 @@
-"use server";
+"use order-detail";
 import HeaderClient from "@/components/header/header-client";
 import { getUserData } from "@/prisma-helpers/get-user-data";
 

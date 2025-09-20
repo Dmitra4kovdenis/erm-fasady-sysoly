@@ -13,14 +13,18 @@ import {
 import EditIcon from "@mui/icons-material/Edit";
 import { OrdersType } from "@/prisma-helpers/get-orders";
 import dayjs from "dayjs";
+import {useRouter} from "next/navigation";
 
 interface OrderListProps {
     orders: OrdersType;
 }
 
 function OrderListClient({ orders }: OrderListProps) {
+    const { push } = useRouter()
+
     return (
         <TableContainer component={Paper} sx={{ mt: 3 }}>
+
             <Typography variant="h5" sx={{ p: 2 }}>
                 Список заказов
             </Typography>
@@ -54,7 +58,7 @@ function OrderListClient({ orders }: OrderListProps) {
                             <TableCell align="center">
                                 <IconButton
                                     color="primary"
-                                    onClick={() => console.log("Edit", order.orderNumber)}
+                                    onClick={() => push(`?orderNumber=${order.orderNumber}`)}
                                 >
                                     <EditIcon />
                                 </IconButton>
