@@ -1,0 +1,25 @@
+
+.wrapper {
+  display: flex;
+  overflow: auto;
+}
+
+.column {
+  width: 300px;
+  border: solid 1px #ddd;
+  padding: 10px;
+  min-height: 60vh;
+  background: #f3f3f3;
+}
+
+.header {
+  padding: 8px 0;
+  margin-bottom: 8px
+}
+
+.card {
+  padding: 16px;
+  border: solid 1px darkgray;
+  margin-bottom: 8px;
+  background: white;
+}

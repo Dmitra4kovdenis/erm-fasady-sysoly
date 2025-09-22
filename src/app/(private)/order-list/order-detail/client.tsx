@@ -2,7 +2,7 @@
 
 import { OrderDetailType } from "@/prisma-helpers/get-order-detail";
 import { Button } from "@mui/material";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 
 interface OrderDetailClientProps {
   order: NonNullable<OrderDetailType>;
@@ -10,10 +10,17 @@ interface OrderDetailClientProps {
     value: number;
     label: string;
   }[];
+  onChangeStatus?: () => void;
 }
 
-function OrderDetailClient({ statuses, order }: OrderDetailClientProps) {
+function OrderDetailClient({
+  statuses,
+  order,
+  onChangeStatus,
+}: OrderDetailClientProps) {
   const { push } = useRouter();
+
+  const pathname = usePathname();
 
   return (
     <div
@@ -54,7 +61,8 @@ function OrderDetailClient({ statuses, order }: OrderDetailClientProps) {
                       id: order.id,
                     }),
                   });
-                  push("/order-list/");
+                  onChangeStatus && onChangeStatus();
+                  push(pathname);
                 }}
               >
                 {status.label}
