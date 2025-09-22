@@ -1,17 +1,20 @@
 "use client";
 import { useEffect, useState } from "react";
 import css from "./order-list.module.scss";
-import type { OrderStatus, Order } from "@/prisma-helpers/prisma";
 import { useRouter } from "next/navigation";
+import { getColumns, GetColumnsType } from "@/app/(private)/kanban/actions";
 
-function KanbanClient() {
-  const [columns, setColumns] = useState<OrderStatus[]>();
+interface KanbanClientProps {
+  columns: GetColumnsType;
+}
+
+function KanbanClient({ columns: columnsDefault }: KanbanClientProps) {
+  const [columns, setColumns] = useState(columnsDefault);
   const { push } = useRouter();
 
   const fetchOrders = async () => {
-    const result = await fetch("/api/get-kanban-columns");
-    const json = await result.json();
-    setColumns(json);
+    const result = await getColumns();
+    setColumns(result);
   };
 
   useEffect(() => {
@@ -27,7 +30,7 @@ function KanbanClient() {
       {columns.map((column) => (
         <div className={css.column} key={column.id}>
           <div className={css.header}>{column.title}</div>
-          {(column as unknown as { orders: Order[] }).orders?.map((order) => (
+          {column.orders?.map((order) => (
             <div
               className={css.card}
               key={order.id}

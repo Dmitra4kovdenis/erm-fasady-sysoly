@@ -10,6 +10,7 @@ import { Button, Container, Typography } from "@mui/material";
 import Select, { SelectOption } from "@/components/select/select";
 import Grid from "@mui/material/Grid";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { createOrder } from "./actions";
 
 const defaultFields = {
   height: 0,
@@ -51,11 +52,7 @@ export default function AddOrderClient({
   });
 
   const onSubmit = handleSubmit(async (values) => {
-    await fetch("/api/create-order", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(values),
-    });
+    await createOrder(values);
   });
 
   return (
