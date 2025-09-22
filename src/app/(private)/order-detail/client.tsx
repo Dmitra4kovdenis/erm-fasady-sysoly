@@ -1,9 +1,14 @@
 "use client";
 
 import { OrderDetailType } from "@/prisma-helpers/get-order-detail";
-import { Button } from "@mui/material";
+import { Box, Button, ButtonGroup, Modal } from "@mui/material";
 import { useRouter, usePathname } from "next/navigation";
 import { updateStatus } from "@/actions/update-status";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogTitle from "@mui/material/DialogTitle";
 
 interface OrderDetailClientProps {
   order: NonNullable<OrderDetailType>;
@@ -23,50 +28,37 @@ function OrderDetailClient({
 
   const pathname = usePathname();
 
+  const onClose = () => push(pathname);
+
   return (
-    <div
-      style={{
-        position: "fixed",
-        left: "0",
-        bottom: "0",
-        right: "0",
-        top: "0",
-        zIndex: 1000,
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "center",
-        background: "rgba(0, 0, 0, 0.6)",
-      }}
-    >
-      <div
-        style={{
-          background: "white",
-          padding: "40px",
-          borderRadius: "16px",
-        }}
-      >
-        {order.orderNumber}
-        <div>
-          {statuses.map((status) => {
-            return (
-              <Button
-                variant="contained"
-                color={order.statusId === status.value ? "primary" : "info"}
-                key={status.value}
-                onClick={async () => {
-                  await updateStatus({ statusId: status.value, id: order.id });
-                  if (onChangeStatus) onChangeStatus();
-                  push(pathname);
-                }}
-              >
-                {status.label}
-              </Button>
-            );
-          })}
-        </div>
-      </div>
-    </div>
+    <Dialog open onClose={onClose}>
+      <Box>
+        <DialogTitle id="alert-dialog-title">{order.orderNumber}</DialogTitle>
+        <DialogContent>
+          <ButtonGroup size="small" aria-label="Small button group">
+            {statuses.map((status) => {
+              return (
+                <Button
+                  variant="contained"
+                  color={order.statusId === status.value ? "primary" : "info"}
+                  key={status.value}
+                  onClick={async () => {
+                    await updateStatus({
+                      statusId: status.value,
+                      id: order.id,
+                    });
+                    if (onChangeStatus) onChangeStatus();
+                    onClose();
+                  }}
+                >
+                  {status.label}
+                </Button>
+              );
+            })}
+          </ButtonGroup>
+        </DialogContent>
+      </Box>
+    </Dialog>
   );
 }
 

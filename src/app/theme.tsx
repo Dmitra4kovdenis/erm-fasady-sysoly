@@ -2,10 +2,10 @@
 
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { ReactNode } from "react";
-import "dayjs/locale/ru"
+import "dayjs/locale/ru";
 import dayjs from "dayjs";
 
-dayjs.locale('ru')
+dayjs.locale("ru");
 
 const theme = createTheme({
   palette: {
@@ -14,6 +14,9 @@ const theme = createTheme({
     },
     secondary: {
       main: "#f43f5e",
+    },
+    info: {
+      main: "#7c7c7c",
     },
   },
   typography: {
@@ -30,6 +33,12 @@ const theme = createTheme({
   components: {
     MuiButton: {
       styleOverrides: {
+        sizeSmall: {
+          padding: "8px 16px", // вертикаль + горизонталь
+          fontSize: "12px",
+          textTransform: "initial",
+          whiteSpace: "nowrap",
+        },
         sizeMedium: {
           padding: "12px 32px", // вертикаль + горизонталь
           fontSize: "16px",
