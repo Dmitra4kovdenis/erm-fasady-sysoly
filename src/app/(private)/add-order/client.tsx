@@ -10,6 +10,7 @@ import { Button, Container, Typography } from "@mui/material";
 import Select, { SelectOption } from "@/components/select/select";
 import Grid from "@mui/material/Grid";
 import { zodResolver } from "@hookform/resolvers/zod";
+import DatePicker from "@/components/date-picker/date-picker";
 
 const defaultFields = {
   height: 0,
@@ -51,11 +52,22 @@ export default function AddOrderClient({
   });
 
   const onSubmit = handleSubmit(async (values) => {
-    await fetch("/api/create-order", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(values),
-    });
+    const validationResult = OrderModel.safeParse(values);
+
+    if (!validationResult.success) {
+      return validationResult.error;
+    }
+
+    try {
+      await fetch("/api/create-order", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(values),
+      });
+    } catch (error) {
+      console.log(error);
+      alert("Ошибка!");
+    }
   });
 
   return (
@@ -69,10 +81,10 @@ export default function AddOrderClient({
             <Select label="Заказчик" options={customers} name={"customerId"} />
           </Grid>
           <Grid size={4}>
-            <Input label="Дата приемки" name="startDate" />
+            <DatePicker label="Дата приемки" name="startDate" />
           </Grid>
           <Grid size={4}>
-            <Input label="Дата выдачи" name="endDate" />
+            <DatePicker label="Дата выдачи" name="endDate" />
           </Grid>
           <Grid size={10}>
             <Input
