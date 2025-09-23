@@ -11,3 +11,5 @@ export const getColumns = async () => {
 };
 
 export type GetColumnsType = Awaited<ReturnType<typeof getColumns>>;
+export type ColumnType = GetColumnsType[number];
+export type OrderType = ColumnType["orders"][number];
