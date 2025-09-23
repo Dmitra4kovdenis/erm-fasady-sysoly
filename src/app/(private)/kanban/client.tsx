@@ -19,7 +19,7 @@ function KanbanClient({ columns: columnsDefault }: KanbanClientProps) {
 
   useEffect(() => {
     fetchOrders();
-  }, []);
+  }, [columnsDefault]);
 
   if (!columns) {
     return null;

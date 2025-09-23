@@ -1,13 +1,11 @@
 "use client";
 
 import { OrderDetailType } from "@/prisma-helpers/get-order-detail";
-import { Box, Button, ButtonGroup, Modal } from "@mui/material";
+import { Box, Button, ButtonGroup } from "@mui/material";
 import { useRouter, usePathname } from "next/navigation";
 import { updateStatus } from "@/actions/update-status";
 import Dialog from "@mui/material/Dialog";
-import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
-import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 
 interface OrderDetailClientProps {
@@ -16,14 +14,9 @@ interface OrderDetailClientProps {
     value: number;
     label: string;
   }[];
-  onChangeStatus?: () => void;
 }
 
-function OrderDetailClient({
-  statuses,
-  order,
-  onChangeStatus,
-}: OrderDetailClientProps) {
+function OrderDetailClient({ statuses, order }: OrderDetailClientProps) {
   const { push } = useRouter();
 
   const pathname = usePathname();
@@ -47,7 +40,6 @@ function OrderDetailClient({
                       statusId: status.value,
                       id: order.id,
                     });
-                    if (onChangeStatus) onChangeStatus();
                     onClose();
                   }}
                 >

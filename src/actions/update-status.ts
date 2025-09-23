@@ -1,6 +1,7 @@
 "use server";
 
 import { prisma } from "@/prisma-helpers/prisma";
+import { revalidatePath } from "next/cache";
 
 export const updateStatus = async ({
   statusId,
@@ -17,4 +18,5 @@ export const updateStatus = async ({
       statusId,
     },
   });
+  revalidatePath("/");
 };
