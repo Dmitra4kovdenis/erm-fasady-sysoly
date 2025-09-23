@@ -1,7 +1,13 @@
 "use client";
 
 import { OrderDetailType } from "@/prisma-helpers/get-order-detail";
-import { Box, Button, ButtonGroup } from "@mui/material";
+import {
+  Box,
+  Button,
+  ButtonGroup,
+  ToggleButton,
+  ToggleButtonGroup,
+} from "@mui/material";
 import { useRouter, usePathname } from "next/navigation";
 import { updateStatus } from "@/actions/update-status";
 import Dialog from "@mui/material/Dialog";
@@ -24,30 +30,31 @@ function OrderDetailClient({ statuses, order }: OrderDetailClientProps) {
   const onClose = () => push(pathname);
 
   return (
-    <Dialog open onClose={onClose}>
+    <Dialog open onClose={onClose} maxWidth="lg">
       <Box>
         <DialogTitle id="alert-dialog-title">{order.orderNumber}</DialogTitle>
         <DialogContent>
-          <ButtonGroup size="small" aria-label="Small button group">
+          <ToggleButtonGroup
+            color="primary"
+            value={order.statusId}
+            exclusive
+            onChange={async (event, newAlignment) => {
+              await updateStatus({
+                statusId: +newAlignment,
+                id: order.id,
+              });
+              onClose();
+            }}
+            aria-label="Platform"
+          >
             {statuses.map((status) => {
               return (
-                <Button
-                  variant="contained"
-                  color={order.statusId === status.value ? "primary" : "info"}
-                  key={status.value}
-                  onClick={async () => {
-                    await updateStatus({
-                      statusId: status.value,
-                      id: order.id,
-                    });
-                    onClose();
-                  }}
-                >
+                <ToggleButton key={status.value} value={status.value}>
                   {status.label}
-                </Button>
+                </ToggleButton>
               );
             })}
-          </ButtonGroup>
+          </ToggleButtonGroup>
         </DialogContent>
       </Box>
     </Dialog>
