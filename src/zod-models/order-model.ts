@@ -4,24 +4,24 @@ export const OrderModel = z.object({
   customerId: z.coerce.number().int(),
   deliveryAddress: z.string().min(1, "Поле обязательно"),
   workType: z.string().min(1, "Поле обязательно"),
-  startDate: z.coerce.date(),
-  endDate: z.coerce.date(),
-  advance: z.coerce.number().default(0),
-  discount: z.coerce.number().default(0),
+  startDate: z.coerce.date("Некорректная дата"),
+  endDate: z.coerce.date("Некорректная дата"),
+  advance: z.coerce.number().default(0).optional(),
+  discount: z.coerce.number().default(0).optional(),
   items: z.array(
     z.object({
       id: z.number().int().optional(),
       height: z.coerce
         .number()
-        .positive()
+        .positive("Высота должна быть положительной")
         .min(0.1, "Высота должна быть положительной"),
       width: z.coerce
         .number()
-        .positive()
+        .positive("Ширина должна быть положительной")
         .min(0.1, "Ширина должна быть положительной"),
       thickness: z.coerce
         .number()
-        .positive()
+        .positive("Толщина должна быть положительной")
         .min(0.1, "Толщина должна быть положительной"),
       handleId: z.coerce.number("ID ручки обязательно"),
       radius: z.coerce.number().min(0).default(0),

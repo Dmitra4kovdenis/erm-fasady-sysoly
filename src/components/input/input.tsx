@@ -5,6 +5,7 @@ import {
   OutlinedInputProps,
 } from "@mui/material";
 import { useFormContext } from "react-hook-form";
+import { useFormError } from "@/hooks/use-field-error";
 
 interface InputProps extends OutlinedInputProps {
   label: string;
@@ -18,12 +19,9 @@ export default function Input({
   name,
   ...inputProps
 }: InputProps) {
-  const {
-    register,
-    formState: { errors },
-  } = useFormContext();
+  const { register } = useFormContext();
 
-  const fieldError = errors?.[name];
+  const fieldError = useFormError(name);
 
   return (
     <div className={className}>
