@@ -1,4 +1,4 @@
-"use order-detail";
+"use server";
 
 import { prisma } from "@/prisma-helpers/prisma";
 

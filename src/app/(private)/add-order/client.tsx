@@ -10,6 +10,7 @@ import { Button, Container, Typography } from "@mui/material";
 import Select, { SelectOption } from "@/components/select/select";
 import Grid from "@mui/material/Grid";
 import { zodResolver } from "@hookform/resolvers/zod";
+import DatePicker from "@/components/date-picker/date-picker";
 import { createOrder } from "./actions";
 
 const defaultFields = {
@@ -66,10 +67,10 @@ export default function AddOrderClient({
             <Select label="Заказчик" options={customers} name={"customerId"} />
           </Grid>
           <Grid size={4}>
-            <Input label="Дата приемки" name="startDate" />
+            <DatePicker label="Дата приемки" name="startDate" />
           </Grid>
           <Grid size={4}>
-            <Input label="Дата выдачи" name="endDate" />
+            <DatePicker label="Дата выдачи" name="endDate" />
           </Grid>
           <Grid size={10}>
             <Input
