@@ -11,6 +11,7 @@ import Select, { SelectOption } from "@/components/select/select";
 import Grid from "@mui/material/Grid";
 import { zodResolver } from "@hookform/resolvers/zod";
 import DatePicker from "@/components/date-picker/date-picker";
+import { createOrder } from "./actions";
 
 const defaultFields = {
   height: 0,
@@ -52,22 +53,7 @@ export default function AddOrderClient({
   });
 
   const onSubmit = handleSubmit(async (values) => {
-    const validationResult = OrderModel.safeParse(values);
-
-    if (!validationResult.success) {
-      return validationResult.error;
-    }
-
-    try {
-      await fetch("/api/create-order", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(values),
-      });
-    } catch (error) {
-      console.log(error);
-      alert("Ошибка!");
-    }
+    await createOrder(values);
   });
 
   return (

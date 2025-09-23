@@ -1,19 +1,20 @@
-import OrderListClient from "@/app/(private)/order-list/client";
-import { getOrders } from "@/prisma-helpers/get-orders";
-import { SearchParams } from "@/types";
+import KanbanClient from "@/app/(private)/kanban/client";
+import { getColumns } from "@/app/(private)/kanban/actions";
 import OrderDetailServer from "@/app/(private)/order-detail/server";
+import { SearchParams } from "@/types";
 
 export default async function OrderListPage({
   searchParams,
 }: {
   searchParams?: SearchParams;
 }) {
-  const orders = await getOrders();
+  const columns = await getColumns();
+
   const data = await searchParams;
 
   return (
     <>
-      <OrderListClient orders={orders} />
+      <KanbanClient columns={columns} />
       <OrderDetailServer orderNumber={data?.orderNumber} />
     </>
   );

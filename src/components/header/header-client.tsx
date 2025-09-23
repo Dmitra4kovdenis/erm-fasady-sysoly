@@ -40,6 +40,10 @@ function HeaderClient({ name, role }: HeaderClientProps) {
             <IconList />
             Список заказов
           </Link>
+          <Link className={css.link} href="/kanban/">
+            <IconList />
+            Канбан
+          </Link>
         </div>
         <div className={css.right}>
           <div className={css.user} onClick={() => setIsOpen(!isOpen)}>
