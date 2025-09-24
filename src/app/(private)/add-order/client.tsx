@@ -12,6 +12,8 @@ import Grid from "@mui/material/Grid";
 import { zodResolver } from "@hookform/resolvers/zod";
 import DatePicker from "@/components/date-picker/date-picker";
 import { createOrder } from "./actions";
+import { radiusOptions } from "@/app/(private)/add-order/constants";
+import { FieldFacadeArea } from "@/app/(private)/add-order/components/field-facade-area";
 
 const defaultFields = {
   height: 0,
@@ -91,48 +93,59 @@ export default function AddOrderClient({
             spacing={5}
             key={field.id}
             alignItems="center"
-            sx={{ mt: 5, p: 2, border: "1px solid #ddd", borderRadius: 2 }}
+            sx={{
+              mt: 5,
+              p: 2,
+              pl: 8,
+              pr: 12,
+              border: "1px solid #ddd",
+              borderRadius: 2,
+              position: "relative",
+            }}
           >
-            <Grid>
+            <div className={css.number}>{index + 1}</div>
+            <Grid size={3}>
               <Input label="Высота, мм" name={`items.${index}.height`} />
             </Grid>
-            <Grid>
+            <Grid size={3}>
               <Input label="Ширина, мм" name={`items.${index}.width`} />
             </Grid>
-            <Grid>
+            <Grid size={3}>
               <Input label="Толщина" name={`items.${index}.thickness`} />
             </Grid>
-            <Grid>
+            <Grid size={3}>
               <Select
                 label="Ручка интегрированная"
                 options={handles}
                 name={`items.${index}.handleId`}
               />
             </Grid>
-            <Grid>
-              <Input
+            <Grid size={3}>
+              <Select
                 label="Радиус завала торца"
                 name={`items.${index}.radius`}
+                options={radiusOptions}
               />
             </Grid>
-            <Grid>
+            <Grid size={3}>
               <Select
                 label="Фрезеровка"
                 options={millings}
                 name={`items.${index}.millingId`}
               />
             </Grid>
-            <Grid>
+            <Grid size={3}>
               <Input label="Цвет" name={`items.${index}.color`} />
             </Grid>
-            <Grid>
+            <Grid size={3}>
               <Input label="Количество" name={`items.${index}.count`} />
             </Grid>
-            <Grid>
-              <IconButton onClick={() => remove(index)}>
-                <IconDelete />
-              </IconButton>
+            <Grid size={6}>
+              <FieldFacadeArea index={index} />
             </Grid>
+            <IconButton onClick={() => remove(index)} className={css.remove}>
+              <IconDelete />
+            </IconButton>
           </Grid>
         ))}
 

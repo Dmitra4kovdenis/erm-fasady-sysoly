@@ -13,17 +13,11 @@ export interface SelectOption {
 
 interface InputProps {
   label: string;
-  className?: string;
   options: SelectOption[];
   name: string;
 }
 
-export default function Select({
-  label,
-  options,
-  className,
-  name,
-}: InputProps) {
+export default function Select({ label, options, name }: InputProps) {
   const { control } = useFormContext();
 
   return (
@@ -35,21 +29,19 @@ export default function Select({
         const fieldError = fieldState.error;
 
         return (
-          <div className={className}>
-            <FormControl fullWidth>
-              <div>{label}</div>
-              <MuiSelect {...field} error={!!fieldError}>
-                {options.map((option) => (
-                  <MenuItem value={option.value} key={option.value}>
-                    {option.label}
-                  </MenuItem>
-                ))}
-              </MuiSelect>
-              {fieldError && (
-                <FormHelperText>{fieldError.message as string}</FormHelperText>
-              )}
-            </FormControl>
-          </div>
+          <FormControl fullWidth>
+            <div>{label}</div>
+            <MuiSelect {...field} error={!!fieldError}>
+              {options.map((option) => (
+                <MenuItem value={option.value} key={option.value}>
+                  {option.label}
+                </MenuItem>
+              ))}
+            </MuiSelect>
+            {fieldError && (
+              <FormHelperText>{fieldError.message as string}</FormHelperText>
+            )}
+          </FormControl>
         );
       }}
     />
