@@ -1,6 +1,6 @@
 import { useFormContext } from "react-hook-form";
 import Input from "@/components/input/input";
-import { useEffect } from "react";
+import { useLayoutEffect } from "react";
 
 export function FieldFacadeArea({ index }: { index: number }) {
   const { watch, setValue } = useFormContext();
@@ -14,18 +14,11 @@ export function FieldFacadeArea({ index }: { index: number }) {
   const value = height * width * count;
 
   // при изменении площади записываем её в поле
-  useEffect(() => {
+  useLayoutEffect(() => {
     setValue(`items.${index}.area`, value || "", {
       shouldTouch: true,
     });
   }, [index, setValue, value]);
 
-  return (
-    <Input
-      label="Площадь"
-      name={`items.${index}.area`}
-      readOnly
-      defaultValue={""}
-    />
-  );
+  return <Input label="Площадь" name={`items.${index}.area`} readOnly />;
 }

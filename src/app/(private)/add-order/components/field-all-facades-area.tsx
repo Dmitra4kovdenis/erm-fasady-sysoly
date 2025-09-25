@@ -1,7 +1,7 @@
 import { useFormContext } from "react-hook-form";
 import Input from "@/components/input/input";
 import { OrderModelType } from "@/zod-models/order-model";
-import { useEffect } from "react";
+import { useLayoutEffect } from "react";
 
 export function FieldAllFacadesArea() {
   const { watch, setValue } = useFormContext<OrderModelType>();
@@ -15,18 +15,11 @@ export function FieldAllFacadesArea() {
   }, 0);
 
   // при изменении площади записываем её в поле
-  useEffect(() => {
+  useLayoutEffect(() => {
     setValue("allFacadesArea", value.toString(), {
       shouldTouch: true,
     });
   }, [setValue, value]);
 
-  return (
-    <Input
-      label="Общая площадь"
-      name={"allFacadesArea"}
-      readOnly
-      defaultValue={"0"}
-    />
-  );
+  return <Input label="Общая площадь" name={"allFacadesArea"} readOnly />;
 }

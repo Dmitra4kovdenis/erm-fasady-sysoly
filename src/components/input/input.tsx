@@ -30,7 +30,7 @@ export default function Input({ label, name, ...props }: InputProps) {
               {...props}
               label={label}
               error={!!fieldError}
-              value={field.value}
+              value={field.value ?? ""}
               onChange={field.onChange}
             />
             {fieldState.error && (
