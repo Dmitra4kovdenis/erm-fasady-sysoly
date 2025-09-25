@@ -22,13 +22,12 @@ export default function DatePicker({ label, className, name }: InputProps) {
       rules={{ required: "Выберите цвет" }}
       render={({ field, fieldState }) => {
         const fieldError = fieldState.error;
-
         return (
           <div className={className}>
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <FormControl fullWidth>
-                <div>{label}</div>
                 <DatePickerMui
+                  label={label}
                   value={field.value}
                   onChange={(e) => {
                     field.onChange(e);

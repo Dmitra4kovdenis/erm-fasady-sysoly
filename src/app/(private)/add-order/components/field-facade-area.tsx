@@ -15,8 +15,17 @@ export function FieldFacadeArea({ index }: { index: number }) {
 
   // при изменении площади записываем её в поле
   useEffect(() => {
-    setValue(`items.${index}.area`, value);
+    setValue(`items.${index}.area`, value || "", {
+      shouldTouch: true,
+    });
   }, [index, setValue, value]);
 
-  return <Input label="Площадь" name={`items.${index}.area`} readOnly />;
+  return (
+    <Input
+      label="Площадь"
+      name={`items.${index}.area`}
+      readOnly
+      defaultValue={""}
+    />
+  );
 }

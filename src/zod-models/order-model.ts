@@ -6,8 +6,9 @@ export const OrderModel = z.object({
   workType: z.string().min(1, "Поле обязательно"),
   startDate: z.coerce.date("Некорректная дата"),
   endDate: z.coerce.date("Некорректная дата"),
-  advance: z.coerce.number().default(0).optional(),
+  advance: z.coerce.string().default("0").optional(),
   discount: z.coerce.number().default(0).optional(),
+  allFacadesArea: z.coerce.string().optional(),
   items: z.array(
     z.object({
       id: z.number().int().optional(),
@@ -19,6 +20,7 @@ export const OrderModel = z.object({
         .number()
         .positive("Ширина должна быть положительной")
         .min(0.1, "Ширина должна быть положительной"),
+      area: z.coerce.number().optional(),
       thickness: z.coerce
         .number()
         .positive("Толщина должна быть положительной")

@@ -6,7 +6,17 @@ import IconButton from "@mui/material/IconButton";
 import IconDelete from "@mui/icons-material/Delete";
 import { useFieldArray, useForm, FormProvider } from "react-hook-form";
 import { OrderModel } from "@/zod-models/order-model";
-import { Button, Container, Typography } from "@mui/material";
+import {
+  Button,
+  Container,
+  Paper,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableRow,
+  Typography,
+} from "@mui/material";
 import Select, { SelectOption } from "@/components/select/select";
 import Grid from "@mui/material/Grid";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -14,17 +24,19 @@ import DatePicker from "@/components/date-picker/date-picker";
 import { createOrder } from "./actions";
 import { radiusOptions } from "@/app/(private)/add-order/constants";
 import { FieldFacadeArea } from "@/app/(private)/add-order/components/field-facade-area";
+import { FieldAllFacadesArea } from "@/app/(private)/add-order/components/field-all-facades-area";
 
 const defaultFields = {
-  height: 0,
-  width: 0,
-  thickness: 0,
-  handleId: 0,
-  radius: 0,
-  millingId: 0,
+  height: "",
+  width: "",
+  thickness: "",
+  handleId: "",
+  radius: "",
+  millingId: "",
   color: "",
-  count: 1,
-  orderId: 0,
+  count: "",
+  orderId: "",
+  area: "",
 };
 
 interface AddOrderClientProps {
@@ -64,37 +76,34 @@ export default function AddOrderClient({
         <Typography variant="h1" component="h1">
           Добавление нового заказа
         </Typography>
-        <Grid container spacing={5} sx={{ mt: "50px" }}>
+        <Grid container spacing={2} sx={{ mt: "50px" }}>
           <Grid size={8}>
             <Select label="Заказчик" options={customers} name={"customerId"} />
           </Grid>
-          <Grid size={4}>
+          <Grid size={4} />
+          <Grid size={3}>
             <DatePicker label="Дата приемки" name="startDate" />
           </Grid>
-          <Grid size={4}>
+          <Grid size={3}>
             <DatePicker label="Дата выдачи" name="endDate" />
           </Grid>
           <Grid size={10}>
-            <Input
-              multiline
-              rows={2}
-              label="Адрес доставки"
-              name="deliveryAddress"
-            />
+            <Input multiline label="Адрес доставки" name="deliveryAddress" />
           </Grid>
           <Grid size={10}>
-            <Input multiline rows={2} label="Вид работ" name="workType" />
+            <Input multiline label="Вид работ" name="workType" />
           </Grid>
         </Grid>
 
         {fields.map((field, index) => (
           <Grid
             container
-            spacing={5}
+            spacing={2}
             key={field.id}
             alignItems="center"
             sx={{
               mt: 5,
+              background: "#fafafa",
               p: 2,
               pl: 8,
               pr: 12,
@@ -113,6 +122,7 @@ export default function AddOrderClient({
             <Grid size={3}>
               <Input label="Толщина" name={`items.${index}.thickness`} />
             </Grid>
+            <Grid size={3} />
             <Grid size={3}>
               <Select
                 label="Ручка интегрированная"
@@ -134,13 +144,14 @@ export default function AddOrderClient({
                 name={`items.${index}.millingId`}
               />
             </Grid>
+            <Grid size={3} />
             <Grid size={3}>
               <Input label="Цвет" name={`items.${index}.color`} />
             </Grid>
             <Grid size={3}>
               <Input label="Количество" name={`items.${index}.count`} />
             </Grid>
-            <Grid size={6}>
+            <Grid size={3}>
               <FieldFacadeArea index={index} />
             </Grid>
             <IconButton onClick={() => remove(index)} className={css.remove}>
@@ -149,20 +160,45 @@ export default function AddOrderClient({
           </Grid>
         ))}
 
-        <Grid sx={{ mt: 3 }}>
+        <Grid sx={{ mt: 2 }}>
           <Button variant="contained" onClick={() => append(defaultFields)}>
             Добавить фасад
           </Button>
         </Grid>
 
-        <Grid container size={10} spacing={2} sx={{ mt: 5 }}>
-          <Grid size={4}>
+        <Grid container spacing={2} sx={{ mt: 4 }}>
+          <Grid size={3}>
             <Input label="Аванс" name="advance" />
           </Grid>
-          <Grid size={4}>
+          <Grid size={3}>
             <Input label="Скидка" name="discount" />
           </Grid>
         </Grid>
+
+        <Grid container size={12} spacing={2} sx={{ mt: 5 }}>
+          <Grid size={4}>
+            <FieldAllFacadesArea />
+          </Grid>
+        </Grid>
+
+        <TableContainer sx={{ mt: 10 }}>
+          <Table sx={{ maxWidth: 600 }}>
+            <TableBody>
+              <TableRow>
+                <TableCell component="th" scope="row">
+                  Стоимость прямых фасадов, руб.
+                </TableCell>
+                <TableCell align="right">300</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell component="th" scope="row">
+                  fsdf
+                </TableCell>
+                <TableCell align="right">300</TableCell>
+              </TableRow>
+            </TableBody>
+          </Table>
+        </TableContainer>
 
         <Grid
           container
@@ -170,9 +206,6 @@ export default function AddOrderClient({
           justifyContent="flex-end"
           className={css.footer}
         >
-          <Grid>
-            <Button variant="outlined">Распечатать Excel</Button>
-          </Grid>
           <Grid>
             <Button onClick={onSubmit} variant="contained">
               Добавить заказ

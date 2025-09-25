@@ -1,6 +1,7 @@
 import {
   FormControl,
   FormHelperText,
+  InputLabel,
   MenuItem,
   Select as MuiSelect,
 } from "@mui/material";
@@ -30,8 +31,8 @@ export default function Select({ label, options, name }: InputProps) {
 
         return (
           <FormControl fullWidth>
-            <div>{label}</div>
-            <MuiSelect {...field} error={!!fieldError}>
+            <InputLabel>{label}</InputLabel>
+            <MuiSelect {...field} error={!!fieldError} label={label}>
               {options.map((option) => (
                 <MenuItem value={option.value} key={option.value}>
                   {option.label}

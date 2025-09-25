@@ -1,41 +1,40 @@
 import {
   FormControl,
   FormHelperText,
+  InputLabel,
   OutlinedInput,
   OutlinedInputProps,
 } from "@mui/material";
-import { useFormContext } from "react-hook-form";
+import { Controller, useFormContext } from "react-hook-form";
 import { useFormError } from "@/hooks/use-field-error";
 
 interface InputProps extends OutlinedInputProps {
-  label: string;
-  className?: string;
   name: string;
 }
 
-export default function Input({
-  label,
-  className,
-  name,
-  ...inputProps
-}: InputProps) {
-  const { register } = useFormContext();
+export default function Input({ label, name }: InputProps) {
+  const { control } = useFormContext();
 
   const fieldError = useFormError(name);
 
   return (
-    <div className={className}>
-      <FormControl variant="outlined" fullWidth>
-        <div>{label}</div>
-        <OutlinedInput
-          error={!!fieldError}
-          {...inputProps}
-          {...register(name)}
-        />
-        {fieldError && (
-          <FormHelperText>{fieldError.message as string}</FormHelperText>
-        )}
-      </FormControl>
-    </div>
+    <Controller
+      name={name}
+      control={control}
+      rules={{ required: "Выберите цвет" }}
+      render={({ field, fieldState }) => {
+        return (
+          <FormControl variant="outlined" fullWidth>
+            <InputLabel>{label}</InputLabel>
+            <OutlinedInput label={label} error={!!fieldError} {...field} />
+            {fieldState.error && (
+              <FormHelperText>
+                {fieldState.error.message as string}
+              </FormHelperText>
+            )}
+          </FormControl>
+        );
+      }}
+    />
   );
 }
