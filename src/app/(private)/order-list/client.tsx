@@ -9,6 +9,7 @@ import {
   Paper,
   Typography,
   IconButton,
+  Chip,
 } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import { OrdersType } from "@/prisma-helpers/get-orders";
@@ -19,11 +20,28 @@ interface OrderListProps {
   orders: OrdersType;
 }
 
+const getDelayVariant = (date: Date) => {
+  const now = dayjs();
+  const difference = dayjs(date).diff(now, "days");
+
+  const displayDate = dayjs(date).format("D MMMM YYYY");
+
+  if (difference < -2) {
+    return <Chip label={displayDate} color="error" variant="filled" />;
+  }
+
+  if (difference < 0) {
+    return <Chip label={displayDate} color="error" variant="outlined" />;
+  }
+
+  return displayDate;
+};
+
 function OrderListClient({ orders }: OrderListProps) {
   const { push } = useRouter();
 
   return (
-    <TableContainer component={Paper} sx={{ mt: 3 }}>
+    <>
       <Typography variant="h5" sx={{ p: 2 }}>
         Список заказов
       </Typography>
@@ -49,9 +67,7 @@ function OrderListClient({ orders }: OrderListProps) {
               <TableCell>
                 {dayjs(order.startDate).format("D MMMM YYYY")}
               </TableCell>
-              <TableCell>
-                {dayjs(order.endDate).format("D MMMM YYYY")}
-              </TableCell>
+              <TableCell>{getDelayVariant(order.endDate)}</TableCell>
               <TableCell align="center">
                 <IconButton
                   color="primary"
@@ -64,7 +80,7 @@ function OrderListClient({ orders }: OrderListProps) {
           ))}
         </TableBody>
       </Table>
-    </TableContainer>
+    </>
   );
 }
 

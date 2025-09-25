@@ -12,15 +12,17 @@ export const createOrder = async (data: OrderModelType) => {
     },
   });
 
+  const { allFacadesArea, ...bdData } = data;
+
   const orderNumber = prevOrder ? prevOrder.orderNumber + 1 : firstStatus;
 
   await prisma.order.create({
     data: {
-      ...data,
+      ...bdData,
       orderNumber,
       statusId: 0,
       items: {
-        create: data.items,
+        create: data.items.map(({ area, ...item }) => item),
       },
     },
   });

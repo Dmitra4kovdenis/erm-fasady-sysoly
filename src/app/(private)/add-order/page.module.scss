@@ -1,17 +1,5 @@
 @use "@/styles/colors" as *;
 
-.wrapper {
-  width: 860px;
-  padding-bottom: 120px;
-  margin: 0 auto;
-}
-
-.title {
-  font-size: 32px;
-  font-weight: bold;
-  margin-bottom: 56px;
-}
-
 .footer {
   background: white;
   border-top: solid 1px #8f8f8f;
@@ -24,32 +12,22 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-}
-
-.row {
-  width: 100%;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 16px;
-}
-
-.col {
-  &_1 {
-    width: calc(33.33% - 16px);
-  }
-  &_2 {
-    width: calc(66.66% - 16px);
-
-  }
-  &_3 {
-    width: 100%;
-  }
+  z-index: 100;
 }
 
 .remove {
+  position: absolute!important;
+  right: 24px!important;
+  bottom: 24px!important;
+}
+
+.number {
   position: absolute;
-  right: 24px;
-  bottom: 24px;
+  left: 16px;
+  top: 16px;
+  font-size: 40px;
+  font-weight: bold;
+  color: #a8a8a8;
 }
 
 .block {
