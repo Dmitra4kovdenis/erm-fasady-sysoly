@@ -6,8 +6,8 @@ export const OrderModel = z.object({
   workType: z.string().min(1, "Поле обязательно"),
   startDate: z.coerce.date("Некорректная дата"),
   endDate: z.coerce.date("Некорректная дата"),
-  advance: z.coerce.string().default("0").optional(),
-  discount: z.coerce.number().default(0).optional(),
+  advance: z.coerce.number().default(0),
+  discount: z.coerce.number().default(0),
   allFacadesArea: z.coerce.string().optional(),
   items: z.array(
     z.object({

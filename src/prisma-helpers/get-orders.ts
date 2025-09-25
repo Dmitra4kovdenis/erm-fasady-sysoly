@@ -8,6 +8,9 @@ export const getOrders = async () => {
       customer: true,
       status: true,
     },
+    orderBy: {
+      createdAt: "desc",
+    },
   });
 };
 

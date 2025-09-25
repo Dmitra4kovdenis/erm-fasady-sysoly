@@ -25,6 +25,7 @@ import { createOrder } from "./actions";
 import { radiusOptions } from "@/app/(private)/add-order/constants";
 import { FieldFacadeArea } from "@/app/(private)/add-order/components/field-facade-area";
 import { FieldAllFacadesArea } from "@/app/(private)/add-order/components/field-all-facades-area";
+import { useRouter } from "next/navigation";
 
 const defaultFields = {
   height: "",
@@ -66,8 +67,11 @@ export default function AddOrderClient({
     name: "items",
   });
 
+  const { push } = useRouter();
+
   const onSubmit = handleSubmit(async (values) => {
     await createOrder(values);
+    push("/order-list");
   });
 
   return (
