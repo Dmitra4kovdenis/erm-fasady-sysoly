@@ -30,7 +30,8 @@ export default function Input({ label, name, ...props }: InputProps) {
               {...props}
               label={label}
               error={!!fieldError}
-              {...field}
+              value={field.value}
+              onChange={field.onChange}
             />
             {fieldState.error && (
               <FormHelperText>

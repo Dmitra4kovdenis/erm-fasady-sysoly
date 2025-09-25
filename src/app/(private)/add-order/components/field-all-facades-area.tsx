@@ -16,7 +16,7 @@ export function FieldAllFacadesArea() {
 
   // при изменении площади записываем её в поле
   useEffect(() => {
-    setValue("allFacadesArea", value ? value.toString() : "", {
+    setValue("allFacadesArea", value.toString(), {
       shouldTouch: true,
     });
   }, [setValue, value]);
