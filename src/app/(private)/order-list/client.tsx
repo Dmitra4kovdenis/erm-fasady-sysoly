@@ -41,7 +41,7 @@ function OrderListClient({ orders }: OrderListProps) {
   const { push } = useRouter();
 
   return (
-    <TableContainer component={Paper} sx={{ mt: 3 }}>
+    <>
       <Typography variant="h5" sx={{ p: 2 }}>
         Список заказов
       </Typography>
@@ -80,7 +80,7 @@ function OrderListClient({ orders }: OrderListProps) {
           ))}
         </TableBody>
       </Table>
-    </TableContainer>
+    </>
   );
 }
 
