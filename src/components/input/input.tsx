@@ -12,7 +12,7 @@ interface InputProps extends OutlinedInputProps {
   name: string;
 }
 
-export default function Input({ label, name }: InputProps) {
+export default function Input({ label, name, ...props }: InputProps) {
   const { control } = useFormContext();
 
   const fieldError = useFormError(name);
@@ -26,7 +26,12 @@ export default function Input({ label, name }: InputProps) {
         return (
           <FormControl variant="outlined" fullWidth>
             <InputLabel>{label}</InputLabel>
-            <OutlinedInput label={label} error={!!fieldError} {...field} />
+            <OutlinedInput
+              {...props}
+              label={label}
+              error={!!fieldError}
+              {...field}
+            />
             {fieldState.error && (
               <FormHelperText>
                 {fieldState.error.message as string}

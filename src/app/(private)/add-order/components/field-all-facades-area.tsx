@@ -21,5 +21,12 @@ export function FieldAllFacadesArea() {
     });
   }, [setValue, value]);
 
-  return <Input label="Общая площадь" name={"allFacadesArea"} readOnly />;
+  return (
+    <Input
+      label="Общая площадь"
+      name={"allFacadesArea"}
+      readOnly
+      defaultValue={"0"}
+    />
+  );
 }
