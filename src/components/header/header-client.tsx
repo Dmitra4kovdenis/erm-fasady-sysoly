@@ -1,11 +1,20 @@
 "use client";
 
-import css from "./header.module.scss";
-import { IconEdit, IconList, IconLogout } from "@/icons";
-import Avatar from "@/components/avatar/avatar";
 import { useRef, useState } from "react";
-import Button from "@/components/button/button";
 import useClickOutside from "@/hooks/click-outside";
+import {
+  AppBar,
+  Box,
+  Container,
+  IconButton,
+  Toolbar,
+  Typography,
+  Menu,
+  MenuItem,
+  Avatar,
+  Button,
+  Tooltip,
+} from "@mui/material";
 import Link from "next/link";
 
 interface HeaderClientProps {
@@ -24,49 +33,63 @@ function HeaderClient({ name, role }: HeaderClientProps) {
   const ref = useRef<HTMLDivElement>(null);
 
   useClickOutside(ref, () => setIsOpen(false));
-
   return (
-    <div className={css.bg}>
-      <div className={css.wrapper}>
-        <Link href="/" className={css.logo}>
-          Фасады Сысолы
-        </Link>
-        <div className={css.center}>
-          <Link className={css.link} href="/add-order/">
-            <IconEdit />
-            Новый заказ
-          </Link>
-          <Link className={css.link} href="/order-list/">
-            <IconList />
-            Список заказов
-          </Link>
-          <Link className={css.link} href="/kanban/">
-            <IconList />
-            Канбан
-          </Link>
-        </div>
-        <div className={css.right}>
-          <div className={css.user} onClick={() => setIsOpen(!isOpen)}>
-            <div>
-              <div className={css.email}>{name}</div>
-              <div className={css.role}>{role}</div>
-            </div>
-            <Avatar title={name} />
-          </div>
-        </div>
-        {isOpen && (
-          <div className={css.modal} ref={ref}>
-            <Button
-              variant="outline"
-              onClick={logout}
-              startIcon={<IconLogout />}
-            >
-              Выйти
+    <AppBar position="fixed">
+      <Container maxWidth="xl">
+        <Toolbar disableGutters>
+          <Typography variant="h6" sx={{ lineHeight: 1 }}>
+            Фасады Сысолы
+          </Typography>
+          <Box sx={{ flexGrow: 1, display: "flex", ml: 6 }}>
+            <Button component={Link} href="/add-order" sx={{ color: "white" }}>
+              Добавить заказ
             </Button>
-          </div>
-        )}
-      </div>
-    </div>
+            <Button component={Link} href="/order-list" sx={{ color: "white" }}>
+              Список заказов
+            </Button>
+          </Box>
+          <Box sx={{ flexGrow: 0, ml: "auto" }}>
+            <Tooltip title="Open settings">
+              <IconButton onClick={() => setIsOpen(true)} sx={{ p: 0 }}>
+                <Box
+                  sx={{
+                    color: "white",
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "flex-end",
+                    mr: 2,
+                  }}
+                >
+                  <Typography variant="body2">{name}</Typography>
+                  <Typography variant="caption">{role}</Typography>
+                </Box>
+                <Avatar alt={name} src="/static/images/avatar/2.jpg" />
+              </IconButton>
+            </Tooltip>
+            <Menu
+              sx={{ mt: "45px" }}
+              id="menu-appbar"
+              anchorEl={ref.current}
+              anchorOrigin={{
+                vertical: "top",
+                horizontal: "right",
+              }}
+              keepMounted
+              transformOrigin={{
+                vertical: "top",
+                horizontal: "right",
+              }}
+              open={isOpen}
+              onClose={() => setIsOpen(false)}
+            >
+              <MenuItem onClick={() => logout()}>
+                <Typography sx={{ textAlign: "center" }}>Выйти</Typography>
+              </MenuItem>
+            </Menu>
+          </Box>
+        </Toolbar>
+      </Container>
+    </AppBar>
   );
 }
 

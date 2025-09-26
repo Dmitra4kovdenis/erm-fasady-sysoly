@@ -34,13 +34,13 @@ const theme = createTheme({
     MuiButton: {
       styleOverrides: {
         sizeSmall: {
-          padding: "8px 16px", // вертикаль + горизонталь
+          padding: "8px 8px", // вертикаль + горизонталь
           fontSize: "12px",
           textTransform: "initial",
           whiteSpace: "nowrap",
         },
         sizeMedium: {
-          padding: "12px 32px", // вертикаль + горизонталь
+          padding: "12px 8px", // вертикаль + горизонталь
           fontSize: "16px",
           textTransform: "initial",
         },
