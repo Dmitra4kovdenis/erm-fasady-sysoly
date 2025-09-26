@@ -8,11 +8,17 @@ import {
   Typography,
   IconButton,
   Chip,
+  ToggleButtonGroup,
+  ToggleButton,
 } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import { OrdersType } from "@/prisma-helpers/get-orders";
 import dayjs from "dayjs";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import styles from "./order-list.module.scss";
+import VisibilityIcon from "@mui/icons-material/Visibility";
 
 interface OrderListProps {
   orders: OrdersType;
@@ -37,12 +43,40 @@ const getDelayVariant = (date: Date) => {
 
 function OrderListClient({ orders }: OrderListProps) {
   const { push } = useRouter();
+  const pathname = usePathname();
+
+  // Определяем, какая кнопка должна быть активна
+  let currentValue: string | null = null;
+  if (pathname.startsWith("/order-list")) {
+    currentValue = "Текущие заказы";
+  } else if (pathname.startsWith("/archive-list")) {
+    currentValue = "Архив";
+  }
 
   return (
     <>
-      <Typography variant="h5" sx={{ p: 2 }}>
-        Список заказов
-      </Typography>
+      <div className={styles.container}>
+        <ToggleButtonGroup
+          color="warning"
+          value={currentValue}
+          exclusive
+          aria-label="orders-navigation"
+        >
+          <ToggleButton
+            value="Текущие заказы"
+            component={Link}
+            href="/order-list"
+          >
+            Текущие заказы
+          </ToggleButton>
+          <ToggleButton value="Архив" component={Link} href="/archive-list">
+            Архив
+          </ToggleButton>
+        </ToggleButtonGroup>
+        <Typography variant="h5" sx={{ p: 2 }}>
+          Список заказов
+        </Typography>
+      </div>
       <Table>
         <TableHead>
           <TableRow>
@@ -70,8 +104,13 @@ function OrderListClient({ orders }: OrderListProps) {
                 <IconButton
                   color="primary"
                   onClick={() => push(`?orderNumber=${order.orderNumber}`)}
+                  sx={{
+                    "&:hover": {
+                      backgroundColor: "rgb(237 108 2 / 21%)",
+                    },
+                  }}
                 >
-                  <EditIcon />
+                  <VisibilityIcon />
                 </IconButton>
               </TableCell>
             </TableRow>

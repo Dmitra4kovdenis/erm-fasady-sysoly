@@ -6,43 +6,57 @@ import {
   TableHead,
   TableRow,
   Typography,
-  IconButton,
-  Chip,
+  ToggleButtonGroup,
+  ToggleButton,
+  Fab,
 } from "@mui/material";
-import EditIcon from "@mui/icons-material/Edit";
+import VisibilityIcon from "@mui/icons-material/Visibility";
 import dayjs from "dayjs";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { ArchiveOrdersType } from "@/prisma-helpers/get-archive-orders";
+import Link from "next/link";
+import styles from "@/app/(private)/order-list/order-list.module.scss";
+import IconButton from "@mui/material/IconButton";
 
 interface ArchiveProps {
   orders: ArchiveOrdersType;
 }
 
-// const getDelayVariant = (date: Date) => {
-//   const now = dayjs();
-//   const difference = dayjs(date).diff(now, "days");
-//
-//   const displayDate = dayjs(date).format("D MMMM YYYY");
-//
-//   if (difference < -2) {
-//     return <Chip label={displayDate} color="error" variant="filled" />;
-//   }
-//
-//   if (difference < 0) {
-//     return <Chip label={displayDate} color="error" variant="outlined" />;
-//   }
-//
-//   return displayDate;
-// };
-
 function ArchiveListClient({ orders }: ArchiveProps) {
   const { push } = useRouter();
+  const pathname = usePathname();
 
+  // Определяем, какая кнопка должна быть активна
+  let currentValue: string | null = null;
+  if (pathname.startsWith("/order-list")) {
+    currentValue = "Текущие заказы";
+  } else if (pathname.startsWith("/archive-list")) {
+    currentValue = "Архив";
+  }
   return (
     <>
-      <Typography variant="h5" sx={{ p: 2 }}>
-        Список заказов
-      </Typography>
+      <div className={styles.container}>
+        <ToggleButtonGroup
+          color="warning"
+          value={currentValue}
+          exclusive
+          aria-label="orders-navigation"
+        >
+          <ToggleButton
+            value="Текущие заказы"
+            component={Link}
+            href="/order-list"
+          >
+            Текущие заказы
+          </ToggleButton>
+          <ToggleButton value="Архив" component={Link} href="/archive-list">
+            Архив
+          </ToggleButton>
+        </ToggleButtonGroup>
+        <Typography variant="h5" sx={{ p: 2 }}>
+          Список заказов
+        </Typography>
+      </div>
       <Table>
         <TableHead>
           <TableRow>
@@ -72,8 +86,13 @@ function ArchiveListClient({ orders }: ArchiveProps) {
                 <IconButton
                   color="primary"
                   onClick={() => push(`?orderNumber=${order.orderNumber}`)}
+                  sx={{
+                    "&:hover": {
+                      backgroundColor: "rgb(237 108 2 / 21%)",
+                    },
+                  }}
                 >
-                  <EditIcon />
+                  <VisibilityIcon />
                 </IconButton>
               </TableCell>
             </TableRow>

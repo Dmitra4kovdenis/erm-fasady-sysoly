@@ -14,3 +14,14 @@
   display: flex;
   gap: 24px;
 }
+
+.container {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  justify-content: space-between;
+  flex-direction: row-reverse;
+  height: 44px;
+  margin-bottom: 40px;
+}
+
