@@ -13,7 +13,7 @@ const theme = createTheme({
       main: "#2C2C2C", // переопределяем главный цвет primary
     },
     secondary: {
-      main: "#f43f5e",
+      main: "#5e5e5e",
     },
     info: {
       main: "#7c7c7c",
@@ -33,16 +33,9 @@ const theme = createTheme({
   components: {
     MuiButton: {
       styleOverrides: {
-        sizeSmall: {
-          padding: "8px 8px", // вертикаль + горизонталь
-          fontSize: "12px",
+        root: {
           textTransform: "initial",
           whiteSpace: "nowrap",
-        },
-        sizeMedium: {
-          padding: "12px 8px", // вертикаль + горизонталь
-          fontSize: "16px",
-          textTransform: "initial",
         },
       },
     },

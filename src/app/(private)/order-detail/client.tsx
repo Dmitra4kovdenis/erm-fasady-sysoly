@@ -35,7 +35,7 @@ function OrderDetailClient({ statuses, order }: OrderDetailClientProps) {
       <DialogTitle>Детали заказа №{order.orderNumber}</DialogTitle>
       <DialogContent>
         <Box sx={{ mt: 2 }}>
-          <Grid size={4} container spacing={6} mb={5}>
+          <Grid container spacing={3} mb={5} pr={20}>
             <Grid size={4}>
               <Typography variant="subtitle2">Заказчик</Typography>
               <Typography variant="body1">{order.customer.name}</Typography>
@@ -44,7 +44,7 @@ function OrderDetailClient({ statuses, order }: OrderDetailClientProps) {
               <Typography variant="subtitle2">Вид работ</Typography>
               <Typography variant="body1">{order.workType}</Typography>
             </Grid>
-            <Grid>
+            <Grid size={4}>
               <Typography variant="subtitle2">Адрес доставки</Typography>
               <Typography variant="body1">{order.deliveryAddress}</Typography>
             </Grid>
