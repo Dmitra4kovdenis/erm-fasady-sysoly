@@ -40,7 +40,7 @@ function HeaderClient({ name, role }: HeaderClientProps) {
           <Typography variant="h6" sx={{ lineHeight: 1 }}>
             Фасады Сысолы
           </Typography>
-          <Box sx={{ flexGrow: 1, display: "flex", ml: 6 }}>
+          <Box sx={{ flexGrow: 1, display: "flex", ml: 6, gap: 2 }}>
             <Button component={Link} href="/add-order" sx={{ color: "white" }}>
               Добавить заказ
             </Button>
@@ -82,9 +82,8 @@ function HeaderClient({ name, role }: HeaderClientProps) {
               open={isOpen}
               onClose={() => setIsOpen(false)}
             >
-              <MenuItem onClick={() => logout()}>
-                <Typography sx={{ textAlign: "center" }}>Выйти</Typography>
-              </MenuItem>
+              <MenuItem onClick={() => undefined}>Профиль</MenuItem>
+              <MenuItem onClick={() => logout()}>Выйти</MenuItem>
             </Menu>
           </Box>
         </Toolbar>
