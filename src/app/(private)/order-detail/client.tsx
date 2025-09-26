@@ -11,7 +11,10 @@ import {
   Divider,
   ToggleButton,
   ToggleButtonGroup,
+  DialogActions,
+  IconButton,
 } from "@mui/material";
+import { Print, ContentCut } from "@mui/icons-material";
 import { useRouter, usePathname } from "next/navigation";
 import { updateStatus } from "@/actions/update-status";
 import dayjs from "dayjs";
@@ -35,12 +38,12 @@ function OrderDetailClient({ statuses, order }: OrderDetailClientProps) {
       <DialogTitle>Детали заказа №{order.orderNumber}</DialogTitle>
       <DialogContent>
         <Box sx={{ mt: 2 }}>
-          <Grid size={4} container spacing={6} mb={5}>
-            <Grid size={4}>
+          <Grid container spacing={5} mb={5}>
+            <Grid>
               <Typography variant="subtitle2">Заказчик</Typography>
               <Typography variant="body1">{order.customer.name}</Typography>
             </Grid>
-            <Grid size={4}>
+            <Grid>
               <Typography variant="subtitle2">Вид работ</Typography>
               <Typography variant="body1">{order.workType}</Typography>
             </Grid>
@@ -49,29 +52,27 @@ function OrderDetailClient({ statuses, order }: OrderDetailClientProps) {
               <Typography variant="body1">{order.deliveryAddress}</Typography>
             </Grid>
 
-            <Grid size={4}>
+            <Grid>
               <Typography variant="subtitle2">Дата приёмки</Typography>
               <Typography variant="body1">
                 {dayjs(order.startDate).format("D MMMM YYYY")}
               </Typography>
             </Grid>
-            <Grid size={4}>
+            <Grid>
               <Typography variant="subtitle2">Дата выдачи</Typography>
               <Typography variant="body1">
                 {dayjs(order.endDate).format("D MMMM YYYY")}
               </Typography>
             </Grid>
-            <Grid size={4}>
+            <Grid>
               <Typography variant="subtitle2">Аванс</Typography>
               <Typography variant="body1">{order.advance}</Typography>
             </Grid>
 
-            <Grid size={4}>
+            <Grid>
               <Typography variant="subtitle2">Скидка</Typography>
               <Typography variant="body1">{order.discount}</Typography>
             </Grid>
-
-            <Grid></Grid>
           </Grid>
 
           <Typography variant="h6" gutterBottom>
@@ -112,7 +113,6 @@ function OrderDetailClient({ statuses, order }: OrderDetailClientProps) {
 
           <Divider sx={{ my: 3 }} />
 
-          {/* Блок смены статуса */}
           <Typography variant="subtitle2" color="text.secondary" gutterBottom>
             Изменить статус
           </Typography>
@@ -136,9 +136,47 @@ function OrderDetailClient({ statuses, order }: OrderDetailClientProps) {
                 {status.label}
               </ToggleButton>
             ))}
+
+            <Grid position={"absolute"} right={80} bottom={60}>
+              <IconButton
+                color="primary"
+                onClick={() => console.log("Печать")}
+                sx={{
+                  border: "1px solid",
+                  borderColor: "primary.main",
+                  borderRadius: 2,
+                  "&:hover": {
+                    backgroundColor: "primary.main",
+                    color: "white",
+                  },
+                }}
+              >
+                <Print />
+              </IconButton>
+            </Grid>
+            <Grid position={"absolute"} right={25} bottom={60}>
+              <IconButton
+                onClick={() => console.log("Раскрой")}
+                sx={{
+                  border: "1px solid",
+                  borderColor: "primary.main",
+                  borderRadius: 2,
+                  "&:hover": {
+                    backgroundColor: "primary.main",
+                    color: "white",
+                  },
+                }}
+              >
+                <ContentCut />
+              </IconButton>
+            </Grid>
           </ToggleButtonGroup>
         </Box>
       </DialogContent>
+
+      <DialogActions sx={{ mb: 3, mr: 4 }}>
+        <Grid container justifyContent="flex-end" spacing={2}></Grid>
+      </DialogActions>
     </Dialog>
   );
 }
