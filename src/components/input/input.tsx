@@ -1,10 +1,4 @@
-import {
-  FormControl,
-  FormHelperText,
-  InputLabel,
-  OutlinedInput,
-  OutlinedInputProps,
-} from "@mui/material";
+import { OutlinedInputProps, TextField } from "@mui/material";
 import { Controller, useFormContext } from "react-hook-form";
 import { useFormError } from "@/hooks/use-field-error";
 
@@ -24,21 +18,15 @@ export default function Input({ label, name, ...props }: InputProps) {
       rules={{ required: "Выберите цвет" }}
       render={({ field, fieldState }) => {
         return (
-          <FormControl variant="outlined" fullWidth>
-            <InputLabel>{label}</InputLabel>
-            <OutlinedInput
-              {...props}
-              label={label}
-              error={!!fieldError}
-              value={field.value ?? ""}
-              onChange={field.onChange}
-            />
-            {fieldState.error && (
-              <FormHelperText>
-                {fieldState.error.message as string}
-              </FormHelperText>
-            )}
-          </FormControl>
+          <TextField
+            variant="outlined"
+            fullWidth
+            label={label}
+            error={!!fieldError}
+            value={field.value ?? ""}
+            onChange={field.onChange}
+            helperText={fieldState.error?.message}
+          />
         );
       }}
     />

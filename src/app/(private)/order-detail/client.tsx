@@ -13,6 +13,11 @@ import {
   ToggleButtonGroup,
   DialogActions,
   IconButton,
+  Table,
+  TableHead,
+  TableCell,
+  TableRow,
+  TableBody,
 } from "@mui/material";
 import { Print, ContentCut } from "@mui/icons-material";
 import { useRouter, usePathname } from "next/navigation";
@@ -78,37 +83,37 @@ function OrderDetailClient({ statuses, order }: OrderDetailClientProps) {
           <Typography variant="h6" gutterBottom>
             Фасады
           </Typography>
-          <Box sx={{ overflowX: "auto" }}>
-            <table style={{ width: "100%", borderCollapse: "collapse" }}>
-              <thead>
-                <tr>
-                  <td>Фасад</td>
-                  <td>Высота, мм</td>
-                  <td>Ширина, мм</td>
-                  <td>Толщина</td>
-                  <td>Ручка</td>
-                  <td>Радиус</td>
-                  <td>Фрезеровка</td>
-                  <td>Цвет</td>
-                  <td>Кол-во</td>
-                </tr>
-              </thead>
-              <tbody>
+          <Box marginBottom={10}>
+            <Table>
+              <TableHead>
+                <TableRow>
+                  <TableCell>Фасад</TableCell>
+                  <TableCell>Высота, мм</TableCell>
+                  <TableCell>Ширина, мм</TableCell>
+                  <TableCell>Толщина</TableCell>
+                  <TableCell>Ручка</TableCell>
+                  <TableCell>Радиус</TableCell>
+                  <TableCell>Фрезеровка</TableCell>
+                  <TableCell>Цвет</TableCell>
+                  <TableCell>Кол-во</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
                 {order.items.map((item, index) => (
-                  <tr key={item.id || index}>
-                    <td>Фасад {index + 1}</td>
-                    <td>{item.height}</td>
-                    <td>{item.width}</td>
-                    <td>{item.thickness}</td>
-                    <td>{item.handle?.title || "-"}</td>
-                    <td>{item.radius}</td>
-                    <td>{item.milling?.title || "-"}</td>
-                    <td>{item.color}</td>
-                    <td>{item.count}</td>
-                  </tr>
+                  <TableRow key={item.id || index}>
+                    <TableCell>Фасад {index + 1}</TableCell>
+                    <TableCell>{item.height}</TableCell>
+                    <TableCell>{item.width}</TableCell>
+                    <TableCell>{item.thickness}</TableCell>
+                    <TableCell>{item.handle?.title || "-"}</TableCell>
+                    <TableCell>{item.radius}</TableCell>
+                    <TableCell>{item.milling?.title || "-"}</TableCell>
+                    <TableCell>{item.color}</TableCell>
+                    <TableCell>{item.count}</TableCell>
+                  </TableRow>
                 ))}
-              </tbody>
-            </table>
+              </TableBody>
+            </Table>
           </Box>
 
           <Divider sx={{ my: 3 }} />
@@ -132,7 +137,11 @@ function OrderDetailClient({ statuses, order }: OrderDetailClientProps) {
             aria-label="Выбор статуса"
           >
             {statuses.map((status) => (
-              <ToggleButton key={status.value} value={status.value}>
+              <ToggleButton
+                size="small"
+                key={status.value}
+                value={status.value}
+              >
                 {status.label}
               </ToggleButton>
             ))}

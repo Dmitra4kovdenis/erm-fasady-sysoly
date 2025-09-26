@@ -155,7 +155,11 @@ export default function AddOrderClient({
         ))}
 
         <Grid sx={{ mt: 2 }}>
-          <Button variant="contained" onClick={() => append(defaultFields)}>
+          <Button
+            variant="contained"
+            color="secondary"
+            onClick={() => append(defaultFields)}
+          >
             Добавить фасад
           </Button>
         </Grid>
@@ -182,7 +186,12 @@ export default function AddOrderClient({
 
         <TableResults />
 
-        <Button sx={{ marginTop: 6 }} onClick={onSubmit} variant="contained">
+        <Button
+          sx={{ marginTop: 6 }}
+          onClick={onSubmit}
+          variant="contained"
+          size="large"
+        >
           Добавить заказ
         </Button>
       </Container>
