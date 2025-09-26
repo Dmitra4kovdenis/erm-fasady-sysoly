@@ -6,17 +6,7 @@ import IconButton from "@mui/material/IconButton";
 import IconDelete from "@mui/icons-material/Delete";
 import { useFieldArray, useForm, FormProvider } from "react-hook-form";
 import { OrderModel } from "@/zod-models/order-model";
-import {
-  Button,
-  Container,
-  Paper,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableRow,
-  Typography,
-} from "@mui/material";
+import { Button, Container, Typography } from "@mui/material";
 import Select, { SelectOption } from "@/components/select/select";
 import Grid from "@mui/material/Grid";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -24,8 +14,8 @@ import DatePicker from "@/components/date-picker/date-picker";
 import { createOrder } from "./actions";
 import { radiusOptions } from "@/app/(private)/add-order/constants";
 import { FieldFacadeArea } from "@/app/(private)/add-order/components/field-facade-area";
-import { FieldAllFacadesArea } from "@/app/(private)/add-order/components/field-all-facades-area";
 import { useRouter } from "next/navigation";
+import { TableResults } from "@/app/(private)/add-order/components/table-results";
 
 const defaultFields = {
   height: "",
@@ -172,6 +162,17 @@ export default function AddOrderClient({
 
         <Grid container spacing={2} sx={{ mt: 4 }}>
           <Grid size={3}>
+            <Input label="Стоимость 1 м.кв.,руб." name="facadePrice" />
+          </Grid>
+          <Grid size={3}>
+            <Input label="Интегрированная ручка, руб." name="handlePrice" />
+          </Grid>
+        </Grid>
+        <Grid container spacing={2} sx={{ mt: 4 }}>
+          <Grid size={3}>
+            <Input label="Прочие услуги, руб" name="otherServicePrice" />
+          </Grid>
+          <Grid size={3}>
             <Input label="Аванс" name="advance" />
           </Grid>
           <Grid size={3}>
@@ -179,43 +180,11 @@ export default function AddOrderClient({
           </Grid>
         </Grid>
 
-        <Grid container size={12} spacing={2} sx={{ mt: 5 }}>
-          <Grid size={4}>
-            <FieldAllFacadesArea />
-          </Grid>
-        </Grid>
+        <TableResults />
 
-        <TableContainer sx={{ mt: 10 }}>
-          <Table sx={{ maxWidth: 600 }}>
-            <TableBody>
-              <TableRow>
-                <TableCell component="th" scope="row">
-                  Стоимость прямых фасадов, руб.
-                </TableCell>
-                <TableCell align="right">300</TableCell>
-              </TableRow>
-              <TableRow>
-                <TableCell component="th" scope="row">
-                  fsdf
-                </TableCell>
-                <TableCell align="right">300</TableCell>
-              </TableRow>
-            </TableBody>
-          </Table>
-        </TableContainer>
-
-        <Grid
-          container
-          spacing={2}
-          justifyContent="flex-end"
-          className={css.footer}
-        >
-          <Grid>
-            <Button onClick={onSubmit} variant="contained">
-              Добавить заказ
-            </Button>
-          </Grid>
-        </Grid>
+        <Button sx={{ marginTop: 6 }} onClick={onSubmit} variant="contained">
+          Добавить заказ
+        </Button>
       </Container>
     </FormProvider>
   );
