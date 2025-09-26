@@ -10,32 +10,32 @@ import {
   Chip,
 } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
-import { OrdersType } from "@/prisma-helpers/get-orders";
 import dayjs from "dayjs";
 import { useRouter } from "next/navigation";
+import { ArchiveOrdersType } from "@/prisma-helpers/get-archive-orders";
 
-interface OrderListProps {
-  orders: OrdersType;
+interface ArchiveProps {
+  orders: ArchiveOrdersType;
 }
 
-const getDelayVariant = (date: Date) => {
-  const now = dayjs();
-  const difference = dayjs(date).diff(now, "days");
+// const getDelayVariant = (date: Date) => {
+//   const now = dayjs();
+//   const difference = dayjs(date).diff(now, "days");
+//
+//   const displayDate = dayjs(date).format("D MMMM YYYY");
+//
+//   if (difference < -2) {
+//     return <Chip label={displayDate} color="error" variant="filled" />;
+//   }
+//
+//   if (difference < 0) {
+//     return <Chip label={displayDate} color="error" variant="outlined" />;
+//   }
+//
+//   return displayDate;
+// };
 
-  const displayDate = dayjs(date).format("D MMMM YYYY");
-
-  if (difference < -2) {
-    return <Chip label={displayDate} color="error" variant="filled" />;
-  }
-
-  if (difference < 0) {
-    return <Chip label={displayDate} color="error" variant="outlined" />;
-  }
-
-  return displayDate;
-};
-
-function OrderListClient({ orders }: OrderListProps) {
+function ArchiveListClient({ orders }: ArchiveProps) {
   const { push } = useRouter();
 
   return (
@@ -65,7 +65,9 @@ function OrderListClient({ orders }: OrderListProps) {
               <TableCell>
                 {dayjs(order.startDate).format("D MMMM YYYY")}
               </TableCell>
-              <TableCell>{getDelayVariant(order.endDate)}</TableCell>
+              <TableCell>
+                {dayjs(order.endDate).format("D MMMM YYYY")}
+              </TableCell>
               <TableCell align="center">
                 <IconButton
                   color="primary"
@@ -82,4 +84,4 @@ function OrderListClient({ orders }: OrderListProps) {
   );
 }
 
-export default OrderListClient;
+export default ArchiveListClient;
