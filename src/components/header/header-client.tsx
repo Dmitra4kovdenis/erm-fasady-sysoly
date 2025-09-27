@@ -40,12 +40,39 @@ function HeaderClient({ name, role }: HeaderClientProps) {
           <Typography variant="h6" sx={{ lineHeight: 1 }}>
             Фасады Сысолы
           </Typography>
+
           <Box sx={{ flexGrow: 1, display: "flex", ml: 6, gap: 2 }}>
-            <Button component={Link} href="/add-order" sx={{ color: "white" }}>
-              Добавить заказ
-            </Button>
+            {role === "Администратор" && (
+              <Button
+                component={Link}
+                href="/add-order"
+                sx={{ color: "white" }}
+              >
+                Добавить заказ
+              </Button>
+            )}
             <Button component={Link} href="/order-list" sx={{ color: "white" }}>
               Список заказов
+            </Button>
+            <Button component={Link} href="/kanban" sx={{ color: "white" }}>
+              Доска
+            </Button>
+            {role === "Администратор" && (
+              <Button component={Link} href="/reports" sx={{ color: "white" }}>
+                Отчеты
+              </Button>
+            )}
+            {role === "Администратор" && (
+              <Button
+                component={Link}
+                href="/employers"
+                sx={{ color: "white" }}
+              >
+                Команда
+              </Button>
+            )}
+            <Button component={Link} href="/customers" sx={{ color: "white" }}>
+              Заказчики
             </Button>
           </Box>
           <Box sx={{ flexGrow: 0, ml: "auto" }}>
