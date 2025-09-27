@@ -6,91 +6,82 @@ import { Grid, Typography, Button, Paper, Box } from "@mui/material";
 import Input from "@/components/input/input";
 
 interface FormValues {
-    email: string;
-    password: string;
+  login: string;
+  password: string;
 }
 
 export default function Login() {
-    const router = useRouter();
+  const router = useRouter();
 
-    const submit = async ({ email, password }: FormValues) => {
-        const res = await fetch("/api/login", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ email, password }),
-        });
-
-        const data = await res.json();
-        if (data.success) router.push("/");
-    };
-
-    const form = useForm<FormValues>({
-        defaultValues: {
-            email: "admin@example.com",
-            password: "123456",
-        },
+  const submit = async ({ login, password }: FormValues) => {
+    const res = await fetch("/api/login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ login, password }),
     });
 
-    return (
-        <FormProvider {...form}>
-            <Grid
-                container
-                justifyContent="center"
-                alignItems="center"
-                sx={{ minHeight: "100vh" }}
-            >
-                <Paper
-                    elevation={3}
-                    sx={{
-                        p: 4,
-                        borderRadius: 2,
-                        width: "100%",
-                        maxWidth: 700,
-                        mx: "auto",
-                    }}
+    const data = await res.json();
+    if (data.success) router.push("/");
+  };
+
+  const form = useForm<FormValues>({
+    defaultValues: {
+      login: "ivandmitrachkov",
+      password: "123456",
+    },
+  });
+
+  return (
+    <FormProvider {...form}>
+      <Grid
+        container
+        justifyContent="center"
+        alignItems="center"
+        sx={{ minHeight: "100vh" }}
+      >
+        <Paper
+          elevation={3}
+          sx={{
+            p: 4,
+            borderRadius: 2,
+            width: "100%",
+            maxWidth: 700,
+            mx: "auto",
+          }}
+        >
+          <Typography variant="h5" align="center" fontWeight="bold" mb={4}>
+            Вход
+          </Typography>
+
+          <Box component="form" onSubmit={form.handleSubmit(submit)}>
+            <Grid container spacing={3} direction="column">
+              <Grid>
+                <Input label="Login" name="login" placeholder="+73423423434" />
+              </Grid>
+
+              <Grid>
+                <Input
+                  label="Password"
+                  name="password"
+                  type="password"
+                  placeholder="Введите пароль"
+                />
+              </Grid>
+
+              <Grid>
+                <Button
+                  type="submit"
+                  variant="contained"
+                  fullWidth
+                  sx={{ py: 1.5 }}
                 >
-                    <Typography
-                        variant="h5"
-                        align="center"
-                        fontWeight="bold"
-                        mb={4}
-                    >
-                        Вход
-                    </Typography>
-
-                    <Box component="form" onSubmit={form.handleSubmit(submit)}>
-                        <Grid container spacing={3} direction="column">
-                            <Grid >
-                                <Input
-                                    label="Login"
-                                    name="email"
-                                    placeholder="+73423423434"
-                                />
-                            </Grid>
-
-                            <Grid >
-                                <Input
-                                    label="Password"
-                                    name="password"
-                                    type="password"
-                                    placeholder="Введите пароль"
-                                />
-                            </Grid>
-
-                            <Grid >
-                                <Button
-                                    type="submit"
-                                    variant="contained"
-                                    fullWidth
-                                    sx={{ py: 1.5 }}
-                                >
-                                    Войти
-                                </Button>
-                            </Grid>
-                        </Grid>
-                    </Box>
-                </Paper>
+                  Войти
+                </Button>
+              </Grid>
             </Grid>
-        </FormProvider>
-    );
+          </Box>
+        </Paper>
+      </Grid>
+    </FormProvider>
+  );
 }
