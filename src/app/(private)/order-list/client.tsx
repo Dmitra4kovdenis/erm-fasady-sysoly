@@ -10,8 +10,8 @@ import {
   Chip,
   ToggleButtonGroup,
   ToggleButton,
+  Box,
 } from "@mui/material";
-import EditIcon from "@mui/icons-material/Edit";
 import { OrdersType } from "@/prisma-helpers/get-orders";
 import dayjs from "dayjs";
 import { useRouter } from "next/navigation";
@@ -24,21 +24,50 @@ interface OrderListProps {
   orders: OrdersType;
 }
 
+function pluralize(num: number, titles: string[]): string {
+  return titles[
+    num % 10 === 1 && num % 100 !== 11
+      ? 0
+      : num % 10 >= 2 && num % 10 <= 4 && (num % 100 < 10 || num % 100 >= 20)
+        ? 1
+        : 2
+  ];
+}
+
 const getDelayVariant = (date: Date) => {
   const now = dayjs();
-  const difference = dayjs(date).diff(now, "days");
+  const difference = dayjs(date).diff(now, "days") + 1;
 
-  const displayDate = dayjs(date).format("D MMMM YYYY");
+  if (difference === 0)
+    return (
+      <Chip size="small" label="Сегодня" color="warning" variant="outlined" />
+    );
 
-  if (difference < -2) {
-    return <Chip label={displayDate} color="error" variant="filled" />;
-  }
+  const title = pluralize(Math.abs(difference), [" день", " дня", " дней"]);
 
   if (difference < 0) {
-    return <Chip label={displayDate} color="error" variant="outlined" />;
+    return (
+      <Chip
+        size="small"
+        label={Math.abs(difference) + title}
+        color="error"
+        variant="filled"
+      />
+    );
   }
 
-  return displayDate;
+  if (difference < 2) {
+    return (
+      <Chip
+        size="small"
+        label={difference + title}
+        color="warning"
+        variant="outlined"
+      />
+    );
+  }
+
+  return null;
 };
 
 function OrderListClient({ orders }: OrderListProps) {
@@ -99,7 +128,12 @@ function OrderListClient({ orders }: OrderListProps) {
               <TableCell>
                 {dayjs(order.startDate).format("D MMMM YYYY")}
               </TableCell>
-              <TableCell>{getDelayVariant(order.endDate)}</TableCell>
+              <TableCell>
+                <Box sx={{ display: "flex", gap: 1, alignItems: "center" }}>
+                  <Box>{dayjs(order.endDate).format("D MMMM YYYY")}</Box>
+                  {getDelayVariant(order.endDate)}
+                </Box>
+              </TableCell>
               <TableCell align="center">
                 <IconButton
                   color="primary"

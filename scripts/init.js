@@ -10,26 +10,47 @@ async function main() {
   const hashedPassword = await bcrypt.hash("123456", 10); // пароль "123456"
 
   try {
-    const user = await prisma.user.create({
-      data: {
-        email: "admin@example.com",
-        name: "Администратор",
-        role: "admin",
-        password: hashedPassword,
-      },
+    await prisma.user.createMany({
+      data: [
+        {
+          email: "admin@example.com",
+          name: "Иван Дмитрачков",
+          role: "Администратор",
+          password: hashedPassword,
+        },
+        {
+          email: "worker@example.com",
+          name: "Михаил Андреев",
+          role: "Мастер",
+          password: hashedPassword,
+        },
+        {
+          email: "customer@example.com",
+          name: "Заказчик",
+          role: "Заказчик",
+          password: hashedPassword,
+        },
+      ],
     });
-    console.log("Создан пользователь:", user);
   } catch {}
   try {
     await prisma.handle.createMany({
       data: [
         {
           id: 0,
-          title: "Ручка типа L",
+          title: "Без ручки",
         },
         {
           id: 1,
+          title: "Ручка типа L",
+        },
+        {
+          id: 2,
           title: "Ручка типа C",
+        },
+        {
+          id: 3,
+          title: "Ручка типа U",
         },
       ],
     });
@@ -44,6 +65,10 @@ async function main() {
         {
           id: 1,
           title: "Фасад Классик",
+        },
+        {
+          id: 2,
+          title: "Фасад Контик",
         },
       ],
     });
@@ -101,17 +126,17 @@ async function main() {
       data: [
         {
           id: 0,
-          name: "Иван Петров",
+          name: "Иван Петров (Леруа Мерлен)",
           phone: "73243242134",
         },
         {
           id: 1,
-          name: "Сергей Бурунов",
+          name: "Андрей Васильев (Любимая Кухня)",
           phone: "73243242134",
         },
         {
           id: 2,
-          name: "Леруа Мерлен",
+          name: "Юлия Сергеева (ООО Шкафы и тумбочки)",
           phone: "73243242136",
         },
       ],
