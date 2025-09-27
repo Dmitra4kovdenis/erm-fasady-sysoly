@@ -44,38 +44,52 @@ function OrderDetailClient({ statuses, order }: OrderDetailClientProps) {
       <DialogContent>
         <Box sx={{ mt: 2 }}>
           <Grid container spacing={5} mb={5}>
-            <Grid>
-              <Typography variant="subtitle2">Заказчик</Typography>
+            <Grid size={3}>
+              <Typography variant="subtitle2" color="textSecondary">
+                Заказчик
+              </Typography>
               <Typography variant="body1">{order.customer.name}</Typography>
             </Grid>
-            <Grid>
-              <Typography variant="subtitle2">Вид работ</Typography>
+            <Grid size={3}>
+              <Typography variant="subtitle2" color="textSecondary">
+                Вид работ
+              </Typography>
               <Typography variant="body1">{order.workType}</Typography>
             </Grid>
-            <Grid>
-              <Typography variant="subtitle2">Адрес доставки</Typography>
+            <Grid size={3}>
+              <Typography variant="subtitle2" color="textSecondary">
+                Адрес доставки
+              </Typography>
               <Typography variant="body1">{order.deliveryAddress}</Typography>
             </Grid>
 
-            <Grid>
-              <Typography variant="subtitle2">Дата приёмки</Typography>
+            <Grid size={3}>
+              <Typography variant="subtitle2" color="textSecondary">
+                Дата приёмки
+              </Typography>
               <Typography variant="body1">
                 {dayjs(order.startDate).format("D MMMM YYYY")}
               </Typography>
             </Grid>
-            <Grid>
-              <Typography variant="subtitle2">Дата выдачи</Typography>
+            <Grid size={3}>
+              <Typography variant="subtitle2" color="textSecondary">
+                Дата выдачи
+              </Typography>
               <Typography variant="body1">
                 {dayjs(order.endDate).format("D MMMM YYYY")}
               </Typography>
             </Grid>
-            <Grid>
-              <Typography variant="subtitle2">Аванс</Typography>
+            <Grid size={3}>
+              <Typography variant="subtitle2" color="textSecondary">
+                Аванс
+              </Typography>
               <Typography variant="body1">{order.advance}</Typography>
             </Grid>
 
-            <Grid>
-              <Typography variant="subtitle2">Скидка</Typography>
+            <Grid size={3}>
+              <Typography variant="subtitle2" color="textSecondary">
+                Скидка
+              </Typography>
               <Typography variant="body1">{order.discount}</Typography>
             </Grid>
           </Grid>
