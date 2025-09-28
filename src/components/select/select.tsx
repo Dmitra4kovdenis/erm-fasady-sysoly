@@ -16,16 +16,22 @@ interface InputProps {
   label: string;
   options: SelectOption[];
   name: string;
+  required?: boolean;
 }
 
-export default function Select({ label, options, name }: InputProps) {
+export default function Select({
+  label,
+  options,
+  name,
+  required = true,
+}: InputProps) {
   const { control } = useFormContext();
 
   return (
     <Controller
       name={name}
       control={control}
-      rules={{ required: "Выберите цвет" }}
+      rules={{ required: required && "Поле обязательно" }}
       render={({ field, fieldState }) => {
         const fieldError = fieldState.error;
 

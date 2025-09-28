@@ -27,6 +27,21 @@ async function main() {
     ],
   });
 
+  // создаем типы специалистов
+  await prisma.workType.createMany({
+    data: [
+      {
+        title: "Резчик",
+      },
+      {
+        title: "Маляр",
+      },
+      {
+        title: "Упаковщик",
+      },
+    ],
+  });
+
   await prisma.user.create({
     data: {
       login: "ivandmitrachkov",

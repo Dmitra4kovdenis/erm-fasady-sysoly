@@ -63,11 +63,7 @@ function HeaderClient({ name, role }: HeaderClientProps) {
               </Button>
             )}
             {role === "Администратор" && (
-              <Button
-                component={Link}
-                href="/employers"
-                sx={{ color: "white" }}
-              >
+              <Button component={Link} href="/workers" sx={{ color: "white" }}>
                 Команда
               </Button>
             )}
