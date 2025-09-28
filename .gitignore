@@ -51,5 +51,4 @@ storybook-static
 /prisma/dev.db
 
 yarn.lock
-!/prisma/ERD.svg
 /prisma/ERD.svg
