@@ -7,7 +7,10 @@ async function Header() {
   if (!userData) return null;
 
   return (
-    <HeaderClient name={userData.name ?? userData.email} role={userData.role} />
+    <HeaderClient
+      name={userData.name ?? userData.login}
+      role={userData.role.title}
+    />
   );
 }
 

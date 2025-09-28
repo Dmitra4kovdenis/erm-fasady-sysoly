@@ -44,7 +44,6 @@ export default function AddOrderClient({
   const form = useForm({
     defaultValues: {
       items: [defaultFields],
-      customerId: 0,
     },
     mode: "onChange",
     resolver: zodResolver(OrderModel),

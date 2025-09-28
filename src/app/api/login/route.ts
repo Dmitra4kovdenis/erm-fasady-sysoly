@@ -5,9 +5,9 @@ import bcrypt from "bcryptjs";
 import * as jwt from "jsonwebtoken";
 
 export async function POST(req: Request) {
-  const { email, password } = await req.json();
+  const { login, password } = await req.json();
 
-  const user = await prisma.user.findUnique({ where: { email } });
+  const user = await prisma.user.findUnique({ where: { login } });
   if (!user)
     return NextResponse.json(
       { error: "Пользователь не найден" },
@@ -18,11 +18,9 @@ export async function POST(req: Request) {
   if (!isValid)
     return NextResponse.json({ error: "Неверный пароль" }, { status: 401 });
 
-  const token = jwt.sign(
-    { id: user.id, role: user.role },
-    process.env.JWT_SECRET!,
-    { expiresIn: "7d" },
-  );
+  const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET!, {
+    expiresIn: "7d",
+  });
 
   const res = NextResponse.json({ success: true });
   res.cookies.set({

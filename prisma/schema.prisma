@@ -13,70 +13,149 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+// пользователь как модель для авторизации
 model User {
-  id       Int     @id @default(autoincrement())
-  email    String  @unique
-  name     String?
-  role     String  // "admin" | "manager" | "worker"
-  password String
+  id           Int            @id @default(autoincrement())
+  login        String         @unique
+  roleId       Int
+  role         Role           @relation(fields: [roleId], references: [id])
+  password     String
+  customerId   Int?           @unique
+  customer     Customer?      @relation(fields: [customerId], references: [id])
+  workerId     Int?           @unique
+  worker       Worker?        @relation(fields: [workerId], references: [id])
+  adminId      Int?           @unique
+  admin        Admin?         @relation(fields: [adminId], references: [id])
+  createdAt    DateTime       @default(now())
+  comments     WorkComment[]
+  orderHistory OrderHistory[]
 }
 
+model Role {
+  id    Int    @id @default(autoincrement())
+  title String
+  users User[]
+}
+
+// заказчик
 model Customer {
-  id       Int      @id @default(autoincrement())
-  name     String
-  phone    String
-  orders   Order[]
-}
-
-model Handle {
-  id          Int      @id @default(autoincrement())
-  title       String
-  fasades     Facade[]
-}
-
-model Milling {
-  id          Int      @id @default(autoincrement())
-  title       String
-  fasades     Facade[]
-}
-
-model Facade {
-  id          Int      @id @default(autoincrement())
-  height      Float
-  width       Float
-  thickness   Float
-  handle      Handle @relation(fields: [handleId], references: [id])
-  handleId    Int
-  radius      Float
-  milling     Milling @relation(fields: [millingId], references: [id])
-  millingId   Int
-  color       String
-  count       Int
-  order       Order @relation(fields: [orderId], references: [id])
-  orderId     Int
-}
-
-model OrderStatus {
-  id          Int           @id @default(autoincrement())
-  title       String
-  index       Int
-  slug        String
+  id          Int     @id @default(autoincrement())
+  name        String
+  phone       String
+  companyName String
   orders      Order[]
+  user        User?
 }
 
+// специалист
+model Worker {
+  id     Int      @id @default(autoincrement())
+  name   String
+  phone  String
+  user   User?
+  typeId Int
+  type   WorkType @relation(fields: [typeId], references: [id])
+}
+
+// администратор
+model Admin {
+  id    Int    @id @default(autoincrement())
+  name  String
+  phone String
+  user  User?
+}
+
+// тип работника (кровельщик, маляр, упаковщик)
+model WorkType {
+  id     Int           @id @default(autoincrement())
+  title  String
+  worker Worker[]
+  status OrderStatus[]
+}
+
+// интегрированные ручки
+model Handle {
+  id      Int      @id @default(autoincrement())
+  title   String
+  fasades Facade[]
+}
+
+// фрезеровки
+model Milling {
+  id      Int      @id @default(autoincrement())
+  title   String
+  fasades Facade[]
+}
+
+// фасады
+model Facade {
+  id        Int     @id @default(autoincrement())
+  height    Float
+  width     Float
+  thickness Float
+  handle    Handle  @relation(fields: [handleId], references: [id])
+  handleId  Int
+  radius    Float
+  milling   Milling @relation(fields: [millingId], references: [id])
+  millingId Int
+  color     String
+  count     Int
+  order     Order   @relation(fields: [orderId], references: [id])
+  orderId   Int
+}
+
+// статус работы
+model OrderStatus {
+  id         Int       @id @default(autoincrement())
+  title      String
+  index      Int
+  slug       String
+  orders     Order[]
+  workTypeId Int?
+  workType   WorkType? @relation(fields: [workTypeId], references: [id])
+}
+
+model WorkComment {
+  id        Int       @id @default(autoincrement())
+  text      String?
+  timeSpent DateTime?
+  createdAt DateTime  @default(now())
+  orderId   Int
+  order     Order     @relation(fields: [orderId], references: [id])
+  userId    Int
+  user      User      @relation(fields: [userId], references: [id])
+}
+
+model OrderHistory {
+  id          Int      @id @default(autoincrement())
+  text        String
+  createdAt   DateTime @default(now())
+  orderId     Int
+  order       Order    @relation(fields: [orderId], references: [id])
+  initiatorId Int
+  initiator   User     @relation(fields: [initiatorId], references: [id])
+}
+
+// заказ
 model Order {
-  id              Int        @id @default(autoincrement())
-  createdAt       DateTime   @default(now())
-  customer        Customer   @relation(fields: [customerId], references: [id])
+  id              Int            @id @default(autoincrement())
+  createdAt       DateTime       @default(now())
+  customer        Customer       @relation(fields: [customerId], references: [id])
   customerId      Int
   items           Facade[]
-  orderNumber     Int        @unique
+  orderNumber     Int            @unique
   deliveryAddress String
   workType        String
   startDate       DateTime
   endDate         DateTime
   advance         Float
   discount        Float
-  status          OrderStatus @relation(fields: [statusId], references: [id])
+  status          OrderStatus    @relation(fields: [statusId], references: [id])
   statusId        Int
+  orderHistory    OrderHistory[]
+  workComments    WorkComment[]
+}
+
+generator erd {
+  provider = "prisma-erd-generator"
 }

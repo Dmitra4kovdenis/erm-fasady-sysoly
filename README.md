@@ -19,7 +19,14 @@
 4. Узнать статус `npx prisma migrate status`
 
 
-Удаление данных в БД `npx prisma migrate reset`
+### Команды работы с Prisma
+* Удаление данных в БД `npx prisma migrate reset`
+* Генерация клиента Prisma `npx prisma generate`
+* Открыть веб-интерфейс `npx prisma studio`
+* Сгенерировать картинку со связями `npx prisma generate`
+* Синхронизация схемы `npx prisma db push`
+* Применение миграций `npx prisma migrate deploy`
+* 
 
 
 

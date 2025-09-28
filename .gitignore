@@ -18,6 +18,8 @@
 /.next/
 /out/
 
+/prisma/ERD.svg
+
 # production
 /build
 
@@ -49,3 +51,4 @@ storybook-static
 /prisma/dev.db
 
 yarn.lock
+/prisma/ERD.svg

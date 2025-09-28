@@ -10,14 +10,15 @@ export async function getUserData() {
   const token = cookiesData.get("token")?.value;
   if (!token) return null;
 
-  try {
-    const { payload } = await jose.jwtVerify(token, secret);
+  const { payload } = await jose.jwtVerify(token, secret);
 
-    return await prisma.user.findUnique({
-      where: { id: payload.id as number },
-      select: { id: true, email: true, name: true, role: true },
-    });
-  } catch {
-    return null;
-  }
+  return prisma.user.findFirst({
+    where: { id: payload.id as number },
+    include: {
+      customer: true,
+      admin: true,
+      role: true,
+      worker: true,
+    },
+  });
 }
