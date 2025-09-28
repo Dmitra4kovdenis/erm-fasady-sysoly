@@ -9,6 +9,7 @@ export const getOrderDetail = async (orderNumber: number) => {
     },
     include: {
       customer: true,
+      worker: true,
       items: {
         include: {
           handle: true,

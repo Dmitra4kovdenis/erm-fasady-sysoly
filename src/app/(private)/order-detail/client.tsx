@@ -8,6 +8,8 @@ import { Info } from "@/app/(private)/order-detail/components/info";
 import { StatusBar } from "@/app/(private)/order-detail/components/status-bar";
 import { Facades } from "@/app/(private)/order-detail/components/facades";
 import { Comments } from "@/app/(private)/order-detail/components/comments";
+import { Profiles } from "@/app/(private)/order-detail/components/profiles";
+import { UserData } from "@/prisma-helpers/get-user-data";
 
 interface OrderDetailClientProps {
   order: NonNullable<OrderDetailType>;
@@ -15,9 +17,14 @@ interface OrderDetailClientProps {
     value: number;
     label: string;
   }[];
+  userData: UserData;
 }
 
-function OrderDetailClient({ statuses, order }: OrderDetailClientProps) {
+function OrderDetailClient({
+  statuses,
+  order,
+  userData,
+}: OrderDetailClientProps) {
   const { push } = useRouter();
   const pathname = usePathname();
 
@@ -31,6 +38,9 @@ function OrderDetailClient({ statuses, order }: OrderDetailClientProps) {
           <Grid container spacing={2}>
             <Grid size={{ lg: 8 }}>
               <Info order={order} />
+            </Grid>
+            <Grid size={{ lg: 4 }}>
+              <Profiles order={order} userData={userData} />
             </Grid>
           </Grid>
           <Facades order={order} />

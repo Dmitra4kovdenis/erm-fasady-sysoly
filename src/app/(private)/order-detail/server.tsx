@@ -3,6 +3,7 @@
 import { getOrderDetail } from "@/prisma-helpers/get-order-detail";
 import { getStatuses } from "@/prisma-helpers/get-statuses";
 import OrderDetailClient from "@/app/(private)/order-detail/client";
+import { getUserData } from "@/prisma-helpers/get-user-data";
 
 async function OrderDetailServer({
   orderNumber,
@@ -13,7 +14,9 @@ async function OrderDetailServer({
 
   const result = await getOrderDetail(+orderNumber);
 
-  if (!result) return null;
+  const userData = await getUserData();
+
+  if (!result || !userData) return null;
 
   const statuses = await getStatuses();
 
@@ -22,7 +25,13 @@ async function OrderDetailServer({
     value: item.id,
   }));
 
-  return <OrderDetailClient order={result} statuses={statusesOptions} />;
+  return (
+    <OrderDetailClient
+      userData={userData}
+      order={result}
+      statuses={statusesOptions}
+    />
+  );
 }
 
 export default OrderDetailServer;
