@@ -1,4 +1,4 @@
-import AddOrderClient from "@/app/(private)/add-order/client";
+import { AddOrderClient } from "@/app/(private)/add-order/client";
 import { getCustomers } from "@/prisma-helpers/get-customers";
 import { getMillings } from "@/prisma-helpers/get-millings";
 import { getHandles } from "@/prisma-helpers/get-handles";

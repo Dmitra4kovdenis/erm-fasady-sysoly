@@ -6,7 +6,7 @@ import IconButton from "@mui/material/IconButton";
 import IconDelete from "@mui/icons-material/Delete";
 import { useFieldArray, useForm, FormProvider } from "react-hook-form";
 import { OrderModel } from "@/zod-models/order-model";
-import { Button, Container, Typography } from "@mui/material";
+import { Box, Button, Container, Typography } from "@mui/material";
 import Select, { SelectOption } from "@/components/select/select";
 import Grid from "@mui/material/Grid";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -36,7 +36,7 @@ interface AddOrderClientProps {
   millings: SelectOption[];
 }
 
-export default function AddOrderClient({
+export function AddOrderClient({
   customers,
   handles,
   millings,
@@ -65,25 +65,29 @@ export default function AddOrderClient({
 
   return (
     <FormProvider {...form}>
-      <Container sx={{ mb: "100px" }}>
+      <Box sx={{ mb: "100px", maxWidth: "1200px", margin: "0 auto" }}>
         <Typography variant="h1" component="h1">
           Добавление нового заказа
         </Typography>
         <Grid container spacing={2} sx={{ mt: "50px" }}>
-          <Grid size={8}>
+          <Grid size={{ xs: 12, lg: 8 }}>
             <Select label="Заказчик" options={customers} name={"customerId"} />
           </Grid>
-          <Grid size={4} />
-          <Grid size={3}>
+          <Grid size={{ xs: 12, lg: 4 }} />
+
+          <Grid size={{ lg: 3, xs: 12 }}>
             <DatePicker label="Дата приемки" name="startDate" />
           </Grid>
-          <Grid size={3}>
+
+          <Grid size={{ lg: 3, xs: 12 }}>
             <DatePicker label="Дата выдачи" name="endDate" />
           </Grid>
-          <Grid size={10}>
+
+          <Grid size={{ lg: 6, xs: 12 }}>
             <Input multiline label="Адрес доставки" name="deliveryAddress" />
           </Grid>
-          <Grid size={10}>
+
+          <Grid size={{ lg: 12, xs: 12 }}>
             <Input multiline label="Вид работ" name="workType" />
           </Grid>
         </Grid>
@@ -193,7 +197,7 @@ export default function AddOrderClient({
         >
           Добавить заказ
         </Button>
-      </Container>
+      </Box>
     </FormProvider>
   );
 }
