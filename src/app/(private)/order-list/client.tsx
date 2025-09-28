@@ -19,6 +19,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import styles from "./order-list.module.scss";
 import VisibilityIcon from "@mui/icons-material/Visibility";
+import Timelapse from "@mui/icons-material/Timelapse";
 
 interface OrderListProps {
   orders: OrdersType;
@@ -139,7 +140,18 @@ function OrderListClient({ orders }: OrderListProps) {
               <TableCell align="center">
                 <IconButton
                   color="primary"
-                  onClick={() => push(`?orderNumber=${order.orderNumber}`)}
+                  onClick={() => push(`?timelineId=${order.id}`)}
+                  sx={{
+                    "&:hover": {
+                      backgroundColor: "rgb(237 108 2 / 21%)",
+                    },
+                  }}
+                >
+                  <Timelapse />
+                </IconButton>
+                <IconButton
+                  color="primary"
+                  onClick={() => push(`?orderNumber=${order.id}`)}
                   sx={{
                     "&:hover": {
                       backgroundColor: "rgb(237 108 2 / 21%)",

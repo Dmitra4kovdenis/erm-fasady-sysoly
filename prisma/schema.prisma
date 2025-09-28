@@ -49,13 +49,14 @@ model Customer {
 
 // специалист
 model Worker {
-  id           Int      @id @default(autoincrement())
-  name         String
-  phone        String
-  user         User?
-  typeId       Int
-  type         WorkType @relation(fields: [typeId], references: [id])
-  activeOrders Order[]
+  id            Int            @id @default(autoincrement())
+  name          String
+  phone         String
+  user          User?
+  typeId        Int
+  type          WorkType       @relation(fields: [typeId], references: [id])
+  activeOrders  Order[]
+  workTimelines WorkTimeline[]
 }
 
 // администратор
@@ -107,13 +108,14 @@ model Facade {
 
 // статус работы
 model OrderStatus {
-  id         Int       @id @default(autoincrement())
-  title      String
-  index      Int
-  slug       String
-  orders     Order[]
-  workTypeId Int?
-  workType   WorkType? @relation(fields: [workTypeId], references: [id])
+  id            Int            @id @default(autoincrement())
+  title         String
+  index         Int
+  slug          String
+  orders        Order[]
+  workTypeId    Int?
+  workType      WorkType?      @relation(fields: [workTypeId], references: [id])
+  workTimelines WorkTimeline[]
 }
 
 model WorkComment {
@@ -125,6 +127,20 @@ model WorkComment {
   order     Order     @relation(fields: [orderId], references: [id])
   userId    Int
   user      User      @relation(fields: [userId], references: [id])
+}
+
+model WorkTimeline {
+  id        Int         @id @default(autoincrement())
+  comment   String?
+  dateStart DateTime
+  dateEnd   DateTime
+  createdAt DateTime    @default(now())
+  orderId   Int
+  order     Order       @relation(fields: [orderId], references: [id])
+  workerId  Int
+  worker    Worker      @relation(fields: [workerId], references: [id])
+  statusId  Int
+  status    OrderStatus @relation(fields: [statusId], references: [id])
 }
 
 model OrderHistory {
@@ -156,7 +172,8 @@ model Order {
   orderHistory    OrderHistory[]
   workComments    WorkComment[]
   workerId        Int?
-  worker          Worker?         @relation(fields: [workerId], references: [id])
+  worker          Worker?        @relation(fields: [workerId], references: [id])
+  timeLines       WorkTimeline[]
 }
 
 generator erd {

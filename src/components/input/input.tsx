@@ -11,7 +11,7 @@ export default function Input({
   label,
   name,
   required = true,
-  ...props
+  multiline,
 }: InputProps) {
   const { control } = useFormContext();
 
@@ -25,6 +25,7 @@ export default function Input({
       render={({ field, fieldState }) => {
         return (
           <TextField
+            multiline={multiline}
             variant="outlined"
             fullWidth
             label={label}
