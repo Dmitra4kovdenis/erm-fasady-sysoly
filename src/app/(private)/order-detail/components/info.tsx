@@ -60,10 +60,6 @@ export function Info({ order }: InfoProps) {
             <Typography variant="body1">{order.discount}</Typography>
           </Grid>
         </Grid>
-
-        <Typography variant="h6" gutterBottom>
-          Фасады Фасады
-        </Typography>
       </Box>
     </>
   );

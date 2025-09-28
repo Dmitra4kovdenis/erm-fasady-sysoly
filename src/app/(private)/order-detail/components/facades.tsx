@@ -6,6 +6,7 @@ import {
   TableCell,
   TableRow,
   TableBody,
+  Typography,
 } from "@mui/material";
 
 interface InfoProps {
@@ -15,6 +16,9 @@ interface InfoProps {
 export function Facades({ order }: InfoProps) {
   return (
     <>
+      <Typography variant="h6" gutterBottom>
+        Фасады Фасады
+      </Typography>
       <Box marginBottom={10} sx={{ maxWidth: "100%", overflowX: "auto" }}>
         <Table>
           <TableHead>

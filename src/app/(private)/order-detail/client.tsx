@@ -7,6 +7,7 @@ import { PrintButtons } from "@/app/(private)/order-detail/components/print-butt
 import { Info } from "@/app/(private)/order-detail/components/info";
 import { StatusBar } from "@/app/(private)/order-detail/components/status-bar";
 import { Facades } from "@/app/(private)/order-detail/components/facades";
+import { Comments } from "@/app/(private)/order-detail/components/comments";
 
 interface OrderDetailClientProps {
   order: NonNullable<OrderDetailType>;
@@ -33,6 +34,7 @@ function OrderDetailClient({ statuses, order }: OrderDetailClientProps) {
             </Grid>
           </Grid>
           <Facades order={order} />
+          <Comments />
           <StatusBar statuses={statuses} order={order} onClose={onClose} />
           <PrintButtons />
         </Box>
