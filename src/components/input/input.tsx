@@ -4,9 +4,15 @@ import { useFormError } from "@/hooks/use-field-error";
 
 interface InputProps extends OutlinedInputProps {
   name: string;
+  required?: boolean;
 }
 
-export default function Input({ label, name, ...props }: InputProps) {
+export default function Input({
+  label,
+  name,
+  required = true,
+  ...props
+}: InputProps) {
   const { control } = useFormContext();
 
   const fieldError = useFormError(name);
@@ -15,7 +21,7 @@ export default function Input({ label, name, ...props }: InputProps) {
     <Controller
       name={name}
       control={control}
-      rules={{ required: "Выберите цвет" }}
+      rules={{ required: required && "Поле обязательно" }}
       render={({ field, fieldState }) => {
         return (
           <TextField
