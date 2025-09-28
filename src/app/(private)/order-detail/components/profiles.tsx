@@ -9,21 +9,14 @@ interface ProfilesProps {
 }
 
 export function Profiles({ order, userData }: ProfilesProps) {
-  if (userData.admin) {
-    return (
-      <>
-        <Typography variant="h6">Не назначена</Typography>
-        Назначить
-      </>
-    );
-  }
+  const isAdmin = !order.worker;
 
   if (!order.worker)
     return (
       <>
         <Typography variant="h6">Не назначена</Typography>
 
-        {userData.worker && (
+        {userData.worker && !isAdmin && (
           <Button
             color="primary"
             variant={"contained"}
@@ -60,29 +53,30 @@ export function Profiles({ order, userData }: ProfilesProps) {
           </Typography>
         </Grid>
       </Grid>
-      {isMyOrder ? (
-        <Button
-          size="small"
-          variant="contained"
-          sx={{ marginTop: 2 }}
-          onClick={async () => {
-            await removeWorker(order.id, userData.id);
-          }}
-        >
-          Закончить работу
-        </Button>
-      ) : (
-        <Button
-          size="small"
-          variant="contained"
-          sx={{ marginTop: 2 }}
-          onClick={async () => {
-            await setWorker(order.id, userData.id);
-          }}
-        >
-          Взять в работу
-        </Button>
-      )}
+      {isAdmin &&
+        (isMyOrder ? (
+          <Button
+            size="small"
+            variant="contained"
+            sx={{ marginTop: 2 }}
+            onClick={async () => {
+              await removeWorker(order.id, userData.id);
+            }}
+          >
+            Закончить работу
+          </Button>
+        ) : (
+          <Button
+            size="small"
+            variant="contained"
+            sx={{ marginTop: 2 }}
+            onClick={async () => {
+              await setWorker(order.id, userData.id);
+            }}
+          >
+            Взять в работу
+          </Button>
+        ))}
     </>
   );
 }
