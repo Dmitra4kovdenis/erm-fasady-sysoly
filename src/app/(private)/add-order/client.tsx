@@ -70,10 +70,9 @@ export function AddOrderClient({
           Добавление нового заказа
         </Typography>
         <Grid container spacing={2} sx={{ mt: "50px" }}>
-          <Grid size={{ xs: 12, lg: 8 }}>
+          <Grid size={{ xs: 12, lg: 12 }}>
             <Select label="Заказчик" options={customers} name={"customerId"} />
           </Grid>
-          <Grid size={{ xs: 12, lg: 4 }} />
 
           <Grid size={{ lg: 3, xs: 12 }}>
             <DatePicker label="Дата приемки" name="startDate" />
@@ -110,45 +109,43 @@ export function AddOrderClient({
             }}
           >
             <div className={css.number}>{index + 1}</div>
-            <Grid size={3}>
+            <Grid size={{ lg: 4, xs: 12 }}>
               <Input label="Высота, мм" name={`items.${index}.height`} />
             </Grid>
-            <Grid size={3}>
+            <Grid size={{ lg: 4, xs: 12 }}>
               <Input label="Ширина, мм" name={`items.${index}.width`} />
             </Grid>
-            <Grid size={3}>
+            <Grid size={{ lg: 4, xs: 12 }}>
               <Input label="Толщина" name={`items.${index}.thickness`} />
             </Grid>
-            <Grid size={3} />
-            <Grid size={3}>
+            <Grid size={{ lg: 4, xs: 12 }}>
               <Select
                 label="Ручка интегрированная"
                 options={handles}
                 name={`items.${index}.handleId`}
               />
             </Grid>
-            <Grid size={3}>
+            <Grid size={{ lg: 4, xs: 12 }}>
               <Select
                 label="Радиус завала торца"
                 name={`items.${index}.radius`}
                 options={radiusOptions}
               />
             </Grid>
-            <Grid size={3}>
+            <Grid size={{ lg: 4, xs: 12 }}>
               <Select
                 label="Фрезеровка"
                 options={millings}
                 name={`items.${index}.millingId`}
               />
             </Grid>
-            <Grid size={3} />
-            <Grid size={3}>
+            <Grid size={{ lg: 4, xs: 12 }}>
               <Input label="Цвет" name={`items.${index}.color`} />
             </Grid>
-            <Grid size={3}>
+            <Grid size={{ lg: 4, xs: 12 }}>
               <Input label="Количество" name={`items.${index}.count`} />
             </Grid>
-            <Grid size={3}>
+            <Grid size={{ lg: 4, xs: 12 }}>
               <FieldFacadeArea index={index} />
             </Grid>
             <IconButton onClick={() => remove(index)} className={css.remove}>
@@ -168,21 +165,21 @@ export function AddOrderClient({
         </Grid>
 
         <Grid container spacing={2} sx={{ mt: 4 }}>
-          <Grid size={3}>
+          <Grid size={{ lg: 4, xs: 12 }}>
             <Input label="Стоимость 1 м.кв.,руб." name="facadePrice" />
           </Grid>
-          <Grid size={3}>
+          <Grid size={{ lg: 4, xs: 12 }}>
             <Input label="Интегрированная ручка, руб." name="handlePrice" />
           </Grid>
         </Grid>
         <Grid container spacing={2} sx={{ mt: 4 }}>
-          <Grid size={3}>
+          <Grid size={{ lg: 4, xs: 12 }}>
             <Input label="Прочие услуги, руб" name="otherServicePrice" />
           </Grid>
-          <Grid size={3}>
+          <Grid size={{ lg: 4, xs: 12 }}>
             <Input label="Аванс" name="advance" />
           </Grid>
-          <Grid size={3}>
+          <Grid size={{ lg: 4, xs: 12 }}>
             <Input label="Скидка" name="discount" />
           </Grid>
         </Grid>
