@@ -26,18 +26,22 @@ function KanbanClient({
 
   const onDragEnd = async (event: DragEndEvent) => {
     const { over, active } = event;
-
     if (!over) return;
 
     const orderId = +active.id;
     const newStatusId = +over.id;
 
+    // костыль, чтобы карточка не пропадала при не перемещении
+    let a = true;
+
     const _columns = Object.entries(columns).reduce(
       (acc, [statusId, orderIds]) => {
         if (orderIds.includes(orderId)) {
           acc[+statusId] = orderIds.filter((item) => item !== orderId);
+          a = !a;
         } else if (newStatusId === +statusId) {
           acc[+statusId] = orderIds.concat(orderId);
+          a = !a;
         } else {
           acc[+statusId] = orderIds;
         }
@@ -46,12 +50,14 @@ function KanbanClient({
       },
       {} as Record<number, number[]>,
     );
-    setColumns(_columns);
-    await updateStatus({
-      statusId: newStatusId,
-      id: orderId,
-      revalidate: false,
-    });
+    if (a) {
+      setColumns(_columns);
+      await updateStatus({
+        statusId: newStatusId,
+        id: orderId,
+        revalidate: false,
+      });
+    }
   };
 
   if (!columns) {
