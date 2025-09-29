@@ -5,6 +5,7 @@ import { DndContext, DragEndEvent } from "@dnd-kit/core";
 import { Column } from "@/app/(private)/kanban/components/column";
 import { updateStatus } from "@/actions/update-status";
 import type { OrdersType, StatusesType } from "@/app/(private)/kanban/page";
+import { Box } from "@mui/material";
 
 interface KanbanClientProps {
   ordersObj: Record<number, OrdersType[0]>;
@@ -58,19 +59,21 @@ function KanbanClient({
   }
 
   return (
-    <DndContext onDragEnd={onDragEnd}>
-      <div className={css.wrapper}>
-        {Object.entries(columns).map(([columnId, orders]) => (
-          <Column
-            title={statusesObj[+columnId].title}
-            id={+columnId}
-            orders={orders}
-            ordersObj={ordersObj}
-            key={columnId}
-          />
-        ))}
-      </div>
-    </DndContext>
+    <Box overflow="auto" width={"100%"}>
+      <DndContext onDragEnd={onDragEnd}>
+        <div className={css.wrapper}>
+          {Object.entries(columns).map(([columnId, orders]) => (
+            <Column
+              title={statusesObj[+columnId].title}
+              id={+columnId}
+              orders={orders}
+              ordersObj={ordersObj}
+              key={columnId}
+            />
+          ))}
+        </div>
+      </DndContext>
+    </Box>
   );
 }
 
