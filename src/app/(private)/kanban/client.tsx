@@ -1,37 +1,57 @@
 "use client";
 import { useEffect, useState } from "react";
 import css from "./order-list.module.scss";
-import { getColumns, GetColumnsType } from "@/app/(private)/kanban/actions";
 import { DndContext, DragEndEvent } from "@dnd-kit/core";
 import { Column } from "@/app/(private)/kanban/components/column";
 import { updateStatus } from "@/actions/update-status";
+import type { OrdersType, StatusesType } from "@/app/(private)/kanban/page";
 
 interface KanbanClientProps {
-  columns: GetColumnsType;
+  ordersObj: Record<number, OrdersType[0]>;
+  statusesObj: Record<number, StatusesType[0]>;
+  columns: Record<number, number[]>;
 }
 
-function KanbanClient({ columns: columnsDefault }: KanbanClientProps) {
+function KanbanClient({
+  ordersObj,
+  columns: columnsDefault,
+  statusesObj,
+}: KanbanClientProps) {
   const [columns, setColumns] = useState(columnsDefault);
 
-  const fetchOrders = async () => {
-    const result = await getColumns();
-    setColumns(result);
-  };
+  useEffect(() => {
+    setColumns(columnsDefault);
+  }, [columnsDefault]);
 
   const onDragEnd = async (event: DragEndEvent) => {
     const { over, active } = event;
 
     if (!over) return;
 
+    const orderId = +active.id;
+    const newStatusId = +over.id;
+
+    const _columns = Object.entries(columns).reduce(
+      (acc, [statusId, orderIds]) => {
+        if (orderIds.includes(orderId)) {
+          acc[+statusId] = orderIds.filter((item) => item !== orderId);
+        } else if (newStatusId === +statusId) {
+          acc[+statusId] = orderIds.concat(orderId);
+        } else {
+          acc[+statusId] = orderIds;
+        }
+
+        return acc;
+      },
+      {} as Record<number, number[]>,
+    );
+    setColumns(_columns);
     await updateStatus({
-      statusId: +over.id,
-      id: +active.id,
+      statusId: newStatusId,
+      id: orderId,
+      revalidate: false,
     });
   };
-
-  useEffect(() => {
-    fetchOrders();
-  }, [columnsDefault]);
 
   if (!columns) {
     return null;
@@ -40,8 +60,14 @@ function KanbanClient({ columns: columnsDefault }: KanbanClientProps) {
   return (
     <DndContext onDragEnd={onDragEnd}>
       <div className={css.wrapper}>
-        {columns.map((column) => (
-          <Column {...column} key={column.slug} />
+        {Object.entries(columns).map(([columnId, orders]) => (
+          <Column
+            title={statusesObj[+columnId].title}
+            id={+columnId}
+            orders={orders}
+            ordersObj={ordersObj}
+            key={columnId}
+          />
         ))}
       </div>
     </DndContext>

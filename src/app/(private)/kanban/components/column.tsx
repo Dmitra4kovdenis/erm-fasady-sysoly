@@ -1,10 +1,17 @@
 import css from "@/app/(private)/kanban/order-list.module.scss";
 import { useDroppable } from "@dnd-kit/core";
 import { Order } from "@/app/(private)/kanban/components/order";
-import { ColumnType } from "@/app/(private)/kanban/actions";
 import cn from "classnames";
+import type { OrdersType } from "@/app/(private)/kanban/page";
 
-export function Column({ id, title, orders }: ColumnType) {
+interface ColumnType {
+  id: number;
+  ordersObj: Record<number, OrdersType[0]>;
+  orders: number[];
+  title: string;
+}
+
+export function Column({ id, ordersObj, orders, title }: ColumnType) {
   const { setNodeRef, isOver } = useDroppable({
     id,
   });
@@ -17,7 +24,7 @@ export function Column({ id, title, orders }: ColumnType) {
     >
       <div className={css.header}>{title}</div>
       {orders?.map((order) => (
-        <Order key={order.id} {...order} />
+        <Order key={order} {...ordersObj[order]} />
       ))}
     </div>
   );

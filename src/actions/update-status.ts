@@ -6,9 +6,11 @@ import { revalidatePath } from "next/cache";
 export const updateStatus = async ({
   statusId,
   id,
+  revalidate = true,
 }: {
   id: number;
   statusId: number;
+  revalidate?: boolean;
 }) => {
   await prisma.order.update({
     where: {
@@ -18,5 +20,5 @@ export const updateStatus = async ({
       statusId,
     },
   });
-  revalidatePath("/");
+  if (revalidate) revalidatePath("/");
 };
