@@ -20,19 +20,10 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import Timelapse from "@mui/icons-material/Timelapse";
+import { pluralize } from "@/utils";
 
 interface OrderListProps {
   orders: OrdersType;
-}
-
-function pluralize(num: number, titles: string[]): string {
-  return titles[
-    num % 10 === 1 && num % 100 !== 11
-      ? 0
-      : num % 10 >= 2 && num % 10 <= 4 && (num % 100 < 10 || num % 100 >= 20)
-        ? 1
-        : 2
-  ];
 }
 
 const getDelayVariant = (date: Date) => {
@@ -47,14 +38,7 @@ const getDelayVariant = (date: Date) => {
   const title = pluralize(Math.abs(difference), [" день", " дня", " дней"]);
 
   if (difference < 0) {
-    return (
-      <Chip
-        size="small"
-        label={Math.abs(difference) + title}
-        color="error"
-        variant="filled"
-      />
-    );
+    return <Chip size="small" label={title} color="error" variant="filled" />;
   }
 
   if (difference < 2) {

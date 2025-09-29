@@ -22,6 +22,9 @@ const getOrders = async () =>
         },
       ],
     },
+    include: {
+      worker: true,
+    },
   });
 
 const getStatuses = async () => {

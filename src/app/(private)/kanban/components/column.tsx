@@ -3,6 +3,7 @@ import { useDroppable } from "@dnd-kit/core";
 import { Order } from "@/app/(private)/kanban/components/order";
 import cn from "classnames";
 import type { OrdersType } from "@/app/(private)/kanban/page";
+import { pluralize } from "@/utils";
 
 interface ColumnType {
   id: number;
@@ -22,7 +23,10 @@ export function Column({ id, ordersObj, orders, title }: ColumnType) {
       key={id}
       ref={setNodeRef}
     >
-      <div className={css.header}>{title}</div>
+      <div className={css.header}>
+        {title}
+        <span>{pluralize(orders.length, ["задача", "задачи", "задач"])}</span>
+      </div>
       {orders?.map((order) => (
         <Order key={order} {...ordersObj[order]} />
       ))}

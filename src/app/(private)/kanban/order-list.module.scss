@@ -26,6 +26,15 @@
   padding: 8px 0;
   margin-bottom: 8px;
   font-weight: bold;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  & span {
+    font-weight: normal;
+    color: #5a5a5a;
+    font-size: 12px;
+  }
 }
 
 .card {
