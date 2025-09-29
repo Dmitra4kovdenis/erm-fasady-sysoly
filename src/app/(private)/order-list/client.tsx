@@ -11,13 +11,13 @@ import {
   ToggleButtonGroup,
   ToggleButton,
   Box,
+  Grid,
 } from "@mui/material";
 import { OrdersType } from "@/prisma-helpers/get-orders";
 import dayjs from "dayjs";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import styles from "./order-list.module.scss";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import Timelapse from "@mui/icons-material/Timelapse";
 
@@ -85,28 +85,38 @@ function OrderListClient({ orders }: OrderListProps) {
 
   return (
     <>
-      <div className={styles.container}>
-        <ToggleButtonGroup
-          color="warning"
-          value={currentValue}
-          exclusive
-          aria-label="orders-navigation"
-        >
-          <ToggleButton
-            value="Текущие заказы"
-            component={Link}
-            href="/order-list"
+      <Grid
+        container
+        justifyContent="space-between"
+        alignItems="center"
+        spacing={2}
+        marginBottom={4}
+      >
+        <Grid>
+          <Typography variant="h5" sx={{ p: 2 }}>
+            Список заказов
+          </Typography>
+        </Grid>
+        <Grid>
+          <ToggleButtonGroup
+            color="warning"
+            value={currentValue}
+            exclusive
+            aria-label="orders-navigation"
           >
-            Текущие заказы
-          </ToggleButton>
-          <ToggleButton value="Архив" component={Link} href="/archive-list">
-            Архив
-          </ToggleButton>
-        </ToggleButtonGroup>
-        <Typography variant="h5" sx={{ p: 2 }}>
-          Список заказов
-        </Typography>
-      </div>
+            <ToggleButton
+              value="Текущие заказы"
+              component={Link}
+              href="/order-list"
+            >
+              Текущие заказы
+            </ToggleButton>
+            <ToggleButton value="Архив" component={Link} href="/archive-list">
+              Архив
+            </ToggleButton>
+          </ToggleButtonGroup>
+        </Grid>
+      </Grid>
       <Table>
         <TableHead>
           <TableRow>

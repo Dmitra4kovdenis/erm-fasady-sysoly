@@ -1,13 +1,13 @@
 import { ReactNode } from "react";
 import Header from "@/components/header/header";
-import css from "./layout.module.scss";
+import { Box, Container } from "@mui/material";
 
 const Layout = ({ children }: { children: ReactNode }) => {
   return (
-    <div className={css.container}>
+    <Box pt={16}>
       <Header />
-      <div className={css.content}>{children}</div>
-    </div>
+      <Container maxWidth="lg">{children}</Container>
+    </Box>
   );
 };
 

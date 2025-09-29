@@ -8,14 +8,13 @@ import {
   Typography,
   ToggleButtonGroup,
   ToggleButton,
-  Fab,
+  Grid,
 } from "@mui/material";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import dayjs from "dayjs";
 import { usePathname, useRouter } from "next/navigation";
 import { ArchiveOrdersType } from "@/prisma-helpers/get-archive-orders";
 import Link from "next/link";
-import styles from "@/app/(private)/order-list/order-list.module.scss";
 import IconButton from "@mui/material/IconButton";
 
 interface ArchiveProps {
@@ -35,28 +34,38 @@ function ArchiveListClient({ orders }: ArchiveProps) {
   }
   return (
     <>
-      <div className={styles.container}>
-        <ToggleButtonGroup
-          color="warning"
-          value={currentValue}
-          exclusive
-          aria-label="orders-navigation"
-        >
-          <ToggleButton
-            value="Текущие заказы"
-            component={Link}
-            href="/order-list"
+      <Grid
+        container
+        justifyContent="space-between"
+        alignItems="center"
+        spacing={2}
+        marginBottom={4}
+      >
+        <Grid>
+          <Typography variant="h5" sx={{ p: 2 }}>
+            Список заказов
+          </Typography>
+        </Grid>
+        <Grid>
+          <ToggleButtonGroup
+            color="warning"
+            value={currentValue}
+            exclusive
+            aria-label="orders-navigation"
           >
-            Текущие заказы
-          </ToggleButton>
-          <ToggleButton value="Архив" component={Link} href="/archive-list">
-            Архив
-          </ToggleButton>
-        </ToggleButtonGroup>
-        <Typography variant="h5" sx={{ p: 2 }}>
-          Список заказов
-        </Typography>
-      </div>
+            <ToggleButton
+              value="Текущие заказы"
+              component={Link}
+              href="/order-list"
+            >
+              Текущие заказы
+            </ToggleButton>
+            <ToggleButton value="Архив" component={Link} href="/archive-list">
+              Архив
+            </ToggleButton>
+          </ToggleButtonGroup>
+        </Grid>
+      </Grid>
       <Table>
         <TableHead>
           <TableRow>
