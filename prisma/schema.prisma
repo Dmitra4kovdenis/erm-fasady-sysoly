@@ -155,25 +155,65 @@ model OrderHistory {
 
 // заказ
 model Order {
-  id              Int            @id @default(autoincrement())
-  createdAt       DateTime       @default(now())
-  customer        Customer       @relation(fields: [customerId], references: [id])
+  id              Int      @id @default(autoincrement())
+  // дата создания записи (генерация)
+  createdAt       DateTime @default(now())
+  // номер заказа
+  orderNumber     Int      @unique
+  // заказчик
+  customer        Customer @relation(fields: [customerId], references: [id])
   customerId      Int
-  items           Facade[]
-  orderNumber     Int            @unique
+  // адрес доставки
   deliveryAddress String
+  // вид работы (позже настроим генерацию)
   workType        String
+  // дата приемки
   startDate       DateTime
+  // запланированная дата выдачи
   endDate         DateTime
-  advance         Float
-  discount        Float
-  status          OrderStatus    @relation(fields: [statusId], references: [id])
-  statusId        Int
-  orderHistory    OrderHistory[]
-  workComments    WorkComment[]
-  workerId        Int?
-  worker          Worker?        @relation(fields: [workerId], references: [id])
-  timeLines       WorkTimeline[]
+  // список фасадов в заказе
+  items           Facade[]
+  // общая площадь, считаем по фасадам
+  totalArea             Float
+  // стоимость метра в квадрате
+  unitCost              Float
+  // стоимость прямых фасадов
+  costOfStraightFacades Float
+  // площадь фрезеровки
+  millingArea           Float
+  // стоимость фрезеровки
+  costOfMilling         Float
+  // интегрированная ручка, метры
+  handleLength          Float
+  // цена интегрированной ручки
+  costOfHandle          Float
+  // прочие услуги, цена
+  costOtherServices     Float
+  // прочие услуги, описание
+  otherServices         String
+  // итоговая цена
+  summPrice             Float
+  // скидка
+  discount              Float
+  // общая стоимость
+  totalPrice            Float
+  // аванс
+  prepayment            Float
+  // остаток
+  remainder             Float
+  // число фасадов
+  itemsCount            Int
+  // статус
+  status                OrderStatus    @relation(fields: [statusId], references: [id])
+  statusId              Int
+  // история изменений
+  orderHistory          OrderHistory[]
+  // комментарии по заказу
+  workComments          WorkComment[]
+  // активные работники
+  workers               Worker[]
+  // трудо затраты
+  timeLines             WorkTimeline[]
 }
 
 generator erd {
