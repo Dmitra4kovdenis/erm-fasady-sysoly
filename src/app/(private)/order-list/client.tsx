@@ -21,6 +21,8 @@ import { usePathname } from "next/navigation";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import Timelapse from "@mui/icons-material/Timelapse";
 import { pluralize } from "@/utils";
+import { PageContainer } from "@/components/page-container/page-container";
+import { ScrollOverflow } from "@/components/scroll-overflow/scroll-overflow";
 
 interface OrderListProps {
   orders: OrdersType;
@@ -68,7 +70,7 @@ function OrderListClient({ orders }: OrderListProps) {
   }
 
   return (
-    <>
+    <PageContainer>
       <Grid
         container
         justifyContent="space-between"
@@ -101,65 +103,67 @@ function OrderListClient({ orders }: OrderListProps) {
           </ToggleButtonGroup>
         </Grid>
       </Grid>
-      <Table>
-        <TableHead>
-          <TableRow>
-            <TableCell># Заказа</TableCell>
-            <TableCell>Заказчик</TableCell>
-            <TableCell>Мастер</TableCell>
-            <TableCell>Статус</TableCell>
-            <TableCell>Заказ</TableCell>
-            <TableCell>Время начала</TableCell>
-            <TableCell>Дедлайн</TableCell>
-            <TableCell align="center">Действия</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {orders.map((order) => (
-            <TableRow key={order.orderNumber}>
-              <TableCell>{order.orderNumber}</TableCell>
-              <TableCell>{order.customer.name}</TableCell>
-              <TableCell>{order.worker?.name ?? "Не назначено"}</TableCell>
-              <TableCell>{order.status.title}</TableCell>
-              <TableCell>{order.workType}</TableCell>
-              <TableCell>
-                {dayjs(order.startDate).format("D MMMM YYYY")}
-              </TableCell>
-              <TableCell>
-                <Box sx={{ display: "flex", gap: 1, alignItems: "center" }}>
-                  <Box>{dayjs(order.endDate).format("D MMMM YYYY")}</Box>
-                  {getDelayVariant(order.endDate)}
-                </Box>
-              </TableCell>
-              <TableCell align="center">
-                <IconButton
-                  color="primary"
-                  onClick={() => push(`?timelineId=${order.id}`)}
-                  sx={{
-                    "&:hover": {
-                      backgroundColor: "rgb(237 108 2 / 21%)",
-                    },
-                  }}
-                >
-                  <Timelapse />
-                </IconButton>
-                <IconButton
-                  color="primary"
-                  onClick={() => push(`?orderNumber=${order.id}`)}
-                  sx={{
-                    "&:hover": {
-                      backgroundColor: "rgb(237 108 2 / 21%)",
-                    },
-                  }}
-                >
-                  <VisibilityIcon />
-                </IconButton>
-              </TableCell>
+      <ScrollOverflow>
+        <Table>
+          <TableHead>
+            <TableRow>
+              <TableCell># Заказа</TableCell>
+              <TableCell>Заказчик</TableCell>
+              <TableCell>Мастер</TableCell>
+              <TableCell>Статус</TableCell>
+              <TableCell>Заказ</TableCell>
+              <TableCell>Время начала</TableCell>
+              <TableCell>Дедлайн</TableCell>
+              <TableCell align="center">Действия</TableCell>
             </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </>
+          </TableHead>
+          <TableBody>
+            {orders.map((order) => (
+              <TableRow key={order.orderNumber}>
+                <TableCell>{order.orderNumber}</TableCell>
+                <TableCell>{order.customer.name}</TableCell>
+                <TableCell>{order.worker?.name ?? "Не назначено"}</TableCell>
+                <TableCell>{order.status.title}</TableCell>
+                <TableCell>{order.workType}</TableCell>
+                <TableCell>
+                  {dayjs(order.startDate).format("D MMMM YYYY")}
+                </TableCell>
+                <TableCell>
+                  <Box sx={{ display: "flex", gap: 1, alignItems: "center" }}>
+                    <Box>{dayjs(order.endDate).format("D MMMM YYYY")}</Box>
+                    {getDelayVariant(order.endDate)}
+                  </Box>
+                </TableCell>
+                <TableCell align="center">
+                  <IconButton
+                    color="primary"
+                    onClick={() => push(`?timelineId=${order.id}`)}
+                    sx={{
+                      "&:hover": {
+                        backgroundColor: "rgb(237 108 2 / 21%)",
+                      },
+                    }}
+                  >
+                    <Timelapse />
+                  </IconButton>
+                  <IconButton
+                    color="primary"
+                    onClick={() => push(`?orderNumber=${order.id}`)}
+                    sx={{
+                      "&:hover": {
+                        backgroundColor: "rgb(237 108 2 / 21%)",
+                      },
+                    }}
+                  >
+                    <VisibilityIcon />
+                  </IconButton>
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </ScrollOverflow>
+    </PageContainer>
   );
 }
 

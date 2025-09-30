@@ -1,6 +1,5 @@
 import { prisma } from "@/prisma-helpers/prisma";
 import { ClientWorkers } from "@/app/(private)/workers/client";
-import { Container } from "@mui/material";
 
 const getWorkers = async () => {
   return prisma.worker.findMany({
@@ -22,10 +21,6 @@ async function Page() {
   const workers = await getWorkers();
   const workTypes = await getWorkTypes();
 
-  return (
-    <Container>
-      <ClientWorkers workTypes={workTypes} workers={workers} />
-    </Container>
-  );
+  return <ClientWorkers workTypes={workTypes} workers={workers} />;
 }
 export default Page;

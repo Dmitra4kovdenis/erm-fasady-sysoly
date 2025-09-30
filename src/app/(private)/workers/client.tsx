@@ -12,6 +12,8 @@ import {
 import { WorkerList, WorkTypes } from "@/app/(private)/workers/page";
 import { FormAddWorker } from "@/app/(private)/workers/components/form-add-worker";
 import { useState } from "react";
+import { PageContainer } from "@/components/page-container/page-container";
+import { ScrollOverflow } from "@/components/scroll-overflow/scroll-overflow";
 
 interface ClientWorkers {
   workers: WorkerList;
@@ -23,36 +25,38 @@ export function ClientWorkers({ workers, workTypes }: ClientWorkers) {
   const [editId, setEditId] = useState<undefined | number>(undefined);
 
   return (
-    <>
+    <PageContainer>
       <Typography variant="h1">Специалисты</Typography>
       <Box mb={2}>
         <Button variant="contained" onClick={() => setEditId(-1)}>
           Добавить Специалиста
         </Button>
       </Box>
-      <Table>
-        <TableBody>
-          {workers.map((worker) => (
-            <TableRow key={worker.id}>
-              <TableCell>{worker.id}</TableCell>
-              <TableCell>{worker.name}</TableCell>
-              <TableCell>{worker.phone}</TableCell>
-              <TableCell>{worker.type.title}</TableCell>
-              <TableCell>{worker.user?.login}</TableCell>
-              <TableCell align="right">
-                <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-                  <Button
-                    variant="contained"
-                    onClick={() => setEditId(worker.id)}
-                  >
-                    Редактировать
-                  </Button>
-                </Box>
-              </TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
+      <ScrollOverflow>
+        <Table>
+          <TableBody>
+            {workers.map((worker) => (
+              <TableRow key={worker.id}>
+                <TableCell>{worker.id}</TableCell>
+                <TableCell>{worker.name}</TableCell>
+                <TableCell>{worker.phone}</TableCell>
+                <TableCell>{worker.type.title}</TableCell>
+                <TableCell>{worker.user?.login}</TableCell>
+                <TableCell align="right">
+                  <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+                    <Button
+                      variant="contained"
+                      onClick={() => setEditId(worker.id)}
+                    >
+                      Редактировать
+                    </Button>
+                  </Box>
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </ScrollOverflow>
       {editId !== undefined && (
         <FormAddWorker
           onClose={() => setEditId(undefined)}
@@ -61,6 +65,6 @@ export function ClientWorkers({ workers, workTypes }: ClientWorkers) {
           workTypes={workTypes}
         />
       )}
-    </>
+    </PageContainer>
   );
 }

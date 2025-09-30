@@ -16,6 +16,8 @@ import { usePathname, useRouter } from "next/navigation";
 import { ArchiveOrdersType } from "@/prisma-helpers/get-archive-orders";
 import Link from "next/link";
 import IconButton from "@mui/material/IconButton";
+import { PageContainer } from "@/components/page-container/page-container";
+import { ScrollOverflow } from "@/components/scroll-overflow/scroll-overflow";
 
 interface ArchiveProps {
   orders: ArchiveOrdersType;
@@ -33,7 +35,7 @@ function ArchiveListClient({ orders }: ArchiveProps) {
     currentValue = "Архив";
   }
   return (
-    <>
+    <PageContainer>
       <Grid
         container
         justifyContent="space-between"
@@ -66,49 +68,51 @@ function ArchiveListClient({ orders }: ArchiveProps) {
           </ToggleButtonGroup>
         </Grid>
       </Grid>
-      <Table>
-        <TableHead>
-          <TableRow>
-            <TableCell># Заказа</TableCell>
-            <TableCell>Заказчик</TableCell>
-            <TableCell>Статус</TableCell>
-            <TableCell>Заказ</TableCell>
-            <TableCell>Время начала</TableCell>
-            <TableCell>Дедлайн</TableCell>
-            <TableCell align="center">Действия</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {orders.map((order) => (
-            <TableRow key={order.orderNumber}>
-              <TableCell>{order.orderNumber}</TableCell>
-              <TableCell>{order.customer.name}</TableCell>
-              <TableCell>{order.status.title}</TableCell>
-              <TableCell>{order.workType}</TableCell>
-              <TableCell>
-                {dayjs(order.startDate).format("D MMMM YYYY")}
-              </TableCell>
-              <TableCell>
-                {dayjs(order.endDate).format("D MMMM YYYY")}
-              </TableCell>
-              <TableCell align="center">
-                <IconButton
-                  color="primary"
-                  onClick={() => push(`?orderNumber=${order.orderNumber}`)}
-                  sx={{
-                    "&:hover": {
-                      backgroundColor: "rgb(237 108 2 / 21%)",
-                    },
-                  }}
-                >
-                  <VisibilityIcon />
-                </IconButton>
-              </TableCell>
+      <ScrollOverflow>
+        <Table>
+          <TableHead>
+            <TableRow>
+              <TableCell># Заказа</TableCell>
+              <TableCell>Заказчик</TableCell>
+              <TableCell>Статус</TableCell>
+              <TableCell>Заказ</TableCell>
+              <TableCell>Время начала</TableCell>
+              <TableCell>Дедлайн</TableCell>
+              <TableCell align="center">Действия</TableCell>
             </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </>
+          </TableHead>
+          <TableBody>
+            {orders.map((order) => (
+              <TableRow key={order.orderNumber}>
+                <TableCell>{order.orderNumber}</TableCell>
+                <TableCell>{order.customer.name}</TableCell>
+                <TableCell>{order.status.title}</TableCell>
+                <TableCell>{order.workType}</TableCell>
+                <TableCell>
+                  {dayjs(order.startDate).format("D MMMM YYYY")}
+                </TableCell>
+                <TableCell>
+                  {dayjs(order.endDate).format("D MMMM YYYY")}
+                </TableCell>
+                <TableCell align="center">
+                  <IconButton
+                    color="primary"
+                    onClick={() => push(`?orderNumber=${order.orderNumber}`)}
+                    sx={{
+                      "&:hover": {
+                        backgroundColor: "rgb(237 108 2 / 21%)",
+                      },
+                    }}
+                  >
+                    <VisibilityIcon />
+                  </IconButton>
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </ScrollOverflow>
+    </PageContainer>
   );
 }
 

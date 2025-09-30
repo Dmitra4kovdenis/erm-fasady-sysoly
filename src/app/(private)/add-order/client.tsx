@@ -6,7 +6,7 @@ import IconButton from "@mui/material/IconButton";
 import IconDelete from "@mui/icons-material/Delete";
 import { useFieldArray, useForm, FormProvider } from "react-hook-form";
 import { OrderModel } from "@/zod-models/order-model";
-import { Box, Button, Container, Typography } from "@mui/material";
+import { Button, Typography } from "@mui/material";
 import Select, { SelectOption } from "@/components/select/select";
 import Grid from "@mui/material/Grid";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -16,6 +16,7 @@ import { radiusOptions } from "@/app/(private)/add-order/constants";
 import { FieldFacadeArea } from "@/app/(private)/add-order/components/field-facade-area";
 import { useRouter } from "next/navigation";
 import { TableResults } from "@/app/(private)/add-order/components/table-results";
+import { PageContainer } from "@/components/page-container/page-container";
 
 const defaultFields = {
   height: "",
@@ -64,8 +65,8 @@ export function AddOrderClient({
   });
 
   return (
-    <FormProvider {...form}>
-      <Box sx={{ mb: "100px", maxWidth: "1200px", margin: "0 auto" }}>
+    <PageContainer size="m">
+      <FormProvider {...form}>
         <Typography variant="h1" component="h1">
           Добавление нового заказа
         </Typography>
@@ -100,9 +101,10 @@ export function AddOrderClient({
             sx={{
               mt: 5,
               background: "#fafafa",
-              p: 2,
-              pl: 8,
-              pr: 12,
+              pt: { xs: 10 },
+              pl: { lg: 8, xs: 2 },
+              pr: { lg: 12, xs: 2 },
+              pb: { lg: 2, xs: 10 },
               border: "1px solid #ddd",
               borderRadius: 2,
               position: "relative",
@@ -194,7 +196,7 @@ export function AddOrderClient({
         >
           Добавить заказ
         </Button>
-      </Box>
-    </FormProvider>
+      </FormProvider>
+    </PageContainer>
   );
 }
