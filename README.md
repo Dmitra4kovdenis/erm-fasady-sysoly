@@ -29,8 +29,8 @@
 
 ### Когда сильно изменилась БД
 1. Сброс данных `npx prisma migrate reset`
-2. Протолкнуть изменения в БД `npx prisma db push`
-3. Генерация клиента Prisma `npx prisma generate`
+2. Генерация клиента Prisma `npx prisma generate`
+3. Протолкнуть изменения в БД `npx prisma db push`
 4. Обновить начальные значения БД `npm run initialize`
  
 
