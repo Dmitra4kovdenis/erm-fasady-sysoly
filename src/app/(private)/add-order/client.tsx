@@ -101,7 +101,7 @@ export function AddOrderClient({
             sx={{
               mt: 5,
               background: "#fafafa",
-              pt: { xs: 10 },
+              pt: { lg: 2, xs: 10 },
               pl: { lg: 8, xs: 2 },
               pr: { lg: 12, xs: 2 },
               pb: { lg: 2, xs: 10 },
