@@ -12,7 +12,7 @@ export const getOrders = async () => {
     include: {
       customer: true,
       status: true,
-      worker: true,
+      workers: true,
     },
     orderBy: {
       createdAt: "desc",
