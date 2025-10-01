@@ -7,25 +7,33 @@ import {
   TableRow,
 } from "@mui/material";
 import { OrderModelType } from "@/zod-models/order-model";
+import { calcFieldsByEditable } from "@/app/(private)/add-order/utils";
 
 export function TableResults() {
   const { watch } = useFormContext<OrderModelType>();
 
-  const { items } = watch();
+  const values = watch();
 
-  const allArea = items.reduce((acc, item) => {
-    const area: number = item.area ? +item.area : 0;
-    return acc + area;
-  }, 0);
+  const {
+    remainder,
+    millingArea,
+    costOfMilling,
+    costOfStraightFacades,
+    totalArea,
+    totalPrice,
+    summPrice,
+    itemsCount,
+  } = calcFieldsByEditable(values);
 
   const list = [
-    ["Общая площадь", allArea],
-    ["Стоимость прямых фасадов, руб.", 0],
-    ["Площадь фрезировки, м.кв", 0],
-    ["Стоимость фрезировки, руб.", 0],
-    ["Итого,руб.", 0],
-    ["Общая стоимость, руб", 0],
-    ["Фасадов, штук", items.length],
+    ["Общая площадь", totalArea],
+    ["Стоимость прямых фасадов, руб.", costOfStraightFacades],
+    ["Площадь фрезировки, м.кв", millingArea],
+    ["Стоимость фрезировки, руб.", costOfMilling],
+    ["Итого,руб.", summPrice],
+    ["Общая стоимость, руб", totalPrice],
+    ["Фасадов, штук", itemsCount],
+    ["Остаток", remainder],
   ];
 
   return (

@@ -1,9 +1,8 @@
 import { useFormContext } from "react-hook-form";
-import Input from "@/components/input/input";
-import { useLayoutEffect } from "react";
+import { Typography } from "@mui/material";
 
 export function FieldFacadeArea({ index }: { index: number }) {
-  const { watch, setValue } = useFormContext();
+  const { watch } = useFormContext();
 
   // слушаем указанные поля
   const height = +watch(`items.${index}.height`);
@@ -11,14 +10,11 @@ export function FieldFacadeArea({ index }: { index: number }) {
   const count = +watch(`items.${index}.count`);
 
   // площадь - произведение этих значений
-  const value = height * width * count;
+  const value = height * width * count * 0.001 * 0.001;
 
-  // при изменении площади записываем её в поле
-  useLayoutEffect(() => {
-    setValue(`items.${index}.area`, value || "", {
-      shouldTouch: true,
-    });
-  }, [index, setValue, value]);
-
-  return <Input label="Площадь" name={`items.${index}.area`} readOnly />;
+  return (
+    <Typography variant="body1" color="secondary">
+      Площадь: {value} км.м
+    </Typography>
+  );
 }

@@ -1,28 +1,29 @@
 "use server";
 
 import { prisma } from "@/prisma-helpers/prisma";
-import type { OrderModelType } from "@/zod-models/order-model";
+import type { OrderCreateModelType } from "@/zod-models/order-model";
+import { calcFieldsByEditable } from "@/app/(private)/add-order/utils";
 
 const firstStatus = 1_000_000;
 
-export const createOrder = async (data: OrderModelType) => {
+export const createOrder = async (values: OrderCreateModelType) => {
   const prevOrder = await prisma.order.findFirst({
     orderBy: {
       orderNumber: "desc",
     },
   });
 
-  const { allFacadesArea, ...bdData } = data;
-
   const orderNumber = prevOrder ? prevOrder.orderNumber + 1 : firstStatus;
+  const calcValues = calcFieldsByEditable(values);
 
   await prisma.order.create({
     data: {
-      ...bdData,
+      ...calcValues,
+      ...values,
       orderNumber,
       statusId: 0,
       items: {
-        create: data.items.map(({ area, ...item }) => item),
+        create: values.items.map((item) => item),
       },
     },
   });

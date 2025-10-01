@@ -5,7 +5,7 @@ import Input from "@/components/input/input";
 import IconButton from "@mui/material/IconButton";
 import IconDelete from "@mui/icons-material/Delete";
 import { useFieldArray, useForm, FormProvider } from "react-hook-form";
-import { OrderModel } from "@/zod-models/order-model";
+import { OrderCreateModel, orderFields } from "@/zod-models/order-model";
 import { Button, Typography } from "@mui/material";
 import Select, { SelectOption } from "@/components/select/select";
 import Grid from "@mui/material/Grid";
@@ -47,7 +47,7 @@ export function AddOrderClient({
       items: [defaultFields],
     },
     mode: "onChange",
-    resolver: zodResolver(OrderModel),
+    resolver: zodResolver(OrderCreateModel),
   });
 
   const { control, handleSubmit } = form;
@@ -72,23 +72,31 @@ export function AddOrderClient({
         </Typography>
         <Grid container spacing={2} sx={{ mt: "50px" }}>
           <Grid size={{ xs: 12, lg: 12 }}>
-            <Select label="Заказчик" options={customers} name={"customerId"} />
+            <Select
+              label="Заказчик"
+              options={customers}
+              name={orderFields.customerId}
+            />
           </Grid>
 
           <Grid size={{ lg: 3, xs: 12 }}>
-            <DatePicker label="Дата приемки" name="startDate" />
+            <DatePicker label="Дата приемки" name={orderFields.startDate} />
           </Grid>
 
           <Grid size={{ lg: 3, xs: 12 }}>
-            <DatePicker label="Дата выдачи" name="endDate" />
+            <DatePicker label="Дата выдачи" name={orderFields.endDate} />
           </Grid>
 
           <Grid size={{ lg: 6, xs: 12 }}>
-            <Input multiline label="Адрес доставки" name="deliveryAddress" />
+            <Input
+              multiline
+              label="Адрес доставки"
+              name={orderFields.deliveryAddress}
+            />
           </Grid>
 
           <Grid size={{ lg: 12, xs: 12 }}>
-            <Input multiline label="Вид работ" name="workType" />
+            <Input multiline label="Вид работ" name={orderFields.workType} />
           </Grid>
         </Grid>
 
@@ -168,21 +176,45 @@ export function AddOrderClient({
 
         <Grid container spacing={2} sx={{ mt: 4 }}>
           <Grid size={{ lg: 4, xs: 12 }}>
-            <Input label="Стоимость 1 м.кв.,руб." name="facadePrice" />
+            <Input label="Стоимость 1 м.кв.,руб." name={orderFields.unitCost} />
           </Grid>
           <Grid size={{ lg: 4, xs: 12 }}>
-            <Input label="Интегрированная ручка, руб." name="handlePrice" />
+            <Input
+              label="Интегрированная ручка, руб."
+              name={orderFields.costOfHandle}
+            />
+          </Grid>
+          <Grid size={{ lg: 4, xs: 12 }}>
+            <Input
+              label="Интегрированная ручка, метр."
+              name={orderFields.handleLength}
+            />
+          </Grid>
+          <Grid size={{ lg: 4, xs: 12 }}>
+            <Input
+              label="Площадь фрезировки, м.кв"
+              name={orderFields.millingArea}
+            />
           </Grid>
         </Grid>
         <Grid container spacing={2} sx={{ mt: 4 }}>
           <Grid size={{ lg: 4, xs: 12 }}>
-            <Input label="Прочие услуги, руб" name="otherServicePrice" />
+            <Input
+              label="Прочие услуги, описание"
+              name={orderFields.otherServices}
+            />
           </Grid>
           <Grid size={{ lg: 4, xs: 12 }}>
-            <Input label="Аванс" name="advance" />
+            <Input
+              label="Прочие услуги, руб"
+              name={orderFields.costOtherServices}
+            />
           </Grid>
           <Grid size={{ lg: 4, xs: 12 }}>
-            <Input label="Скидка" name="discount" />
+            <Input label="Аванс" name={orderFields.prepayment} />
+          </Grid>
+          <Grid size={{ lg: 4, xs: 12 }}>
+            <Input label="Скидка" name={orderFields.discount} />
           </Grid>
         </Grid>
 
