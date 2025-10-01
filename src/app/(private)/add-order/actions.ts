@@ -4,7 +4,17 @@ import { prisma } from "@/prisma-helpers/prisma";
 import type { OrderCreateModelType } from "@/zod-models/order-model";
 import { calcFieldsByEditable } from "@/app/(private)/add-order/utils";
 
-const firstStatus = 1_000_000;
+const generateOrderNumber = (prevOrderNumber: string = "") => {
+  const res = prevOrderNumber.split(" ");
+  const orderChar = res[0];
+  const orderNumber = +res[1];
+
+  if (!orderChar || !orderNumber) {
+    return "A 001";
+  }
+
+  return "A " + orderNumber + 1;
+};
 
 export const createOrder = async (values: OrderCreateModelType) => {
   const prevOrder = await prisma.order.findFirst({
@@ -13,7 +23,7 @@ export const createOrder = async (values: OrderCreateModelType) => {
     },
   });
 
-  const orderNumber = prevOrder ? prevOrder.orderNumber + 1 : firstStatus;
+  const orderNumber = generateOrderNumber(prevOrder?.orderNumber);
   const calcValues = calcFieldsByEditable(values);
 
   await prisma.order.create({

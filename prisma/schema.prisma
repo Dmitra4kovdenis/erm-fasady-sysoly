@@ -155,24 +155,24 @@ model OrderHistory {
 
 // заказ
 model Order {
-  id              Int      @id @default(autoincrement())
+  id                    Int            @id @default(autoincrement())
   // дата создания записи (генерация)
-  createdAt       DateTime @default(now())
+  createdAt             DateTime       @default(now())
   // номер заказа
-  orderNumber     Int      @unique
+  orderNumber           String         @unique
   // заказчик
-  customer        Customer @relation(fields: [customerId], references: [id])
-  customerId      Int
+  customer              Customer       @relation(fields: [customerId], references: [id])
+  customerId            Int
   // адрес доставки
-  deliveryAddress String
+  deliveryAddress       String
   // вид работы (позже настроим генерацию)
-  workType        String
+  workType              String
   // дата приемки
-  startDate       DateTime
+  startDate             DateTime
   // запланированная дата выдачи
-  endDate         DateTime
+  endDate               DateTime
   // список фасадов в заказе
-  items           Facade[]
+  items                 Facade[]
   // общая площадь, считаем по фасадам
   totalArea             Float
   // стоимость метра в квадрате
