@@ -1,4 +1,4 @@
-"use order-detail";
+"use server";
 
 import { prisma } from "@/prisma-helpers/prisma";
 
@@ -9,7 +9,7 @@ export const getOrderDetail = async (id: number) => {
     },
     include: {
       customer: true,
-      worker: true,
+      workers: true,
       items: {
         include: {
           handle: true,

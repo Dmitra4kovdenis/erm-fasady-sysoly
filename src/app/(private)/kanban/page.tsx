@@ -23,7 +23,7 @@ const getOrders = async () =>
       ],
     },
     include: {
-      worker: true,
+      workers: true,
     },
   });
 
