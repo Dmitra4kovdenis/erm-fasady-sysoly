@@ -7,15 +7,20 @@ import {
   editTimeline,
 } from "@/app/(private)/order-timeline/actions";
 import type { WorkTimeline } from "@prisma/client";
-import { OrderTimelinesType } from "@/app/(private)/order-timeline/order-timeline";
+import {
+  OrderTimelinesType,
+  Workers,
+} from "@/app/(private)/order-timeline/order-timeline";
+import Select from "@/components/select/select";
 
 interface FormAddTimelineProps {
   orderId: number;
-  workerId: number;
+  workerId?: number;
   statusId: number;
   editIndex: number;
   onClose: () => void;
   timelines: OrderTimelinesType;
+  workers: Workers;
 }
 
 export function FormAddTimeline({
@@ -25,19 +30,25 @@ export function FormAddTimeline({
   editIndex,
   onClose,
   timelines,
+  workers,
 }: FormAddTimelineProps) {
   const defaultValues = timelines.find((item) => item.id === editIndex);
 
   const form = useForm<WorkTimeline>({
     defaultValues: {
       orderId,
-      workerId,
+      workerId: defaultValues?.workerId ?? workerId,
       statusId,
       dateStart: defaultValues?.dateStart,
       dateEnd: defaultValues?.dateEnd,
       comment: defaultValues?.comment,
     },
   });
+
+  const options = workers.map((item) => ({
+    label: item.name,
+    value: item.id,
+  }));
 
   const submit = form.handleSubmit(async (values) => {
     if (editIndex === -1) {
@@ -54,6 +65,11 @@ export function FormAddTimeline({
       <DialogContent>
         <FormProvider {...form}>
           <Grid spacing={2} container>
+            {workerId === undefined && (
+              <Grid size={12}>
+                <Select label="Специалист" options={options} name="workerId" />
+              </Grid>
+            )}
             <Grid size={12}>
               <Input multiline label="Комментарий" name="comment" />
             </Grid>

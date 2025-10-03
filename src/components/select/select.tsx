@@ -9,7 +9,7 @@ import { Controller, useFormContext } from "react-hook-form";
 
 export interface SelectOption {
   label: string;
-  value: string;
+  value: string | number;
 }
 
 interface InputProps {

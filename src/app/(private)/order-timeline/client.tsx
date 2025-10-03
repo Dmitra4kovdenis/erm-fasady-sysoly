@@ -11,24 +11,29 @@ import {
   TableRow,
 } from "@mui/material";
 import { usePathname, useRouter } from "next/navigation";
-import { OrderTimelinesType } from "@/app/(private)/order-timeline/order-timeline";
+import {
+  OrderTimelinesType,
+  Workers,
+} from "@/app/(private)/order-timeline/order-timeline";
 import { FormAddTimeline } from "@/app/(private)/order-timeline/components/form-add-timeline";
 import { UserData } from "@/prisma-helpers/get-user-data";
 import { OrderDetailType } from "@/prisma-helpers/get-order-detail";
-import dayjs from "dayjs";
 import { IconEdit } from "@/icons";
 import { useState } from "react";
+import { formatDate } from "@/utils";
 
 interface ClientOrderTimelineProps {
   timelines: OrderTimelinesType;
   userData: UserData;
   order: NonNullable<OrderDetailType>;
+  workers: Workers;
 }
 
 export function ClientOrderTimeline({
   timelines,
   userData,
   order,
+  workers,
 }: ClientOrderTimelineProps) {
   const { push } = useRouter();
   const pathname = usePathname();
@@ -45,10 +50,10 @@ export function ClientOrderTimeline({
             <TableBody>
               {timelines.map((item) => (
                 <TableRow key={item.id}>
-                  <TableCell>{item.comment}</TableCell>
                   <TableCell>{item.worker.name}</TableCell>
-                  <TableCell>{dayjs(item.dateStart).toString()}</TableCell>
-                  <TableCell>{dayjs(item.dateEnd).toString()}</TableCell>
+                  <TableCell>{item.comment}</TableCell>
+                  <TableCell>{formatDate(item.dateStart)}</TableCell>
+                  <TableCell>{formatDate(item.dateEnd)}</TableCell>
                   <TableCell>
                     <IconButton onClick={() => setEditIndex(item.id)}>
                       <IconEdit />
@@ -67,14 +72,15 @@ export function ClientOrderTimeline({
           </Button>
         </DialogContent>
       </Dialog>
-      {editIndex && userData.workerId && (
+      {editIndex && (
         <FormAddTimeline
           onClose={() => setEditIndex(undefined)}
-          workerId={userData.workerId}
+          workerId={userData?.workerId ?? undefined}
           orderId={order.id}
           statusId={order.statusId}
           editIndex={editIndex}
           timelines={timelines}
+          workers={workers}
         />
       )}
     </>

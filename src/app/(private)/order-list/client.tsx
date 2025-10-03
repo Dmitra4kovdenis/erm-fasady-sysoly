@@ -86,12 +86,7 @@ function OrderListClient({ orders }: OrderListProps) {
           </Typography>
         </Grid>
         <Grid>
-          <ToggleButtonGroup
-            color="warning"
-            value={currentValue}
-            exclusive
-            aria-label="orders-navigation"
-          >
+          <ToggleButtonGroup color="warning" value={currentValue} exclusive>
             <ToggleButton
               value="Текущие заказы"
               component={Link}

@@ -4,7 +4,7 @@ import { getOrderDetail } from "@/prisma-helpers/get-order-detail";
 import { getUserData } from "@/prisma-helpers/get-user-data";
 
 const getOrderTimelines = async (orderId: number) => {
-  return await prisma.workTimeline.findMany({
+  return prisma.workTimeline.findMany({
     where: {
       orderId,
     },
@@ -13,6 +13,12 @@ const getOrderTimelines = async (orderId: number) => {
     },
   });
 };
+
+const getWorkers = async () => {
+  return prisma.worker.findMany();
+};
+
+export type Workers = Awaited<ReturnType<typeof getWorkers>>;
 
 export type OrderTimelinesType = Awaited<ReturnType<typeof getOrderTimelines>>;
 
@@ -31,6 +37,8 @@ export async function OrderTimeline({
     return null;
   }
 
+  const workers = await getWorkers();
+
   const timelines = await getOrderTimelines(+orderId);
 
   return (
@@ -38,6 +46,7 @@ export async function OrderTimeline({
       timelines={timelines}
       order={order}
       userData={userData}
+      workers={workers}
     />
   );
 }
