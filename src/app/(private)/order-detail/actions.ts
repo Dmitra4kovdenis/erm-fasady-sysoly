@@ -3,13 +3,17 @@
 import { prisma } from "@/prisma-helpers/prisma";
 import { revalidatePath } from "next/cache";
 
-export const setWorker = async (orderId: number, workerId: number) => {
+export const addWorker = async (orderId: number, workerId: number) => {
   await prisma.order.update({
     where: {
       id: orderId,
     },
     data: {
-      workerId,
+      workers: {
+        connect: {
+          id: workerId,
+        },
+      },
     },
   });
   revalidatePath("/");
@@ -21,7 +25,7 @@ export const removeWorker = async (orderId: number, workerId: number) => {
       id: orderId,
     },
     data: {
-      worker: {
+      workers: {
         disconnect: {
           id: workerId,
         },
