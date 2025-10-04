@@ -9,7 +9,7 @@ export default async function AddOrderPage() {
   const handles = await getHandles();
 
   const customersOptions = customers.map((customer) => ({
-    label: customer.name,
+    label: `${customer.name} (${customer.companyName})`,
     value: customer.id.toString(),
   }));
 
