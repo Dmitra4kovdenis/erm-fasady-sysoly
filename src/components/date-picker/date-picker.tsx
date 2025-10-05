@@ -26,7 +26,7 @@ export default function DatePicker({ label, className, name }: InputProps) {
         const dateValue = value ? dayjs(value) : null;
         return (
           <div className={className}>
-            <LocalizationProvider dateAdapter={AdapterDayjs}>
+            <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="ru">
               <FormControl fullWidth>
                 <DatePickerMui
                   label={label}
