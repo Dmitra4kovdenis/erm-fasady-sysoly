@@ -2,6 +2,7 @@ import KanbanClient from "@/app/(private)/kanban/client";
 import OrderDetailServer from "@/app/(private)/order-detail/server";
 import { SearchParams } from "@/types";
 import { prisma } from "@/prisma-helpers/prisma";
+import { NoSsr } from "@mui/material";
 
 const oneWeekAgo = new Date();
 oneWeekAgo.setDate(oneWeekAgo.getDate() - 30);
@@ -65,11 +66,13 @@ export default async function OrderListPage({
 
   return (
     <>
-      <KanbanClient
-        statusesObj={statusesObj}
-        columns={columns}
-        ordersObj={ordersObj}
-      />
+      <NoSsr>
+        <KanbanClient
+          statusesObj={statusesObj}
+          columns={columns}
+          ordersObj={ordersObj}
+        />
+      </NoSsr>
       <OrderDetailServer orderNumber={data?.orderNumber} />
     </>
   );
