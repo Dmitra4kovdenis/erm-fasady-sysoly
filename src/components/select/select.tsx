@@ -34,11 +34,17 @@ export default function Select({
       rules={{ required: required && "Поле обязательно" }}
       render={({ field, fieldState }) => {
         const fieldError = fieldState.error;
+        const { value, onChange } = field;
 
         return (
           <FormControl fullWidth>
             <InputLabel>{label}</InputLabel>
-            <MuiSelect {...field} error={!!fieldError} label={label}>
+            <MuiSelect
+              onChange={onChange}
+              value={value ?? ""}
+              error={!!fieldError}
+              label={label}
+            >
               {options.map((option) => (
                 <MenuItem value={option.value} key={option.value}>
                   {option.label}
