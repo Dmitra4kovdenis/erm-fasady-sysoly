@@ -44,8 +44,8 @@ export function ClientOrderTimeline({
   return (
     <>
       <Dialog open onClose={onClose} maxWidth="lg" fullWidth>
+        <DialogTitle>Трудозатраты по заказу {order.orderNumber}</DialogTitle>
         <DialogContent>
-          <DialogTitle>Трудозатраты по заказу {order.orderNumber}</DialogTitle>
           <Table>
             <TableBody>
               {timelines.map((item) => (
