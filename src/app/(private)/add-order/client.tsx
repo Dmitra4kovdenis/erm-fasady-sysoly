@@ -19,16 +19,16 @@ import { TableResults } from "@/app/(private)/add-order/components/table-results
 import { PageContainer } from "@/components/page-container/page-container";
 
 const defaultFields = {
-  height: "",
-  width: "",
-  thickness: "",
-  handleId: "",
-  radius: "",
-  millingId: "",
-  color: "",
-  count: "",
-  orderId: "",
-  area: "",
+  height: undefined,
+  width: undefined,
+  thickness: undefined,
+  handleId: undefined,
+  radius: undefined,
+  millingId: undefined,
+  color: undefined,
+  count: undefined,
+  orderId: undefined,
+  area: undefined,
 };
 
 interface AddOrderClientProps {
@@ -88,15 +88,11 @@ export function AddOrderClient({
           </Grid>
 
           <Grid size={{ lg: 6, xs: 12 }}>
-            <Input
-              multiline
-              label="Адрес доставки"
-              name={orderFields.deliveryAddress}
-            />
+            <Input label="Вид работ" name={orderFields.workType} />
           </Grid>
 
           <Grid size={{ lg: 12, xs: 12 }}>
-            <Input multiline label="Вид работ" name={orderFields.workType} />
+            <Input label="Адрес доставки" name={orderFields.deliveryAddress} />
           </Grid>
         </Grid>
 
@@ -120,13 +116,25 @@ export function AddOrderClient({
           >
             <div className={css.number}>{index + 1}</div>
             <Grid size={{ lg: 4, xs: 12 }}>
-              <Input label="Высота, мм" name={`items.${index}.height`} />
+              <Input
+                label="Высота, мм"
+                name={`items.${index}.height`}
+                type="number"
+              />
             </Grid>
             <Grid size={{ lg: 4, xs: 12 }}>
-              <Input label="Ширина, мм" name={`items.${index}.width`} />
+              <Input
+                label="Ширина, мм"
+                name={`items.${index}.width`}
+                type="number"
+              />
             </Grid>
             <Grid size={{ lg: 4, xs: 12 }}>
-              <Input label="Толщина" name={`items.${index}.thickness`} />
+              <Input
+                label="Толщина"
+                name={`items.${index}.thickness`}
+                type="number"
+              />
             </Grid>
             <Grid size={{ lg: 4, xs: 12 }}>
               <Select
@@ -153,7 +161,11 @@ export function AddOrderClient({
               <Input label="Цвет" name={`items.${index}.color`} />
             </Grid>
             <Grid size={{ lg: 4, xs: 12 }}>
-              <Input label="Количество" name={`items.${index}.count`} />
+              <Input
+                label="Количество"
+                name={`items.${index}.count`}
+                type="number"
+              />
             </Grid>
             <Grid size={{ lg: 4, xs: 12 }}>
               <FieldFacadeArea index={index} />
@@ -168,7 +180,7 @@ export function AddOrderClient({
           <Button
             variant="contained"
             color="secondary"
-            onClick={() => append(defaultFields)}
+            onClick={() => append(defaultFields as any)}
           >
             Добавить фасад
           </Button>
@@ -176,24 +188,31 @@ export function AddOrderClient({
 
         <Grid container spacing={2} sx={{ mt: 4 }}>
           <Grid size={{ lg: 4, xs: 12 }}>
-            <Input label="Стоимость 1 м.кв.,руб." name={orderFields.unitCost} />
+            <Input
+              label="Стоимость 1 м.кв.,руб."
+              name={orderFields.unitCost}
+              type="number"
+            />
           </Grid>
           <Grid size={{ lg: 4, xs: 12 }}>
             <Input
               label="Интегрированная ручка, руб."
               name={orderFields.costOfHandle}
+              type="number"
             />
           </Grid>
           <Grid size={{ lg: 4, xs: 12 }}>
             <Input
               label="Интегрированная ручка, метр."
               name={orderFields.handleLength}
+              type="number"
             />
           </Grid>
           <Grid size={{ lg: 4, xs: 12 }}>
             <Input
               label="Площадь фрезировки, м.кв"
               name={orderFields.millingArea}
+              type="number"
             />
           </Grid>
         </Grid>
@@ -208,13 +227,14 @@ export function AddOrderClient({
             <Input
               label="Прочие услуги, руб"
               name={orderFields.costOtherServices}
+              type="number"
             />
           </Grid>
           <Grid size={{ lg: 4, xs: 12 }}>
-            <Input label="Аванс" name={orderFields.prepayment} />
+            <Input label="Аванс" name={orderFields.prepayment} type="number" />
           </Grid>
           <Grid size={{ lg: 4, xs: 12 }}>
-            <Input label="Скидка" name={orderFields.discount} />
+            <Input label="Скидка" name={orderFields.discount} type="number" />
           </Grid>
         </Grid>
 

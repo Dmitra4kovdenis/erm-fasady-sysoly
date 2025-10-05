@@ -10,17 +10,17 @@ export default async function AddOrderPage() {
 
   const customersOptions = customers.map((customer) => ({
     label: `${customer.name} (${customer.companyName})`,
-    value: customer.id.toString(),
+    value: customer.id,
   }));
 
   const millingOptions = millings.map((customer) => ({
     label: customer.title,
-    value: customer.id.toString(),
+    value: customer.id,
   }));
 
   const handlesOptions = handles.map((customer) => ({
     label: customer.title,
-    value: customer.id.toString(),
+    value: customer.id,
   }));
 
   return (

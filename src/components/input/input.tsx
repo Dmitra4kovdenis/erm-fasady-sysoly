@@ -1,10 +1,12 @@
 import { OutlinedInputProps, TextField } from "@mui/material";
 import { Controller, useFormContext } from "react-hook-form";
 import { useFormError } from "@/hooks/use-field-error";
+import { ChangeEvent } from "react";
 
 interface InputProps extends OutlinedInputProps {
   name: string;
   required?: boolean;
+  type?: "number" | "string" | "password";
 }
 
 export default function Input({
@@ -12,6 +14,7 @@ export default function Input({
   name,
   required = true,
   multiline,
+  type,
 }: InputProps) {
   const { control } = useFormContext();
 
@@ -23,6 +26,16 @@ export default function Input({
       control={control}
       rules={{ required: required && "Поле обязательно" }}
       render={({ field, fieldState }) => {
+        const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+          const value = event.target.value;
+          if (type === "number") {
+            const _val = Number(value);
+            if (!isNaN(_val)) field.onChange(_val);
+          } else {
+            field.onChange(value);
+          }
+        };
+
         return (
           <TextField
             multiline={multiline}
@@ -31,7 +44,7 @@ export default function Input({
             label={label}
             error={!!fieldError}
             value={field.value ?? ""}
-            onChange={field.onChange}
+            onChange={handleChange}
             helperText={fieldState.error?.message}
           />
         );

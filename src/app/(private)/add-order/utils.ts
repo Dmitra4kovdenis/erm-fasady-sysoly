@@ -7,38 +7,45 @@ export const calcFieldsByEditable = (values: OrderModelType) => {
 
   // Общая площадь, м.кв
   const totalArea = items.reduce((acc, item) => {
-    const area: number = +item.height * +item.width * +item.count * 0.01 * 0.01;
+    const height = item.height ?? 0;
+    const width = item.width ?? 0;
+    const count = item.count ?? 0;
+
+    const area: number = height * width * count * 0.01 * 0.01;
     return acc + area;
   }, 0);
 
   // Стоимость 1 м.кв.,руб.
-  const { unitCost } = values;
+  const unitCost = values.unitCost ?? 0;
 
   // стоимость прямых фасадов
-  const costOfStraightFacades = +totalArea * +unitCost;
+  const costOfStraightFacades = totalArea * unitCost;
 
   // площадь фрезеровки
-  const { millingArea } = values;
+  const millingArea = values.millingArea ?? 0;
 
   // стоимость фрезеровки
-  const costOfMilling = +millingArea * +millingCost;
+  const costOfMilling = millingArea * millingCost;
 
   // интегрированная ручка, руб
-  const { costOfHandle } = values;
+  const costOfHandle = values.costOfHandle ?? 0;
+
+  const costOtherServices = values.costOtherServices ?? 0;
 
   // итого
   const summPrice =
-    +costOfStraightFacades +
-    +costOfMilling +
-    +costOfHandle +
-    +values.costOtherServices;
+    costOfStraightFacades + costOfMilling + costOfHandle + costOtherServices;
 
-  const totalPrice = +summPrice - +values.discount;
+  const discount = values.discount ?? 0;
 
-  const remainder = +totalPrice - +values.prepayment;
+  const totalPrice = summPrice - discount;
+
+  const prepayment = values.prepayment ?? 0;
+
+  const remainder = totalPrice - prepayment;
 
   const itemsCount = values.items.reduce((acc, item) => {
-    return acc + +item.count;
+    return acc + (item.count ?? 0);
   }, 0);
 
   return {
