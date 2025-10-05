@@ -76,7 +76,7 @@ export function FormAddTimeline({
             <DatePicker label="Дата начала" name="dateStart" />
             <DatePicker label="Дата конца" name="dateEnd" />
             <Button variant="contained" size="large" onClick={submit}>
-              Добавить
+              Сохранить
             </Button>
           </Grid>
         </FormProvider>

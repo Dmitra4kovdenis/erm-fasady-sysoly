@@ -101,7 +101,7 @@ export function FormAddWorker({
             </Grid>
             <Grid>
               <Button size="large" variant="contained" onClick={submit}>
-                Добавить
+                Сохранить
               </Button>
             </Grid>
           </Grid>
