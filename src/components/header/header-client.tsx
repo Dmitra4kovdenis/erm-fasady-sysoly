@@ -17,6 +17,7 @@ import {
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import Link from "next/link";
+import { useRouter } from "next/router";
 
 interface HeaderClientProps {
   name: string;
@@ -205,6 +206,9 @@ function HeaderClient({ name, role }: HeaderClientProps) {
               onClose={() => setIsOpen(false)}
             >
               <MenuItem onClick={() => undefined}>Профиль</MenuItem>
+              <MenuItem component={Link} href="/admins">
+                Администраторы
+              </MenuItem>
               <MenuItem onClick={() => logout()}>Выйти</MenuItem>
             </Menu>
           </Box>
