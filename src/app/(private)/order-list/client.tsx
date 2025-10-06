@@ -47,12 +47,7 @@ const getDelayVariant = (date: Date) => {
 
   if (difference < 2) {
     return (
-      <Chip
-        size="small"
-        label={difference + title}
-        color="warning"
-        variant="outlined"
-      />
+      <Chip size="small" label={title} color="warning" variant="outlined" />
     );
   }
 
