@@ -23,6 +23,7 @@ import Timelapse from "@mui/icons-material/Timelapse";
 import { pluralize } from "@/utils";
 import { PageContainer } from "@/components/page-container/page-container";
 import { ScrollOverflow } from "@/components/scroll-overflow/scroll-overflow";
+import AccessAlarmIcon from "@mui/icons-material/AccessAlarm";
 
 interface OrderListProps {
   orders: OrdersType;
@@ -132,7 +133,7 @@ function OrderListClient({ orders }: OrderListProps) {
                       },
                     }}
                   >
-                    <Timelapse />
+                    <AccessAlarmIcon />
                   </IconButton>
                   <IconButton
                     color="primary"
