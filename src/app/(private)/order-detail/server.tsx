@@ -23,8 +23,6 @@ async function OrderDetailServer({
 
   const userData = await getUserData();
 
-  const workers = await getWorkers();
-
   if (!result || !userData) return null;
 
   const statuses = await getStatuses();
@@ -34,14 +32,7 @@ async function OrderDetailServer({
     value: item.id,
   }));
 
-  return (
-    <OrderDetailClient
-      userData={userData}
-      order={result}
-      statuses={statusesOptions}
-      workers={workers}
-    />
-  );
+  return <OrderDetailClient order={result} statuses={statusesOptions} />;
 }
 
 export default OrderDetailServer;

@@ -12,8 +12,6 @@ import {
   ToggleButton,
   Box,
   Grid,
-  AvatarGroup,
-  Avatar,
 } from "@mui/material";
 import { OrdersType } from "@/prisma-helpers/get-orders";
 import dayjs from "dayjs";
@@ -106,7 +104,6 @@ function OrderListClient({ orders }: OrderListProps) {
             <TableRow>
               <TableCell># Заказа</TableCell>
               <TableCell>Заказчик</TableCell>
-              <TableCell>Мастер</TableCell>
               <TableCell>Статус</TableCell>
               <TableCell>Заказ</TableCell>
               <TableCell>Время начала</TableCell>
@@ -119,13 +116,6 @@ function OrderListClient({ orders }: OrderListProps) {
               <TableRow key={order.orderNumber}>
                 <TableCell>{order.orderNumber}</TableCell>
                 <TableCell>{order.customer.name}</TableCell>
-                <TableCell>
-                  <AvatarGroup>
-                    {order.workers.map((item) => (
-                      <Avatar key={item.name}>{item.name.slice(0, 2)}</Avatar>
-                    ))}
-                  </AvatarGroup>
-                </TableCell>
                 <TableCell>{order.status.title}</TableCell>
                 <TableCell>{order.workType}</TableCell>
                 <TableCell>

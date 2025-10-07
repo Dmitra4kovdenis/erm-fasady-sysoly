@@ -8,9 +8,6 @@ import { Info } from "@/app/(private)/order-detail/components/info";
 import { StatusBar } from "@/app/(private)/order-detail/components/status-bar";
 import { Facades } from "@/app/(private)/order-detail/components/facades";
 import { Comments } from "@/app/(private)/order-detail/components/comments";
-import { Profiles } from "@/app/(private)/order-detail/components/profiles";
-import { UserData } from "@/prisma-helpers/get-user-data";
-import { Workers } from "@/app/(private)/order-detail/server";
 
 interface OrderDetailClientProps {
   order: NonNullable<OrderDetailType>;
@@ -18,16 +15,9 @@ interface OrderDetailClientProps {
     value: number;
     label: string;
   }[];
-  userData: UserData;
-  workers: Workers;
 }
 
-function OrderDetailClient({
-  statuses,
-  order,
-  userData,
-  workers,
-}: OrderDetailClientProps) {
+function OrderDetailClient({ statuses, order }: OrderDetailClientProps) {
   const { push } = useRouter();
   const pathname = usePathname();
 
@@ -42,9 +32,7 @@ function OrderDetailClient({
             <Grid size={{ lg: 8 }}>
               <Info order={order} />
             </Grid>
-            <Grid size={{ lg: 4 }}>
-              <Profiles workers={workers} order={order} userData={userData} />
-            </Grid>
+            <Grid size={{ lg: 4 }}></Grid>
           </Grid>
           <Facades order={order} />
           <Comments />

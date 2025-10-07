@@ -50,7 +50,7 @@ export function Info({ order }: InfoProps) {
             <Typography variant="subtitle2" color="textSecondary">
               Аванс
             </Typography>
-            <Typography variant="body1">{order.advance}</Typography>
+            <Typography variant="body1">{order.prepayment}</Typography>
           </Grid>
 
           <Grid size={{ sm: 12, md: 6 }}>
