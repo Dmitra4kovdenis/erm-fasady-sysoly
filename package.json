@@ -30,6 +30,7 @@
     "bcryptjs": "^3.0.2",
     "classnames": "^2.5.1",
     "dayjs": "^1.11.18",
+    "exceljs": "^4.4.0",
     "jose": "^6.1.0",
     "jsonwebtoken": "^9.0.2",
     "next": "15.5.2",
