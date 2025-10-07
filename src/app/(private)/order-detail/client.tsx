@@ -29,7 +29,7 @@ function OrderDetailClient({ statuses, order }: OrderDetailClientProps) {
       <DialogContent>
         <Box position="relative">
           <Grid container spacing={2}>
-            <Grid size={{ lg: 8 }}>
+            <Grid size={{ lg: 12 }}>
               <Info order={order} />
             </Grid>
             <Grid size={{ lg: 4 }}></Grid>
