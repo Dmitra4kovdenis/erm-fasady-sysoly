@@ -8,7 +8,6 @@ import bcrypt from "bcryptjs";
 // метод для добавления нового пользователя
 export const addAdmin = async (admin: Admin, user: User) => {
   const password = await bcrypt.hash(user.password, 10);
-  console.log(admin);
 
   await prisma.admin.create({
     data: {
@@ -23,7 +22,7 @@ export const addAdmin = async (admin: Admin, user: User) => {
       },
     },
   });
-  revalidatePath("/customers");
+  revalidatePath("/admins");
 };
 
 // метод для обновления текущего пользователя
@@ -33,7 +32,7 @@ export const updateAdmin = async (id: number, admin: Admin, user: User) => {
     data: admin,
   });
   await prisma.user.update({
-    where: { workerId: id },
+    where: { adminId: id },
     data: user,
   });
   revalidatePath("/admins");

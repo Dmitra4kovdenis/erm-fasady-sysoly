@@ -21,6 +21,8 @@ export function FormAddAdmin({ onClose, admins, editId }: FormAddAdminProps) {
   // если в массиве находим этого пользователя по id - то это текущий и его надо редактировать
   const editAdmin = admins.find((item) => item.id === editId);
 
+  const isCreating = editId === -1;
+
   const defaultValues = editAdmin
     ? {
         admin: {
@@ -38,9 +40,9 @@ export function FormAddAdmin({ onClose, admins, editId }: FormAddAdminProps) {
   });
 
   const submit = form.handleSubmit(async ({ admin, user }) => {
-    if (!editId) return;
+    if (editId === undefined) return;
 
-    if (editId === -1) {
+    if (isCreating) {
       await addAdmin(admin, user);
     } else {
       await updateAdmin(editId, admin, user);
@@ -59,24 +61,28 @@ export function FormAddAdmin({ onClose, admins, editId }: FormAddAdminProps) {
         <FormProvider {...form}>
           <Grid container spacing={2} marginTop={2}>
             <Grid size={8}>
-              <Input name="admin.name" label="Имя" required />
+              <Input name="admin.name" label="Имя" required={isCreating} />
             </Grid>
             <Grid size={12}>
-              <Input name="admin.phone" label="Номер телефона" required />
+              <Input
+                name="admin.phone"
+                label="Номер телефона"
+                required={isCreating}
+              />
             </Grid>
 
             <Grid size={12}>
               <Input
                 name="user.login"
                 label="Логин (для учетной записи)"
-                required
+                required={isCreating}
               />
             </Grid>
             <Grid size={12}>
               <Input
                 name="user.password"
                 label="Пароль (для учетной записи)"
-                required
+                required={isCreating}
               />
             </Grid>
             <Grid>

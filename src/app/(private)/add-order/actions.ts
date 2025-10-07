@@ -4,6 +4,7 @@ import { prisma } from "@/prisma-helpers/prisma";
 import type { OrderCreateModelType } from "@/zod-models/order-model";
 import { calcFieldsByEditable } from "@/app/(private)/add-order/utils";
 
+const charts = ["А", "Б", "В", "Г"];
 const generateOrderNumber = (prevOrderNumber: string = "") => {
   const res = prevOrderNumber.split(" ");
   const orderChar = res[0];
@@ -13,7 +14,14 @@ const generateOrderNumber = (prevOrderNumber: string = "") => {
     return "A 001";
   }
 
-  return "A " + orderNumber + 1;
+  if (orderNumber === 999) {
+    const nextChart = charts[charts.indexOf(orderChar) + 1];
+    return `${nextChart} 001`;
+  }
+
+  const nextOrderNumber = orderNumber + 1;
+
+  return `${orderChar} ${nextOrderNumber}`;
 };
 
 export const createOrder = async (values: OrderCreateModelType) => {

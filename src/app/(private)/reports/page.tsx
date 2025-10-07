@@ -6,13 +6,27 @@ function Page() {
   return (
     <PageContainer>
       <Typography variant="h1">Отчеты (в разработке)</Typography>
-      <Link href="/reports/work-by-period">Кто сколько заработал</Link>
+      <Button
+        variant="contained"
+        component={Link}
+        color="secondary"
+        href="/reports/work-by-period"
+      >
+        Кто сколько заработал
+      </Button>
       <br />
-      <Button>Сколько сделали за период</Button>
       <br />
-      <Button>Сколько ушло материала</Button>
+      <Button variant="contained" disabled>
+        Сколько сделали за период
+      </Button>
       <br />
-      <Button>
+      <br />
+      <Button variant="contained" disabled>
+        Сколько ушло материала
+      </Button>
+      <br />
+      <br />
+      <Button variant="contained" disabled>
         Дополнительные отчеты (процент брака, число неустоек, сорвавшиеся сроки)
       </Button>
     </PageContainer>
