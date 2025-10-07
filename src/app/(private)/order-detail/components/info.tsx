@@ -27,7 +27,9 @@ export function Info({ order }: InfoProps) {
                 <Typography variant="subtitle2" color="textSecondary">
                   Заказчик
                 </Typography>
-                <Typography variant="body1">{order.customer.name}</Typography>
+                <Typography variant="body1">
+                  {order.customer.name} ({order.customer.companyName})
+                </Typography>
               </Grid>
               <Grid size={{ sm: 12, md: 6 }}>
                 <Typography variant="subtitle2" color="textSecondary">
