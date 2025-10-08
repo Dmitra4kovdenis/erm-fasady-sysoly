@@ -8,6 +8,7 @@ import {
   TableCell,
   TableHead,
   TableRow,
+  Typography,
 } from "@mui/material";
 import { formatDate } from "@/utils";
 
@@ -23,6 +24,14 @@ export function WorkByPeriodResult({ workByPeriod }: WorkByPeriodClientProps) {
     itemsCount += item.itemsCount;
     totalArea += item.totalArea;
   });
+
+  if (!workByPeriod.length) {
+    return (
+      <PageContainer>
+        <Typography variant="h5">Списаний за месяц нет</Typography>
+      </PageContainer>
+    );
+  }
 
   return (
     <PageContainer>
