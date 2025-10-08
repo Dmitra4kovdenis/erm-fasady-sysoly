@@ -5,8 +5,12 @@ import { PageContainer } from "@/components/page-container/page-container";
 import { Button, Grid } from "@mui/material";
 import { FormProvider, useForm } from "react-hook-form";
 import Select from "@/components/select/select";
-import DatePicker from "@/components/date-picker/date-picker";
 import { useRouter } from "next/navigation";
+import {
+  ADDRESS_MASK,
+  generatePeriods,
+} from "@/app/(private)/reports/work-by-period/utils";
+import dayjs from "dayjs";
 
 export interface WorkByPeriodClientProps {
   workers: Workers;
@@ -14,10 +18,11 @@ export interface WorkByPeriodClientProps {
 }
 
 interface FormValues {
-  startDate: string;
-  endDate: string;
+  to: string;
   workerId: string;
 }
+
+const periods = generatePeriods();
 
 export function WorkByPeriodForm({
   workers,
@@ -35,9 +40,12 @@ export function WorkByPeriodForm({
   const { push } = useRouter();
 
   const onSubmit = form.handleSubmit((values) => {
-    push(
-      `/reports/work-by-period?startDate=${values.startDate}&endDate=${values.endDate}&workerId=${values.workerId}`,
-    );
+    const { to, workerId } = values;
+    const from = dayjs(to, ADDRESS_MASK)
+      .subtract(1, "month")
+      .format(ADDRESS_MASK);
+
+    push(`/reports/work-by-period?from=${from}&to=${to}&workerId=${workerId}`);
   });
 
   return (
@@ -48,10 +56,7 @@ export function WorkByPeriodForm({
             <Select label="Работник" options={options} name="workerId" />
           </Grid>
           <Grid size={4}>
-            <DatePicker label="Начало периода" name="startDate" />
-          </Grid>
-          <Grid size={4}>
-            <DatePicker label="Конец периода" name="endDate" />
+            <Select label="Период" options={periods} name="to" />
           </Grid>
           <Grid size={4}>
             <Button variant="contained" onClick={onSubmit}>

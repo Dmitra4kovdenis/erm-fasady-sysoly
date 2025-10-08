@@ -31,6 +31,7 @@ export function WorkByPeriodResult({ workByPeriod }: WorkByPeriodClientProps) {
           <TableRow>
             <TableCell>#</TableCell>
             <TableCell>Трудосписания</TableCell>
+            <TableCell align="right">Дата завершения</TableCell>
             <TableCell align="right">Число фасадов</TableCell>
             <TableCell align="right">Метры в квадрате</TableCell>
             <TableCell align="right">Тариф</TableCell>
@@ -41,6 +42,7 @@ export function WorkByPeriodResult({ workByPeriod }: WorkByPeriodClientProps) {
           <TableRow style={{ backgroundColor: "#ededed" }}>
             <TableCell>Всего</TableCell>
             <TableCell></TableCell>
+            <TableCell align="right"></TableCell>
             <TableCell align="right">{itemsCount}</TableCell>
             <TableCell align="right">{totalArea}</TableCell>
             <TableCell align="right">10 руб./м2</TableCell>
@@ -56,6 +58,7 @@ export function WorkByPeriodResult({ workByPeriod }: WorkByPeriodClientProps) {
                   </div>
                 ))}
               </TableCell>
+              <TableCell align="right">{formatDate(item.endDate)}</TableCell>
               <TableCell align="right">{item.itemsCount}</TableCell>
               <TableCell align="right">{item.totalArea}</TableCell>
               <TableCell align="right">10 руб./м2</TableCell>
