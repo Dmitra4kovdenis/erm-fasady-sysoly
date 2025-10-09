@@ -19,7 +19,7 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import VisibilityIcon from "@mui/icons-material/Visibility";
-import Timelapse from "@mui/icons-material/Timelapse";
+import CommentIcon from "@mui/icons-material/Comment";
 import { pluralize } from "@/utils";
 import { PageContainer } from "@/components/page-container/page-container";
 import { ScrollOverflow } from "@/components/scroll-overflow/scroll-overflow";
@@ -145,6 +145,17 @@ function OrderListClient({ orders }: OrderListProps) {
                     }}
                   >
                     <VisibilityIcon />
+                  </IconButton>
+                  <IconButton
+                    color="primary"
+                    onClick={() => push(`?commentsId=${order.id}`)}
+                    sx={{
+                      "&:hover": {
+                        backgroundColor: "rgb(237 108 2 / 21%)",
+                      },
+                    }}
+                  >
+                    <CommentIcon />
                   </IconButton>
                 </TableCell>
               </TableRow>
