@@ -1,7 +1,5 @@
 import { OrderModelType } from "@/zod-models/order-model";
 
-const millingCost = 1000;
-
 export const calcFieldsByEditable = (values: OrderModelType) => {
   const { items } = values;
 
@@ -25,7 +23,7 @@ export const calcFieldsByEditable = (values: OrderModelType) => {
   const millingArea = values.millingArea ?? 0;
 
   // стоимость фрезеровки
-  const costOfMilling = millingArea * millingCost;
+  const costOfMilling = values.costOfMilling ?? 0;
 
   // интегрированная ручка, руб
   const costOfHandle = values.costOfHandle ?? 0;
@@ -52,7 +50,6 @@ export const calcFieldsByEditable = (values: OrderModelType) => {
     totalArea,
     costOfStraightFacades,
     millingArea,
-    costOfMilling,
     summPrice,
     totalPrice,
     itemsCount,

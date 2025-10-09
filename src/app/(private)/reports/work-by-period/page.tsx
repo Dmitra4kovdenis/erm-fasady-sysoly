@@ -4,51 +4,23 @@ import { WorkByPeriodForm } from "@/app/(private)/reports/work-by-period/form";
 import { z } from "zod";
 import { WorkByPeriodResult } from "@/app/(private)/reports/work-by-period/result";
 import { Box } from "@mui/material";
+import dayjs from "dayjs";
+import { ADDRESS_MASK } from "@/app/(private)/reports/work-by-period/utils";
 
-const getWorkByPeriod = async (
-  startDate: Date,
-  endDate: Date,
-  workerId: number,
-) => {
+const formatParamDate = (date: string) => {
+  return dayjs(date, ADDRESS_MASK).toDate();
+};
+
+const getWorkByPeriod = async (from: string, to: string, workerId: number) => {
   return prisma.order.findMany({
     where: {
+      endDate: {
+        gte: formatParamDate(from),
+        lt: formatParamDate(to),
+      },
       timeLines: {
         some: {
-          AND: [
-            {
-              workerId,
-            },
-            {
-              OR: [
-                // Timeline полностью внутри периода
-                {
-                  dateStart: { gte: startDate },
-                  dateEnd: { lte: endDate },
-                },
-                // Timeline начинается до периода, но заканчивается внутри
-                {
-                  dateStart: { lt: startDate },
-                  dateEnd: {
-                    gte: startDate,
-                    lte: endDate,
-                  },
-                },
-                // Timeline начинается внутри периода, но заканчивается после
-                {
-                  dateStart: {
-                    gte: startDate,
-                    lte: endDate,
-                  },
-                  dateEnd: { gt: endDate },
-                },
-                // Timeline охватывает весь период
-                {
-                  dateStart: { lt: startDate },
-                  dateEnd: { gt: endDate },
-                },
-              ],
-            },
-          ],
+          workerId,
         },
       },
     },
@@ -66,8 +38,8 @@ export type WorkByPeriodType = Awaited<ReturnType<typeof getWorkByPeriod>>;
 export type Workers = Awaited<ReturnType<typeof getWorkers>>;
 
 const Model = z.object({
-  startDate: z.string(),
-  endDate: z.string(),
+  from: z.string(),
+  to: z.string(),
   workerId: z.string(),
 });
 
@@ -79,8 +51,8 @@ async function WorkByPeriod({ searchParams }: { searchParams: SearchParams }) {
 
   if (result.success) {
     const workByPeriod = await getWorkByPeriod(
-      new Date(result.data.startDate),
-      new Date(result.data.endDate),
+      result.data.from,
+      result.data.to,
       Number(result.data.workerId),
     );
     return (

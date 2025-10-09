@@ -37,7 +37,7 @@ function OrderDetailClient({ statuses, order }: OrderDetailClientProps) {
           <Facades order={order} />
           <Comments />
           <StatusBar statuses={statuses} order={order} onClose={onClose} />
-          <PrintButtons />
+          <PrintButtons order={order} />
         </Box>
       </DialogContent>
     </Dialog>

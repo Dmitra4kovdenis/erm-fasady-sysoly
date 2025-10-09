@@ -26,3 +26,8 @@ export const radiusOptions: SelectOption[] = [
     value: "9",
   },
 ];
+
+export const thicknessOptions = [10, 16, 19, 22, 24, 26, 32].map((item) => ({
+  label: `${item} мм`,
+  value: item,
+}));
