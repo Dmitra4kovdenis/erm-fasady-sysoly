@@ -17,7 +17,6 @@ export function TableResults() {
   const {
     remainder,
     millingArea,
-    costOfMilling,
     costOfStraightFacades,
     totalArea,
     totalPrice,
@@ -29,7 +28,6 @@ export function TableResults() {
     ["Общая площадь", totalArea],
     ["Стоимость прямых фасадов, руб.", costOfStraightFacades],
     ["Площадь фрезировки, м.кв", millingArea],
-    ["Стоимость фрезировки, руб.", costOfMilling],
     ["Итого,руб.", summPrice],
     ["Общая стоимость, руб", totalPrice],
     ["Фасадов, штук", itemsCount],
