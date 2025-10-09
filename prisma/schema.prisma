@@ -120,11 +120,16 @@ model OrderStatus {
 
 model WorkComment {
   id        Int       @id @default(autoincrement())
+  // сам текст комментария
   text      String?
+  // поле не используем, удалим
   timeSpent DateTime?
+  // дата создания, генерируется автоматически
   createdAt DateTime  @default(now())
+  // id заказа и сам заказ, к которому комментарий
   orderId   Int
   order     Order     @relation(fields: [orderId], references: [id])
+  // id пользователя и сам пользователь, к которому комментарий
   userId    Int
   user      User      @relation(fields: [userId], references: [id])
 }
