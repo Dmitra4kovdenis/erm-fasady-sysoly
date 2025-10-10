@@ -15,7 +15,7 @@ import {
 import { usePathname, useRouter } from "next/navigation";
 import { FormAddComment } from "@/app/(private)/comment/components/form-add-timeline";
 import { OrderDetailType } from "@/prisma-helpers/get-order-detail";
-import { formatDateTime } from "@/utils";
+import { formatDateTime, getInitials } from "@/utils";
 import { UserData } from "@/prisma-helpers/get-user-data";
 import { CommentType } from "@/app/(private)/comment/comment";
 import { useEffect, useRef } from "react";
@@ -75,7 +75,7 @@ export function ClientComment({
                           color: "primary.main",
                         }}
                       >
-                        {userName[0]?.toUpperCase()}
+                        {getInitials(userName)}
                       </Avatar>
                     </ListItemAvatar>
 

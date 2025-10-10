@@ -16,3 +16,12 @@ export function pluralize(num: number, titles: string[]): string {
 
   return `${num} ${title}`;
 }
+
+export function getInitials(fullName: string): string {
+  if (!fullName) return "?";
+  const parts = fullName.trim().split(" ");
+  if (parts.length === 1) {
+    return parts[0].charAt(0).toUpperCase();
+  }
+  return parts[0].charAt(0).toUpperCase() + parts[1].charAt(0).toUpperCase();
+}
