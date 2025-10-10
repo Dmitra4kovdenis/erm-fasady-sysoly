@@ -1,5 +1,4 @@
 import { prisma } from "@/prisma-helpers/prisma";
-import { ClientOrderTimeline } from "@/app/(private)/order-timeline/client";
 import { getOrderDetail } from "@/prisma-helpers/get-order-detail";
 import { getUserData } from "@/prisma-helpers/get-user-data";
 import { ClientComment } from "@/app/(private)/comment/client";
@@ -13,6 +12,7 @@ const getComments = async (orderId: number) => {
       user: {
         include: {
           worker: true,
+          admin: true,
         },
       },
     },

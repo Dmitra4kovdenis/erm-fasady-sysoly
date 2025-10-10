@@ -25,8 +25,8 @@ export function FormAddComment({ orderId, userId }: FormAddTimelineProps) {
   return (
     <FormProvider {...form}>
       <Grid spacing={2} container>
-        <Grid size={12}>
-          <Input multiline label="Комментарий" name="comment" />
+        <Grid size={12} mt={2}>
+          <Input multiline label="Комментарий" name="text" />
         </Grid>
         <Button variant="contained" size="large" onClick={submit}>
           Сохранить

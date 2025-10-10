@@ -1,6 +1,8 @@
 import dayjs from "dayjs";
 
 export const formatDate = (date: Date) => dayjs(date).format("DD.MM.YYYY");
+export const formatDateTime = (date: Date) =>
+  dayjs(date).format("DD.MM.YYYY HH:mm:ss");
 
 export function pluralize(num: number, titles: string[]): string {
   const title =
