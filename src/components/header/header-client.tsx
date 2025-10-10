@@ -18,6 +18,7 @@ import {
 import MenuIcon from "@mui/icons-material/Menu";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { getInitials } from "@/utils";
 
 interface HeaderClientProps {
   name: string;
@@ -185,7 +186,7 @@ function HeaderClient({ name, role }: HeaderClientProps) {
                   <Typography variant="caption">{role}</Typography>
                 </Box>
                 <Avatar src="/static/images/avatar/2.jpg">
-                  {name.slice(0, 2)}
+                  {getInitials(name)}
                 </Avatar>
               </IconButton>
             </Tooltip>
