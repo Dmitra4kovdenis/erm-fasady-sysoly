@@ -46,3 +46,42 @@ export const createOrder = async (values: OrderCreateModelType) => {
     },
   });
 };
+
+export const updateOrder = async (id: number, values: OrderCreateModelType) => {
+  const calcValues = calcFieldsByEditable(values);
+
+  const existingItems = await prisma.facade.findMany({
+    where: { orderId: id },
+  });
+
+  const itemsToUpdate = values.items.filter((i) => i.id); // уже есть id
+  const itemsToCreate = values.items.filter((i) => !i.id); // новые
+  const existingIds = existingItems.map((i) => i.id);
+  const idsToKeep = itemsToUpdate.map((i) => i.id);
+  const idsToDelete = existingIds.filter((id) => !idsToKeep.includes(id));
+
+  await prisma.order.update({
+    where: {
+      id,
+    },
+    data: {
+      ...calcValues,
+      ...values,
+      items: {
+        // 1. Удаляем те, что пропали
+        deleteMany: {
+          id: { in: idsToDelete },
+        },
+
+        // 2. Обновляем существующие
+        updateMany: itemsToUpdate.map((item) => ({
+          where: { id: item.id },
+          data: item,
+        })),
+
+        // 3. Добавляем новые
+        create: itemsToCreate.map((item) => item),
+      },
+    },
+  });
+};

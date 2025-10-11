@@ -5,13 +5,17 @@ import Input from "@/components/input/input";
 import IconButton from "@mui/material/IconButton";
 import IconDelete from "@mui/icons-material/Delete";
 import { useFieldArray, useForm, FormProvider } from "react-hook-form";
-import { OrderCreateModel, orderFields } from "@/zod-models/order-model";
+import {
+  OrderCreateModel,
+  OrderCreateModelType,
+  orderFields,
+} from "@/zod-models/order-model";
 import { Button, Typography } from "@mui/material";
 import Select, { SelectOption } from "@/components/select/select";
 import Grid from "@mui/material/Grid";
 import { zodResolver } from "@hookform/resolvers/zod";
 import DatePicker from "@/components/date-picker/date-picker";
-import { createOrder } from "./actions";
+import { createOrder, updateOrder } from "./actions";
 import {
   radiusOptions,
   thicknessOptions,
@@ -21,7 +25,7 @@ import { useRouter } from "next/navigation";
 import { TableResults } from "@/app/(private)/add-order/components/table-results";
 import { PageContainer } from "@/components/page-container/page-container";
 
-const defaultFields = {
+const item = {
   height: undefined,
   width: undefined,
   thickness: undefined,
@@ -38,23 +42,29 @@ interface AddOrderClientProps {
   customers: SelectOption[];
   handles: SelectOption[];
   millings: SelectOption[];
+  defaultValues: OrderCreateModelType | null;
+  editId?: number;
 }
 
 export function AddOrderClient({
   customers,
   handles,
   millings,
+  defaultValues,
+  editId,
 }: AddOrderClientProps) {
+  const _defaultValues = defaultValues || { items: [item] };
+
+  const isEdit = !!editId;
+
   const form = useForm({
-    defaultValues: {
-      items: [defaultFields],
-    },
+    defaultValues: _defaultValues,
     mode: "onChange",
     resolver: zodResolver(OrderCreateModel),
   });
 
-  const { control, handleSubmit, formState } = form;
-  console.log(formState);
+  const { control, handleSubmit } = form;
+
   const { fields, append, remove } = useFieldArray({
     control,
     name: "items",
@@ -63,7 +73,12 @@ export function AddOrderClient({
   const { push } = useRouter();
 
   const onSubmit = handleSubmit(async (values) => {
-    await createOrder(values);
+    if (editId) {
+      await updateOrder(editId, values);
+    } else {
+      await createOrder(values);
+    }
+
     push("/order-list");
   });
 
@@ -183,7 +198,7 @@ export function AddOrderClient({
           <Button
             variant="contained"
             color="secondary"
-            onClick={() => append(defaultFields as any)}
+            onClick={() => append(item as any)}
           >
             Добавить фасад
           </Button>
@@ -263,7 +278,7 @@ export function AddOrderClient({
           variant="contained"
           size="large"
         >
-          Добавить заказ
+          {isEdit ? "Сохранить" : "Добавить заказ"}
         </Button>
       </FormProvider>
     </PageContainer>

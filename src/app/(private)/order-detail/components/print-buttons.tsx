@@ -1,6 +1,7 @@
 import { Grid, IconButton } from "@mui/material";
-import { Print, ContentCut } from "@mui/icons-material";
+import { Print, ContentCut, Edit } from "@mui/icons-material";
 import { OrderDetailType } from "@/prisma-helpers/get-order-detail";
+import { useRouter } from "next/navigation";
 
 interface PrintButtonsProps {
   order: NonNullable<OrderDetailType>;
@@ -11,8 +12,27 @@ export function PrintButtons({ order }: PrintButtonsProps) {
     window.open(`/api/export-order-excel?id=${order.id}`, "_blank");
   };
 
+  const router = useRouter();
+
   return (
     <Grid container spacing={1} justifyContent="flex-end" mt={2}>
+      <Grid>
+        <IconButton
+          color="primary"
+          onClick={() => router.push(`/add-order?editId=${order.id}`)}
+          sx={{
+            border: "1px solid",
+            borderColor: "primary.main",
+            borderRadius: 2,
+            "&:hover": {
+              backgroundColor: "primary.main",
+              color: "white",
+            },
+          }}
+        >
+          <Edit />
+        </IconButton>
+      </Grid>
       <Grid>
         <IconButton
           color="primary"
