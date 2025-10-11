@@ -17,7 +17,7 @@ export function Facades({ order }: InfoProps) {
   return (
     <>
       <Typography variant="h6" gutterBottom>
-        Фасады Фасады
+        Фасады
       </Typography>
       <Box marginBottom={10} sx={{ maxWidth: "100%", overflowX: "auto" }}>
         <Table>

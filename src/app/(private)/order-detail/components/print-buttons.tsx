@@ -35,6 +35,17 @@ export function PrintButtons({ order }: PrintButtonsProps) {
       </Grid>
       <Grid>
         <Button
+          startIcon={<Print />}
+          color="primary"
+          disabled
+          onClick={cutting}
+          variant="outlined"
+        >
+          Табель
+        </Button>
+      </Grid>
+      <Grid>
+        <Button
           startIcon={<ContentCut />}
           color="primary"
           onClick={cutting}
