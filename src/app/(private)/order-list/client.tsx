@@ -6,24 +6,21 @@ import {
   TableHead,
   TableRow,
   Typography,
-  IconButton,
   Chip,
   ToggleButtonGroup,
   ToggleButton,
   Box,
   Grid,
+  Button,
 } from "@mui/material";
 import { OrdersType } from "@/prisma-helpers/get-orders";
 import dayjs from "dayjs";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import VisibilityIcon from "@mui/icons-material/Visibility";
-import CommentIcon from "@mui/icons-material/Comment";
 import { pluralize } from "@/utils";
 import { PageContainer } from "@/components/page-container/page-container";
 import { ScrollOverflow } from "@/components/scroll-overflow/scroll-overflow";
-import AccessAlarmIcon from "@mui/icons-material/AccessAlarm";
 
 interface OrderListProps {
   orders: OrdersType;
@@ -124,39 +121,13 @@ function OrderListClient({ orders }: OrderListProps) {
                   </Box>
                 </TableCell>
                 <TableCell align="center">
-                  <IconButton
+                  <Button
                     color="primary"
-                    onClick={() => push(`?timelineId=${order.id}`)}
-                    sx={{
-                      "&:hover": {
-                        backgroundColor: "rgb(237 108 2 / 21%)",
-                      },
-                    }}
-                  >
-                    <AccessAlarmIcon />
-                  </IconButton>
-                  <IconButton
-                    color="primary"
+                    variant="outlined"
                     onClick={() => push(`?orderNumber=${order.id}`)}
-                    sx={{
-                      "&:hover": {
-                        backgroundColor: "rgb(237 108 2 / 21%)",
-                      },
-                    }}
                   >
-                    <VisibilityIcon />
-                  </IconButton>
-                  <IconButton
-                    color="primary"
-                    onClick={() => push(`?commentsId=${order.id}`)}
-                    sx={{
-                      "&:hover": {
-                        backgroundColor: "rgb(237 108 2 / 21%)",
-                      },
-                    }}
-                  >
-                    <CommentIcon />
-                  </IconButton>
+                    Подробнее
+                  </Button>
                 </TableCell>
               </TableRow>
             ))}
