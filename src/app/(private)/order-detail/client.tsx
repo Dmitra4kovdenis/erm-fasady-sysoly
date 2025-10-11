@@ -18,6 +18,11 @@ import { useState } from "react";
 import { Chat } from "./chat/chat";
 import { CommentType } from "@/app/(private)/comment/comment";
 import { UserData } from "@/prisma-helpers/get-user-data";
+import { Timeline } from "@/app/(private)/order-detail/timeline/timeline";
+import {
+  OrderTimelinesType,
+  Workers,
+} from "@/app/(private)/order-timeline/order-timeline";
 
 interface OrderDetailClientProps {
   order: NonNullable<OrderDetailType>;
@@ -27,6 +32,8 @@ interface OrderDetailClientProps {
   }[];
   comments: CommentType;
   userData: UserData;
+  timelines: OrderTimelinesType;
+  workers: Workers;
 }
 
 function OrderDetailClient({
@@ -34,6 +41,8 @@ function OrderDetailClient({
   order,
   comments,
   userData,
+  timelines,
+  workers,
 }: OrderDetailClientProps) {
   const { push } = useRouter();
   const pathname = usePathname();
@@ -46,8 +55,10 @@ function OrderDetailClient({
   return (
     <Dialog open onClose={onClose} maxWidth="lg" fullWidth>
       <DialogTitle>Детали заказа №{order.orderNumber}</DialogTitle>
-      <DialogContent>
-        <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+      <DialogContent
+        sx={{ minHeight: "700px", display: "flex", flexDirection: "column" }}
+      >
+        <Box sx={{ borderBottom: 1, borderColor: "divider", marginBottom: 2 }}>
           <Tabs value={tabIndex} onChange={handleChange}>
             <Tab label="О заказе" />
             <Tab label="Чат" />
@@ -64,7 +75,17 @@ function OrderDetailClient({
         {tabIndex === 1 && (
           <Chat comments={comments} order={order} userData={userData} />
         )}
-        <PrintButtons order={order} />
+        {tabIndex === 2 && (
+          <Timeline
+            userData={userData}
+            order={order}
+            timelines={timelines}
+            workers={workers}
+          />
+        )}
+        <Box marginTop={"auto"}>
+          <PrintButtons order={order} />
+        </Box>
       </DialogContent>
     </Dialog>
   );
