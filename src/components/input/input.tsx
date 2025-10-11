@@ -1,4 +1,4 @@
-import { OutlinedInputProps, TextField } from "@mui/material";
+import { InputAdornment, OutlinedInputProps, TextField } from "@mui/material";
 import { Controller, useFormContext } from "react-hook-form";
 import { useFormError } from "@/hooks/use-field-error";
 import { ChangeEvent } from "react";
@@ -7,6 +7,7 @@ interface InputProps extends OutlinedInputProps {
   name: string;
   required?: boolean;
   type?: "number" | "string" | "password";
+  postfix?: string;
 }
 
 export default function Input({
@@ -16,6 +17,7 @@ export default function Input({
   multiline,
   type,
   onKeyPress,
+  postfix,
 }: InputProps) {
   const { control } = useFormContext();
 
@@ -48,6 +50,13 @@ export default function Input({
             onChange={handleChange}
             helperText={fieldState.error?.message}
             onKeyPress={onKeyPress}
+            slotProps={{
+              input: {
+                endAdornment: postfix && (
+                  <InputAdornment position="end">{postfix}</InputAdornment>
+                ),
+              },
+            }}
           />
         );
       }}

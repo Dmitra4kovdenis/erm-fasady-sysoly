@@ -135,9 +135,10 @@ export function AddOrderClient({
             <div className={css.number}>{index + 1}</div>
             <Grid size={{ lg: 4, xs: 12 }}>
               <Input
-                label="Высота, мм"
+                label="Высота"
                 name={`items.${index}.height`}
                 type="number"
+                postfix="мм"
               />
             </Grid>
             <Grid size={{ lg: 4, xs: 12 }}>
