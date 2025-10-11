@@ -1,9 +1,4 @@
-import {
-  Divider,
-  ToggleButton,
-  ToggleButtonGroup,
-  Typography,
-} from "@mui/material";
+import { ToggleButton, ToggleButtonGroup, Typography } from "@mui/material";
 import { OrderDetailType } from "@/prisma-helpers/get-order-detail";
 import { updateStatus } from "@/actions/update-status";
 
@@ -19,8 +14,6 @@ interface StatusBarProps {
 export function StatusBar({ statuses, order, onClose }: StatusBarProps) {
   return (
     <>
-      <Divider sx={{ my: 3 }} />
-
       <Typography variant="subtitle2" color="text.secondary" gutterBottom>
         Изменить статус
       </Typography>

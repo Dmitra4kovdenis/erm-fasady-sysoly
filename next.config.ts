@@ -5,6 +5,9 @@ const nextConfig: NextConfig = {
   sassOptions: {
     includePaths: ["./src/**/*.scss"],
   },
+  experimental: {
+    serverComponentsExternalPackages: ["pdfkit", "maxrects-packer"],
+  },
 };
 
 export default nextConfig;

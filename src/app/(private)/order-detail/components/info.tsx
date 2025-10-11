@@ -22,7 +22,7 @@ export function Info({ order }: InfoProps) {
       <Box sx={{ mt: 2 }}>
         <Grid container spacing={3} mb={5}>
           <Grid size={8}>
-            <Grid container={true} spacing={3} mb={5}>
+            <Grid container spacing={3} mb={5}>
               <Grid size={{ sm: 12, md: 6 }}>
                 <Typography variant="subtitle2" color="textSecondary">
                   Заказчик
@@ -55,14 +55,15 @@ export function Info({ order }: InfoProps) {
               </Grid>
             </Grid>
           </Grid>
-          <Grid size={{ sm: 12, md: 12 }}>
-            <Accordion>
-              <AccordionSummary
-                expandIcon={<ExpandMoreIcon />}
-                aria-controls="panel1-content"
-                id="panel1-header"
-              >
-                <Typography component="span">Информация</Typography>
+          <Box>
+            <Accordion
+              sx={{
+                border: "solid 1px rgb(0,0,0,0.1)",
+                boxShadow: "none",
+              }}
+            >
+              <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+                <Typography component="span">Подробная информация</Typography>
               </AccordionSummary>
               <AccordionDetails>
                 <Grid container spacing={3} mb={5}>
@@ -79,7 +80,7 @@ export function Info({ order }: InfoProps) {
                 </Grid>
               </AccordionDetails>
             </Accordion>
-          </Grid>
+          </Box>
         </Grid>
       </Box>
     </>

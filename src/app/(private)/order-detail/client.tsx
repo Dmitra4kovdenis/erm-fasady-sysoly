@@ -1,13 +1,12 @@
 "use client";
 
 import { OrderDetailType } from "@/prisma-helpers/get-order-detail";
-import { Box, Dialog, DialogContent, DialogTitle, Grid } from "@mui/material";
+import { Box, Dialog, DialogContent, DialogTitle } from "@mui/material";
 import { useRouter, usePathname } from "next/navigation";
 import { PrintButtons } from "@/app/(private)/order-detail/components/print-buttons";
 import { Info } from "@/app/(private)/order-detail/components/info";
 import { StatusBar } from "@/app/(private)/order-detail/components/status-bar";
 import { Facades } from "@/app/(private)/order-detail/components/facades";
-import { Comments } from "@/app/(private)/order-detail/components/comments";
 
 interface OrderDetailClientProps {
   order: NonNullable<OrderDetailType>;
@@ -28,14 +27,8 @@ function OrderDetailClient({ statuses, order }: OrderDetailClientProps) {
       <DialogTitle>Детали заказа №{order.orderNumber}</DialogTitle>
       <DialogContent>
         <Box position="relative">
-          <Grid container spacing={2}>
-            <Grid size={{ lg: 12 }}>
-              <Info order={order} />
-            </Grid>
-            <Grid size={{ lg: 4 }}></Grid>
-          </Grid>
+          <Info order={order} />
           <Facades order={order} />
-          <Comments />
           <StatusBar statuses={statuses} order={order} onClose={onClose} />
           <PrintButtons order={order} />
         </Box>

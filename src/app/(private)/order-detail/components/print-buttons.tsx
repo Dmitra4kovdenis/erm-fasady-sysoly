@@ -1,4 +1,4 @@
-import { Grid, IconButton } from "@mui/material";
+import { Button, Grid } from "@mui/material";
 import { Print, ContentCut, Edit } from "@mui/icons-material";
 import { OrderDetailType } from "@/prisma-helpers/get-order-detail";
 import { useRouter } from "next/navigation";
@@ -12,59 +12,46 @@ export function PrintButtons({ order }: PrintButtonsProps) {
     window.open(`/api/export-order-excel?id=${order.id}`, "_blank");
   };
 
+  const cutting = async () => {
+    const res = await fetch(`/api/get-cutting/?id=${order.id}`);
+    const blob = await res.blob();
+    const url = URL.createObjectURL(blob);
+    window.open(url, "_blank"); // откроет PDF в новой вкладке
+  };
+
   const router = useRouter();
 
   return (
     <Grid container spacing={1} justifyContent="flex-end" mt={2}>
       <Grid>
-        <IconButton
-          color="primary"
-          onClick={() => router.push(`/add-order?editId=${order.id}`)}
-          sx={{
-            border: "1px solid",
-            borderColor: "primary.main",
-            borderRadius: 2,
-            "&:hover": {
-              backgroundColor: "primary.main",
-              color: "white",
-            },
-          }}
-        >
-          <Edit />
-        </IconButton>
-      </Grid>
-      <Grid>
-        <IconButton
+        <Button
+          startIcon={<Print />}
           color="primary"
           onClick={print}
-          sx={{
-            border: "1px solid",
-            borderColor: "primary.main",
-            borderRadius: 2,
-            "&:hover": {
-              backgroundColor: "primary.main",
-              color: "white",
-            },
-          }}
+          variant="outlined"
         >
-          <Print />
-        </IconButton>
+          Печать
+        </Button>
       </Grid>
       <Grid>
-        <IconButton
-          onClick={() => console.log("Раскрой")}
-          sx={{
-            border: "1px solid",
-            borderColor: "primary.main",
-            borderRadius: 2,
-            "&:hover": {
-              backgroundColor: "primary.main",
-              color: "white",
-            },
-          }}
+        <Button
+          startIcon={<ContentCut />}
+          color="primary"
+          onClick={cutting}
+          variant="outlined"
         >
-          <ContentCut />
-        </IconButton>
+          Раскрой
+        </Button>
+      </Grid>
+      <Grid>
+        <Button
+          startIcon={<Edit />}
+          color="primary"
+          onClick={() => router.push(`/add-order?editId=${order.id}`)}
+          variant="contained"
+        >
+          Редактировать
+        </Button>
       </Grid>
     </Grid>
   );
