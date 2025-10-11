@@ -15,6 +15,9 @@ import { Info } from "@/app/(private)/order-detail/components/info";
 import { StatusBar } from "@/app/(private)/order-detail/components/status-bar";
 import { Facades } from "@/app/(private)/order-detail/components/facades";
 import { useState } from "react";
+import { Chat } from "./chat/chat";
+import { CommentType } from "@/app/(private)/comment/comment";
+import { UserData } from "@/prisma-helpers/get-user-data";
 
 interface OrderDetailClientProps {
   order: NonNullable<OrderDetailType>;
@@ -22,9 +25,16 @@ interface OrderDetailClientProps {
     value: number;
     label: string;
   }[];
+  comments: CommentType;
+  userData: UserData;
 }
 
-function OrderDetailClient({ statuses, order }: OrderDetailClientProps) {
+function OrderDetailClient({
+  statuses,
+  order,
+  comments,
+  userData,
+}: OrderDetailClientProps) {
   const { push } = useRouter();
   const pathname = usePathname();
   const [tabIndex, setTabIndex] = useState(0);
@@ -50,6 +60,9 @@ function OrderDetailClient({ statuses, order }: OrderDetailClientProps) {
             <Facades order={order} />
             <StatusBar statuses={statuses} order={order} onClose={onClose} />
           </>
+        )}
+        {tabIndex === 1 && (
+          <Chat comments={comments} order={order} userData={userData} />
         )}
         <PrintButtons order={order} />
       </DialogContent>

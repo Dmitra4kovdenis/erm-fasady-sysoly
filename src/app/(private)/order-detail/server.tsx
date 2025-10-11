@@ -9,6 +9,22 @@ import { prisma } from "@/prisma-helpers/prisma";
 const getWorkers = async () => {
   return await prisma.worker.findMany();
 };
+const getComments = async (orderId: number) => {
+  return prisma.workComment.findMany({
+    where: {
+      orderId,
+    },
+    include: {
+      user: {
+        include: {
+          worker: true,
+          admin: true,
+        },
+      },
+    },
+  });
+};
+export type CommentType = Awaited<ReturnType<typeof getComments>>;
 
 export type Workers = Awaited<ReturnType<typeof getWorkers>>;
 
@@ -31,8 +47,15 @@ async function OrderDetailServer({
     label: item.title,
     value: item.id,
   }));
-
-  return <OrderDetailClient order={result} statuses={statusesOptions} />;
+  const comments = await getComments(+orderNumber);
+  return (
+    <OrderDetailClient
+      order={result}
+      statuses={statusesOptions}
+      userData={userData}
+      comments={comments}
+    />
+  );
 }
 
 export default OrderDetailServer;
