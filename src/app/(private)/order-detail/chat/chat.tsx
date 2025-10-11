@@ -37,7 +37,8 @@ export function Chat({ comments, order, userData }: ChatProps) {
         sx={{
           borderRadius: 2,
           border: "1px solid #e0e0e0",
-          height: 300,
+          height: "100%",
+          maxHeight: "500px",
           overflowY: "auto",
           width: "100%",
           p: 1,

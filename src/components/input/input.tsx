@@ -15,6 +15,7 @@ export default function Input({
   required = true,
   multiline,
   type,
+  onKeyPress,
 }: InputProps) {
   const { control } = useFormContext();
 
@@ -46,6 +47,7 @@ export default function Input({
             value={field.value ?? ""}
             onChange={handleChange}
             helperText={fieldState.error?.message}
+            onKeyPress={onKeyPress}
           />
         );
       }}
