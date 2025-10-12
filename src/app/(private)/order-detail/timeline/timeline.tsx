@@ -1,4 +1,3 @@
-import { UserData } from "@/prisma-helpers/get-user-data";
 import { OrderDetailType } from "@/prisma-helpers/get-order-detail";
 import {
   Box,
@@ -21,16 +20,10 @@ import { FormAddTimeline } from "@/app/(private)/order-detail/timeline/form-add-
 
 interface TimelineProps {
   timelines: OrderTimelinesType;
-  userData: UserData;
   order: NonNullable<OrderDetailType>;
   workers: Workers;
 }
-export function Timeline({
-  timelines,
-  userData,
-  order,
-  workers,
-}: TimelineProps) {
+export function Timeline({ timelines, order, workers }: TimelineProps) {
   const [editIndex, setEditIndex] = useState<number | undefined>(undefined);
 
   return (
@@ -66,7 +59,6 @@ export function Timeline({
       {editIndex && (
         <FormAddTimeline
           onClose={() => setEditIndex(undefined)}
-          workerId={userData?.workerId ?? undefined}
           orderId={order.id}
           statusId={order.statusId}
           editIndex={editIndex}

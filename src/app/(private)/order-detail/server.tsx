@@ -3,7 +3,6 @@
 import { getOrderDetail } from "@/prisma-helpers/get-order-detail";
 import { getStatuses } from "@/prisma-helpers/get-statuses";
 import OrderDetailClient from "@/app/(private)/order-detail/client";
-import { getUserData } from "@/prisma-helpers/get-user-data";
 import { prisma } from "@/prisma-helpers/prisma";
 const getOrderTimelines = async (orderId: number) => {
   return prisma.workTimeline.findMany({
@@ -49,9 +48,7 @@ async function OrderDetailServer({
 
   const result = await getOrderDetail(+orderNumber);
 
-  const userData = await getUserData();
-
-  if (!result || !userData) return null;
+  if (!result) return null;
 
   const statuses = await getStatuses();
 
@@ -66,7 +63,6 @@ async function OrderDetailServer({
     <OrderDetailClient
       order={result}
       statuses={statusesOptions}
-      userData={userData}
       workers={workers}
       timelines={timelines}
       comments={comments}

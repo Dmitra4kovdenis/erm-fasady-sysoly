@@ -17,19 +17,16 @@ import {
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import Link from "next/link";
-import { useRouter } from "next/router";
 import { getInitials } from "@/utils";
+import { useUserData } from "@/prisma-helpers/user-data/user-data.provider";
 
-interface HeaderClientProps {
-  name: string;
-  role: string;
-}
-
-function HeaderClient({ name, role }: HeaderClientProps) {
+function HeaderClient() {
   async function logout() {
     await fetch("/api/logout", { method: "POST" });
     window.location.href = "/auth/login"; // перенаправляем на страницу логина
   }
+
+  const { role, name, roleTitle } = useUserData();
 
   const [isOpen, setIsOpen] = useState(false);
   const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
@@ -61,7 +58,7 @@ function HeaderClient({ name, role }: HeaderClientProps) {
               gap: 2,
             }}
           >
-            {role === "Администратор" && (
+            {role === "admin" && (
               <Button
                 component={Link}
                 href="/add-order"
@@ -76,19 +73,25 @@ function HeaderClient({ name, role }: HeaderClientProps) {
             <Button component={Link} href="/kanban" sx={{ color: "white" }}>
               Доска
             </Button>
-            {role === "Администратор" && (
+            {role === "admin" && (
               <Button component={Link} href="/reports" sx={{ color: "white" }}>
                 Отчеты
               </Button>
             )}
-            {role === "Администратор" && (
+            {role === "admin" && (
               <Button component={Link} href="/workers" sx={{ color: "white" }}>
                 Команда
               </Button>
             )}
-            <Button component={Link} href="/customers" sx={{ color: "white" }}>
-              Заказчики
-            </Button>
+            {role === "admin" && (
+              <Button
+                component={Link}
+                href="/customers"
+                sx={{ color: "white" }}
+              >
+                Заказчики
+              </Button>
+            )}
           </Box>
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" }, ml: 0 }}>
             <IconButton
@@ -119,7 +122,7 @@ function HeaderClient({ name, role }: HeaderClientProps) {
                 display: { xs: "block", md: "none" },
               }}
             >
-              {role === "Администратор" && (
+              {role === "admin" && (
                 <MenuItem
                   onClick={handleCloseNavMenu}
                   component={Link}
@@ -142,7 +145,7 @@ function HeaderClient({ name, role }: HeaderClientProps) {
               >
                 Доска
               </MenuItem>
-              {role === "Администратор" && (
+              {role === "admin" && (
                 <MenuItem
                   onClick={handleCloseNavMenu}
                   component={Link}
@@ -151,7 +154,7 @@ function HeaderClient({ name, role }: HeaderClientProps) {
                   Отчеты
                 </MenuItem>
               )}
-              {role === "Администратор" && (
+              {role === "admin" && (
                 <MenuItem
                   onClick={handleCloseNavMenu}
                   component={Link}
@@ -183,7 +186,7 @@ function HeaderClient({ name, role }: HeaderClientProps) {
                   }}
                 >
                   <Typography variant="body2">{name}</Typography>
-                  <Typography variant="caption">{role}</Typography>
+                  <Typography variant="caption">{roleTitle}</Typography>
                 </Box>
                 <Avatar src="/static/images/avatar/2.jpg">
                   {getInitials(name)}
@@ -207,9 +210,11 @@ function HeaderClient({ name, role }: HeaderClientProps) {
               onClose={() => setIsOpen(false)}
             >
               <MenuItem onClick={() => undefined}>Профиль</MenuItem>
-              <MenuItem component={Link} href="/admins">
-                Администраторы
-              </MenuItem>
+              {role === "admin" && (
+                <MenuItem component={Link} href="/admins">
+                  Администраторы
+                </MenuItem>
+              )}
               <MenuItem onClick={() => logout()}>Выйти</MenuItem>
             </Menu>
           </Box>

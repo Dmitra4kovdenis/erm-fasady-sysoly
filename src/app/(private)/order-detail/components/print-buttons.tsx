@@ -2,6 +2,7 @@ import { Button, Grid } from "@mui/material";
 import { Print, ContentCut, Edit } from "@mui/icons-material";
 import { OrderDetailType } from "@/prisma-helpers/get-order-detail";
 import { useRouter } from "next/navigation";
+import { useUserData } from "@/prisma-helpers/user-data/user-data.provider";
 
 interface PrintButtonsProps {
   order: NonNullable<OrderDetailType>;
@@ -20,6 +21,8 @@ export function PrintButtons({ order }: PrintButtonsProps) {
   };
 
   const router = useRouter();
+
+  const { role } = useUserData();
 
   return (
     <Grid container spacing={1} justifyContent="flex-end" mt={2}>
@@ -54,16 +57,18 @@ export function PrintButtons({ order }: PrintButtonsProps) {
           Раскрой
         </Button>
       </Grid>
-      <Grid>
-        <Button
-          startIcon={<Edit />}
-          color="primary"
-          onClick={() => router.push(`/add-order?editId=${order.id}`)}
-          variant="contained"
-        >
-          Редактировать
-        </Button>
-      </Grid>
+      {role === "admin" && (
+        <Grid>
+          <Button
+            startIcon={<Edit />}
+            color="primary"
+            onClick={() => router.push(`/add-order?editId=${order.id}`)}
+            variant="contained"
+          >
+            Редактировать
+          </Button>
+        </Grid>
+      )}
     </Grid>
   );
 }

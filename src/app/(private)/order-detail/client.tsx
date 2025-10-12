@@ -17,7 +17,6 @@ import { StatusBar } from "@/app/(private)/order-detail/components/status-bar";
 import { Facades } from "@/app/(private)/order-detail/components/facades";
 import { useState } from "react";
 import { Chat } from "./chat/chat";
-import { UserData } from "@/prisma-helpers/get-user-data";
 import { Timeline } from "@/app/(private)/order-detail/timeline/timeline";
 import {
   CommentType,
@@ -32,7 +31,6 @@ interface OrderDetailClientProps {
     label: string;
   }[];
   comments: CommentType;
-  userData: UserData;
   timelines: OrderTimelinesType;
   workers: Workers;
 }
@@ -41,7 +39,6 @@ function OrderDetailClient({
   statuses,
   order,
   comments,
-  userData,
   timelines,
   workers,
 }: OrderDetailClientProps) {
@@ -77,16 +74,9 @@ function OrderDetailClient({
           </DialogActions>
         </>
       )}
-      {tabIndex === 1 && (
-        <Chat comments={comments} order={order} userData={userData} />
-      )}
+      {tabIndex === 1 && <Chat comments={comments} order={order} />}
       {tabIndex === 2 && (
-        <Timeline
-          userData={userData}
-          order={order}
-          timelines={timelines}
-          workers={workers}
-        />
+        <Timeline order={order} timelines={timelines} workers={workers} />
       )}
     </Dialog>
   );

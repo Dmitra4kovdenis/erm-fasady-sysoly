@@ -1,6 +1,5 @@
 import {
   Avatar,
-  DialogActions,
   DialogContent,
   Divider,
   List,
@@ -13,17 +12,15 @@ import {
 import { formatDateTime, getInitials } from "@/utils";
 import { useEffect, useRef } from "react";
 import { OrderDetailType } from "@/prisma-helpers/get-order-detail";
-import { UserData } from "@/prisma-helpers/get-user-data";
 import { FormAddComment } from "@/app/(private)/order-detail/chat/form-add-comment";
 import { CommentType } from "@/app/(private)/order-detail/server";
 
 interface ChatProps {
   comments: CommentType;
   order: NonNullable<OrderDetailType>;
-  userData: UserData;
 }
 
-export function Chat({ comments, order, userData }: ChatProps) {
+export function Chat({ comments, order }: ChatProps) {
   const chatRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
     setTimeout(() => {
@@ -103,7 +100,7 @@ export function Chat({ comments, order, userData }: ChatProps) {
         </Paper>
       </DialogContent>
       <DialogContent>
-        <FormAddComment orderId={order.id} userId={userData.id} />
+        <FormAddComment orderId={order.id} />
       </DialogContent>
     </>
   );

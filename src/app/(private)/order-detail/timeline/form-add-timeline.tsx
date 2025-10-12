@@ -4,15 +4,14 @@ import DatePicker from "@/components/date-picker/date-picker";
 import { FormProvider, useForm } from "react-hook-form";
 import { addTimeline, editTimeline } from "./actions";
 import type { WorkTimeline } from "@prisma/client";
+import Select from "@/components/select/select";
 import {
   OrderTimelinesType,
   Workers,
-} from "@/app/(private)/order-timeline/order-timeline";
-import Select from "@/components/select/select";
+} from "@/app/(private)/order-detail/server";
 
 interface FormAddTimelineProps {
   orderId: number;
-  workerId?: number;
   statusId: number;
   editIndex: number;
   onClose: () => void;
@@ -21,7 +20,6 @@ interface FormAddTimelineProps {
 }
 
 export function FormAddTimeline({
-  workerId,
   orderId,
   statusId,
   editIndex,
@@ -34,7 +32,7 @@ export function FormAddTimeline({
   const form = useForm<WorkTimeline>({
     defaultValues: {
       orderId,
-      workerId: defaultValues?.workerId ?? workerId,
+      workerId: defaultValues?.workerId,
       statusId,
       dateStart: defaultValues?.dateStart,
       dateEnd: defaultValues?.dateEnd,
@@ -62,11 +60,9 @@ export function FormAddTimeline({
       <DialogContent>
         <FormProvider {...form}>
           <Grid spacing={2} container>
-            {workerId === undefined && (
-              <Grid size={12}>
-                <Select label="Специалист" options={options} name="workerId" />
-              </Grid>
-            )}
+            <Grid size={12}>
+              <Select label="Специалист" options={options} name="workerId" />
+            </Grid>
             <Grid size={12}>
               <Input multiline label="Комментарий" name="comment" />
             </Grid>

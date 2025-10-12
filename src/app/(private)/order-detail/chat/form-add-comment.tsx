@@ -3,13 +3,15 @@ import { Send } from "@mui/icons-material";
 import Input from "@/components/input/input";
 import { FormProvider, useForm } from "react-hook-form";
 import { addComment, AddCommentType } from "../actions";
+import { useUserData } from "@/prisma-helpers/user-data/user-data.provider";
 
 interface FormAddTimelineProps {
   orderId: number;
-  userId: number;
 }
 
-export function FormAddComment({ orderId, userId }: FormAddTimelineProps) {
+export function FormAddComment({ orderId }: FormAddTimelineProps) {
+  const { userId } = useUserData();
+
   const form = useForm<AddCommentType>({
     defaultValues: {
       orderId,
