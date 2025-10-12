@@ -19,7 +19,7 @@ export function Info({ order }: InfoProps) {
   const orderFields = getOrderFields(order);
   return (
     <>
-      <Box sx={{ mt: 2 }}>
+      <Box>
         <Grid container spacing={3} mb={5}>
           <Grid size={8}>
             <Grid container spacing={3} mb={5}>

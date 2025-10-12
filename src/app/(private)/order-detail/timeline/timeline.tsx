@@ -1,7 +1,9 @@
 import { UserData } from "@/prisma-helpers/get-user-data";
 import { OrderDetailType } from "@/prisma-helpers/get-order-detail";
 import {
+  Box,
   Button,
+  DialogContent,
   IconButton,
   Table,
   TableBody,
@@ -32,31 +34,35 @@ export function Timeline({
   const [editIndex, setEditIndex] = useState<number | undefined>(undefined);
 
   return (
-    <>
-      <Table>
-        <TableBody>
-          {timelines.map((item) => (
-            <TableRow key={item.id}>
-              <TableCell>{item.worker.name}</TableCell>
-              <TableCell>{item.comment}</TableCell>
-              <TableCell>{formatDate(item.dateStart)}</TableCell>
-              <TableCell>{formatDate(item.dateEnd)}</TableCell>
-              <TableCell>
-                <IconButton onClick={() => setEditIndex(item.id)}>
-                  <IconEdit />
-                </IconButton>
-              </TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-      <Button
-        onClick={() => setEditIndex(-1)}
-        variant="contained"
-        sx={{ marginTop: 2 }}
-      >
-        Добавить трудозатрату
-      </Button>
+    <Box>
+      <DialogContent sx={{ height: "500px" }}>
+        <Table>
+          <TableBody>
+            {timelines.map((item) => (
+              <TableRow key={item.id}>
+                <TableCell>{item.worker.name}</TableCell>
+                <TableCell>{item.comment}</TableCell>
+                <TableCell>{formatDate(item.dateStart)}</TableCell>
+                <TableCell>{formatDate(item.dateEnd)}</TableCell>
+                <TableCell>
+                  <IconButton onClick={() => setEditIndex(item.id)}>
+                    <IconEdit />
+                  </IconButton>
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </DialogContent>
+      <DialogContent>
+        <Button
+          onClick={() => setEditIndex(-1)}
+          variant="contained"
+          sx={{ marginTop: 2 }}
+        >
+          Добавить трудозатрату
+        </Button>
+      </DialogContent>
       {editIndex && (
         <FormAddTimeline
           onClose={() => setEditIndex(undefined)}
@@ -68,6 +74,6 @@ export function Timeline({
           workers={workers}
         />
       )}
-    </>
+    </Box>
   );
 }

@@ -31,6 +31,13 @@ const theme = createTheme({
     borderRadius: 8, // радиусы
   },
   components: {
+    MuiDialogActions: {
+      styleOverrides: {
+        root: {
+          padding: "24px",
+        },
+      },
+    },
     MuiButton: {
       styleOverrides: {
         root: {
