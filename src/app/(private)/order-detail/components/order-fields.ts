@@ -1,4 +1,4 @@
-import { OrderDetailType } from "@/prisma-helpers/get-order-detail";
+import { OrderDetailType } from "@/app/(private)/order-detail/server";
 
 export const getOrderFields = (order: NonNullable<OrderDetailType>) => {
   return [

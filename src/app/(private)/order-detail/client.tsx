@@ -1,6 +1,5 @@
 "use client";
 
-import { OrderDetailType } from "@/prisma-helpers/get-order-detail";
 import {
   Box,
   Dialog,
@@ -20,6 +19,7 @@ import { Chat } from "./chat/chat";
 import { Timeline } from "@/app/(private)/order-detail/timeline/timeline";
 import {
   CommentType,
+  OrderDetailType,
   OrderTimelinesType,
   Workers,
 } from "@/app/(private)/order-detail/server";

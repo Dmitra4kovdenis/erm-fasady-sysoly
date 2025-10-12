@@ -1,6 +1,6 @@
 "use client";
 import { createContext, ReactNode, useContext } from "react";
-import { GetUserData } from "@/prisma-helpers/get-user-data";
+import { GetUserData } from "@/prisma-helpers/user-data/get-user-data";
 
 interface UserData {
   role: "admin" | "worker" | "customer";

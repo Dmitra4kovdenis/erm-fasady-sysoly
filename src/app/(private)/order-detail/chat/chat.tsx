@@ -11,9 +11,11 @@ import {
 } from "@mui/material";
 import { formatDateTime, getInitials } from "@/utils";
 import { useEffect, useRef } from "react";
-import { OrderDetailType } from "@/prisma-helpers/get-order-detail";
 import { FormAddComment } from "@/app/(private)/order-detail/chat/form-add-comment";
-import { CommentType } from "@/app/(private)/order-detail/server";
+import {
+  CommentType,
+  OrderDetailType,
+} from "@/app/(private)/order-detail/server";
 
 interface ChatProps {
   comments: CommentType;

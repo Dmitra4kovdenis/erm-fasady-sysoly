@@ -13,7 +13,7 @@ import {
   Grid,
   Button,
 } from "@mui/material";
-import { OrdersType } from "@/prisma-helpers/get-orders";
+import { OrdersType } from "./page";
 import dayjs from "dayjs";
 import { useRouter } from "next/navigation";
 import Link from "next/link";

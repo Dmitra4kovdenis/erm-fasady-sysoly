@@ -1,4 +1,3 @@
-import { OrderDetailType } from "@/prisma-helpers/get-order-detail";
 import {
   Box,
   Typography,
@@ -9,7 +8,8 @@ import {
 } from "@mui/material";
 import dayjs from "dayjs";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import { getOrderFields } from "@/utils/helper/orderFields";
+import { OrderDetailType } from "@/app/(private)/order-detail/server";
+import { getOrderFields } from "@/app/(private)/order-detail/components/order-fields";
 
 interface InfoProps {
   order: NonNullable<OrderDetailType>;

@@ -1,9 +1,32 @@
 "use server";
 
-import { getOrderDetail } from "@/prisma-helpers/get-order-detail";
-import { getStatuses } from "@/prisma-helpers/get-statuses";
 import OrderDetailClient from "@/app/(private)/order-detail/client";
 import { prisma } from "@/prisma-helpers/prisma";
+
+const getOrderDetail = async (id: number) => {
+  return prisma.order.findFirst({
+    where: {
+      id,
+    },
+    include: {
+      customer: true,
+      workers: true,
+      items: {
+        include: {
+          handle: true,
+          milling: true,
+        },
+      },
+    },
+  });
+};
+
+export type OrderDetailType = Awaited<ReturnType<typeof getOrderDetail>>;
+
+const getStatuses = async () => {
+  return prisma.orderStatus.findMany({});
+};
+
 const getOrderTimelines = async (orderId: number) => {
   return prisma.workTimeline.findMany({
     where: {

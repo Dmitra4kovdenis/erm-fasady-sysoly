@@ -1,4 +1,3 @@
-import { OrderDetailType } from "@/prisma-helpers/get-order-detail";
 import {
   Box,
   Table,
@@ -8,6 +7,7 @@ import {
   TableBody,
   Typography,
 } from "@mui/material";
+import { OrderDetailType } from "@/app/(private)/order-detail/server";
 
 interface InfoProps {
   order: NonNullable<OrderDetailType>;

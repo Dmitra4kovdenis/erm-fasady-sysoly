@@ -1,4 +1,3 @@
-import { OrderDetailType } from "@/prisma-helpers/get-order-detail";
 import {
   Box,
   Button,
@@ -13,6 +12,7 @@ import { formatDate } from "@/utils";
 import { IconEdit } from "@/icons";
 import { useState } from "react";
 import {
+  OrderDetailType,
   OrderTimelinesType,
   Workers,
 } from "@/app/(private)/order-detail/server";

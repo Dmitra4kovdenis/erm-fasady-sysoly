@@ -1,8 +1,8 @@
 import { Button, Grid } from "@mui/material";
 import { Print, ContentCut, Edit } from "@mui/icons-material";
-import { OrderDetailType } from "@/prisma-helpers/get-order-detail";
 import { useRouter } from "next/navigation";
 import { useUserData } from "@/prisma-helpers/user-data/user-data.provider";
+import { OrderDetailType } from "@/app/(private)/order-detail/server";
 
 interface PrintButtonsProps {
   order: NonNullable<OrderDetailType>;

@@ -1,7 +1,25 @@
 import { SearchParams } from "@/types";
 import OrderDetailServer from "@/app/(private)/order-detail/server";
 import ArchiveListClient from "@/app/(private)/archive-list/client";
-import { getArchiveOrders } from "@/prisma-helpers/get-archive-orders";
+
+import { prisma } from "@/prisma-helpers/prisma";
+
+const getArchiveOrders = async () => {
+  return prisma.order.findMany({
+    where: {
+      statusId: 5,
+    },
+    include: {
+      customer: true,
+      status: true,
+    },
+    orderBy: {
+      createdAt: "desc",
+    },
+  });
+};
+
+export type ArchiveOrdersType = Awaited<ReturnType<typeof getArchiveOrders>>;
 
 export default async function ArchiveListPage({
   searchParams,

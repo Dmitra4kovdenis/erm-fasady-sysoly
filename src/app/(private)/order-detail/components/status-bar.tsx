@@ -1,6 +1,6 @@
 import { ToggleButton, ToggleButtonGroup, Typography } from "@mui/material";
-import { OrderDetailType } from "@/prisma-helpers/get-order-detail";
 import { updateStatus } from "@/actions/update-status";
+import { OrderDetailType } from "@/app/(private)/order-detail/server";
 
 interface StatusBarProps {
   statuses: {

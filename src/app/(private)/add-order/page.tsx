@@ -1,9 +1,20 @@
 import { AddOrderClient } from "@/app/(private)/add-order/client";
-import { getCustomers } from "@/prisma-helpers/get-customers";
-import { getMillings } from "@/prisma-helpers/get-millings";
-import { getHandles } from "@/prisma-helpers/get-handles";
 import { SearchParams } from "@/types";
 import { prisma } from "@/prisma-helpers/prisma";
+
+// получить список всех фрезеровок
+const getMillings = async () => {
+  return prisma.milling.findMany({});
+};
+
+// получить список всех интегрированных ручек
+const getHandles = async () => {
+  return prisma.handle.findMany({});
+};
+
+const getCustomers = async () => {
+  return prisma.customer.findMany({});
+};
 
 const getDefaultValues = async (id: number) => {
   return prisma.order.findFirst({

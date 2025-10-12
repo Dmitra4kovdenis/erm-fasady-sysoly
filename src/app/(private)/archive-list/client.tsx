@@ -13,7 +13,7 @@ import {
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import dayjs from "dayjs";
 import { usePathname, useRouter } from "next/navigation";
-import { ArchiveOrdersType } from "@/prisma-helpers/get-archive-orders";
+import { ArchiveOrdersType } from "./page";
 import Link from "next/link";
 import IconButton from "@mui/material/IconButton";
 import { PageContainer } from "@/components/page-container/page-container";
