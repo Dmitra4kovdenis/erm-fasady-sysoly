@@ -34,3 +34,6 @@
 4. Обновить начальные значения БД `npm run initialize`
  
 
+### Инициализация
+* Роли `node scripts/make-work-types.js`
+* Статусы `node scripts/make-roles.js `
