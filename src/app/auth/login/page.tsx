@@ -2,7 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { FormProvider, useForm } from "react-hook-form";
-import { Grid, Typography, Button, Paper, Box } from "@mui/material";
+import { Grid, Typography, Button, Paper, Box, Badge } from "@mui/material";
 import Input from "@/components/input/input";
 
 interface FormValues {
@@ -12,7 +12,12 @@ interface FormValues {
 
 export default function Login() {
   const router = useRouter();
-
+  const form = useForm<FormValues>({
+    defaultValues: {
+      login: "ivandmitrachkov",
+      password: "123456",
+    },
+  });
   const submit = async ({ login, password }: FormValues) => {
     const res = await fetch("/api/login", {
       method: "POST",
@@ -21,15 +26,15 @@ export default function Login() {
     });
 
     const data = await res.json();
-    if (data.success) router.push("/");
+    if (data.success) {
+      router.push("/");
+    } else {
+      form.setError("root", {
+        type: "manual",
+        message: "Не верный логин или пароль",
+      });
+    }
   };
-
-  const form = useForm<FormValues>({
-    defaultValues: {
-      login: "ivandmitrachkov",
-      password: "123456",
-    },
-  });
 
   return (
     <FormProvider {...form}>
@@ -67,6 +72,10 @@ export default function Login() {
                   placeholder="Введите пароль"
                 />
               </Grid>
+
+              {form.formState.errors.root && (
+                <Badge>{form.formState.errors.root.message}</Badge>
+              )}
 
               <Grid>
                 <Button
