@@ -7,7 +7,7 @@ const getOrders = async () => {
   return prisma.order.findMany({
     where: {
       statusId: {
-        not: 5,
+        not: 9,
       },
     },
     include: {

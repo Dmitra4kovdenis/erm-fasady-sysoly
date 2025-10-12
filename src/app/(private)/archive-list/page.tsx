@@ -7,7 +7,7 @@ import { prisma } from "@/prisma-helpers/prisma";
 const getArchiveOrders = async () => {
   return prisma.order.findMany({
     where: {
-      statusId: 5,
+      statusId: 9,
     },
     include: {
       customer: true,

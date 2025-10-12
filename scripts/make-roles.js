@@ -60,7 +60,7 @@ const list = [
   {
     id: 9,
     title: "Архив",
-    slug: "sent",
+    slug: "archive",
     index: 9,
   },
 ];

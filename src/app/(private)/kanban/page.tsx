@@ -13,7 +13,7 @@ const getOrders = async () =>
       OR: [
         {
           statusId: {
-            not: 5,
+            not: 9,
           },
         },
         {

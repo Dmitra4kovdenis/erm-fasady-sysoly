@@ -97,7 +97,7 @@ function ArchiveListClient({ orders }: ArchiveProps) {
                 <TableCell align="center">
                   <IconButton
                     color="primary"
-                    onClick={() => push(`?orderNumber=${order.orderNumber}`)}
+                    onClick={() => push(`?orderNumber=${order.id}`)}
                     sx={{
                       "&:hover": {
                         backgroundColor: "rgb(237 108 2 / 21%)",
