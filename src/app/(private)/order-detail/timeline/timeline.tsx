@@ -1,7 +1,3 @@
-import {
-  OrderTimelinesType,
-  Workers,
-} from "@/app/(private)/order-timeline/order-timeline";
 import { UserData } from "@/prisma-helpers/get-user-data";
 import { OrderDetailType } from "@/prisma-helpers/get-order-detail";
 import {
@@ -14,8 +10,12 @@ import {
 } from "@mui/material";
 import { formatDate } from "@/utils";
 import { IconEdit } from "@/icons";
-import { FormAddTimeline } from "@/app/(private)/order-timeline/components/form-add-timeline";
 import { useState } from "react";
+import {
+  OrderTimelinesType,
+  Workers,
+} from "@/app/(private)/order-detail/server";
+import { FormAddTimeline } from "@/app/(private)/order-detail/timeline/form-add-timeline";
 
 interface TimelineProps {
   timelines: OrderTimelinesType;

@@ -8,6 +8,8 @@ interface InputProps extends OutlinedInputProps {
   required?: boolean;
   type?: "number" | "string" | "password";
   postfix?: string;
+  min?: number;
+  max?: number;
 }
 
 export default function Input({

@@ -6,9 +6,9 @@ import IconButton from "@mui/material/IconButton";
 import IconDelete from "@mui/icons-material/Delete";
 import { useFieldArray, useForm, FormProvider } from "react-hook-form";
 import {
-  OrderCreateModel,
-  OrderCreateModelType,
   orderFields,
+  OrderModel,
+  OrderModelType,
 } from "@/zod-models/order-model";
 import { Button, Typography } from "@mui/material";
 import Select, { SelectOption } from "@/components/select/select";
@@ -42,7 +42,7 @@ interface AddOrderClientProps {
   customers: SelectOption[];
   handles: SelectOption[];
   millings: SelectOption[];
-  defaultValues: OrderCreateModelType | null;
+  defaultValues: OrderModelType | null;
   editId?: number;
 }
 
@@ -60,7 +60,7 @@ export function AddOrderClient({
   const form = useForm({
     defaultValues: _defaultValues,
     mode: "onChange",
-    resolver: zodResolver(OrderCreateModel),
+    resolver: zodResolver(OrderModel),
   });
 
   const { control, handleSubmit } = form;

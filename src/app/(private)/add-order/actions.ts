@@ -1,7 +1,7 @@
 "use server";
 
 import { prisma } from "@/prisma-helpers/prisma";
-import type { OrderCreateModelType } from "@/zod-models/order-model";
+import { OrderModelType } from "@/zod-models/order-model";
 import { calcFieldsByEditable } from "@/app/(private)/add-order/utils";
 
 const charts = ["А", "Б", "В", "Г"];
@@ -24,7 +24,7 @@ const generateOrderNumber = (prevOrderNumber: string = "") => {
   return `${orderChar} ${nextOrderNumber}`;
 };
 
-export const createOrder = async (values: OrderCreateModelType) => {
+export const createOrder = async (values: OrderModelType) => {
   const prevOrder = await prisma.order.findFirst({
     orderBy: {
       orderNumber: "desc",
@@ -47,7 +47,7 @@ export const createOrder = async (values: OrderCreateModelType) => {
   });
 };
 
-export const updateOrder = async (id: number, values: OrderCreateModelType) => {
+export const updateOrder = async (id: number, values: OrderModelType) => {
   const calcValues = calcFieldsByEditable(values);
 
   const existingItems = await prisma.facade.findMany({

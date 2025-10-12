@@ -34,24 +34,23 @@ export const OrderModel = z.object({
         height: z.coerce
           .number("Поле обязательно")
           .positive("Высота должна быть положительной")
-          .min(0.1, "Высота должна быть положительной"),
+          .min(0.1, "Высота должна быть положительной")
+          .max(1445, "Высота не может быть больше 1445"),
         width: z.coerce
           .number("Поле обязательно")
           .positive("Ширина должна быть положительной")
-          .min(0.1, "Ширина должна быть положительной"),
-        thickness: z.coerce
-          .number("Поле обязательно")
-          .positive("Толщина должна быть положительной")
-          .min(0.1, "Толщина должна быть положительной"),
+          .min(0.1, "Ширина должна быть положительной")
+          .max(1445, "Ширина не может быть больше 1445"),
+        thickness: z.coerce.number("Поле обязательно"),
         handleId: z.coerce.number("ID ручки обязательно"),
-        radius: z.coerce.number("Поле обязательно").min(0).default(0),
+        radius: z.coerce.number("Поле обязательно"),
         millingId: z.coerce.number("ID фрезеровки обязательно"),
         color: z.string("Поле обязательно").min(1, "Цвет обязателен"),
         count: z.coerce
           .number("Поле обязательно")
           .int()
           .positive("Количество должно быть положительным")
-          .min(1),
+          .min(1, "Фасадов не может быть 0"),
         createdAt: z.date().optional(),
         updatedAt: z.date().optional(),
       }),
@@ -60,16 +59,6 @@ export const OrderModel = z.object({
 });
 
 export type OrderModelType = z.infer<typeof OrderModel>;
-
-// Дополнительно: схема для обновления заказа (все поля опциональны)
-export const OrderUpdateModel = OrderModel.partial();
-
-// Схема для валидации при создании (обязательные поля)
-export const OrderCreateModel = OrderModel.omit({
-  // orderNumber: true, // Генерируется автоматически
-}).extend({});
-
-export type OrderCreateModelType = z.infer<typeof OrderCreateModel>;
 
 export const orderFields = {
   // Основная информация
