@@ -35,5 +35,14 @@ export const updateAdmin = async (id: number, admin: Admin, user: User) => {
     where: { adminId: id },
     data: user,
   });
+  if (user.password) {
+    const password = await bcrypt.hash(user.password, 10);
+    await prisma.user.update({
+      where: { adminId: id },
+      data: {
+        password,
+      },
+    });
+  }
   revalidatePath("/admins");
 };

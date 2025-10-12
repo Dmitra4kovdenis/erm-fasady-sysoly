@@ -62,7 +62,7 @@ export function FormAddWorker({
 
   const options = workTypes.map((item) => ({
     label: item.title,
-    value: item.id.toString(),
+    value: item.id,
   }));
 
   return (
@@ -96,7 +96,7 @@ export function FormAddWorker({
               <Input
                 name="user.password"
                 label="Пароль (для учетной записи)"
-                required
+                required={editId === -1}
               />
             </Grid>
             <Grid>
