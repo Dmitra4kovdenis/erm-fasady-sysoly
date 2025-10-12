@@ -1,7 +1,9 @@
+import { Container, Typography } from "@mui/material";
+
 export default function Home() {
   return (
-    <div>
-      <h1>Приватная зона</h1>
-    </div>
+    <Container>
+      <Typography variant="h1">Инструкция по пользованию ERM</Typography>
+    </Container>
   );
 }

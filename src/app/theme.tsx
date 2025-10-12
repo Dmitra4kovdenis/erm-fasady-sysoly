@@ -26,6 +26,16 @@ const theme = createTheme({
       fontWeight: 700,
       marginBottom: "32px",
     },
+    h2: {
+      fontSize: "28px",
+      fontWeight: 700,
+      marginBottom: "32px",
+    },
+    h3: {
+      fontSize: "24px",
+      fontWeight: 700,
+      marginBottom: "32px",
+    },
   },
   shape: {
     borderRadius: 8, // радиусы
