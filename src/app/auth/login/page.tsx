@@ -29,10 +29,17 @@ export default function Login() {
     if (data.success) {
       router.push("/");
     } else {
-      form.setError("root", {
-        type: "manual",
-        message: "Не верный логин или пароль",
-      });
+      if (res.status === 401) {
+        form.setError("root", {
+          type: "manual",
+          message: "Не верный логин или пароль",
+        });
+      } else {
+        form.setError("root", {
+          type: "manual",
+          message: "Неожиданная ошибка сервера",
+        });
+      }
     }
   };
 
