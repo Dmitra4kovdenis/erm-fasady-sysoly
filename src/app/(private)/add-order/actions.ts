@@ -25,20 +25,20 @@ const generateOrderNumber = (prevOrderNumber: string = "") => {
 };
 
 export const createOrder = async (values: OrderModelType) => {
-  const prevOrder = await prisma.order.findFirst({
-    orderBy: {
-      orderNumber: "desc",
-    },
-  });
+  // const prevOrder = await prisma.order.findFirst({
+  //   orderBy: {
+  //     orderNumber: "desc",
+  //   },
+  // });
 
-  const orderNumber = generateOrderNumber(prevOrder?.orderNumber);
+  // const orderNumber = generateOrderNumber(prevOrder?.orderNumber);
   const calcValues = calcFieldsByEditable(values);
 
   await prisma.order.create({
     data: {
       ...calcValues,
       ...values,
-      orderNumber,
+      // orderNumber,
       statusId: 0,
       items: {
         create: values.items.map((item) => item),

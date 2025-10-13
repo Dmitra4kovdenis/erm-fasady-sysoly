@@ -89,7 +89,10 @@ export function AddOrderClient({
           Добавление нового заказа
         </Typography>
         <Grid container spacing={2} sx={{ mt: "50px" }}>
-          <Grid size={{ xs: 12, lg: 12 }}>
+          <Grid size={{ xs: 12, lg: 3 }}>
+            <Input name={orderFields.orderNumber} label="Номер заявки" />
+          </Grid>
+          <Grid size={{ xs: 12, lg: 9 }}>
             <Select
               label="Заказчик"
               options={customers}

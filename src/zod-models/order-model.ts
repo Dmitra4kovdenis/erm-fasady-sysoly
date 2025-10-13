@@ -7,6 +7,9 @@ export const OrderModel = z.object({
   workType: z.string("Поле обязательно").min(1, "Поле обязательно"),
   startDate: z.coerce.date("Некорректная дата"),
   endDate: z.coerce.date("Некорректная дата"),
+  orderNumber: z.coerce
+    .string("Номер заявки обязателен")
+    .min(1, "Поле обязательно"),
 
   // Финансовые поля
   discount: z.coerce
@@ -63,6 +66,7 @@ export type OrderModelType = z.infer<typeof OrderModel>;
 export const orderFields = {
   // Основная информация
   customerId: "customerId",
+  orderNumber: "orderNumber",
   deliveryAddress: "deliveryAddress",
   workType: "workType",
   startDate: "startDate",
