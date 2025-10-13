@@ -44,10 +44,21 @@ export async function GET(req: Request) {
 
   // Заполняем верхние данные
   sheet.getCell("C2").value = order.orderNumber;
-  sheet.getCell("G3").value = order.customer.name;
+  sheet.getCell("G3").value = order.customer.phone;
   sheet.getCell("G4").value = order.deliveryAddress;
   sheet.getCell("C3").value = order.startDate.toLocaleDateString("ru-RU");
   sheet.getCell("C4").value = order.endDate.toLocaleDateString("ru-RU");
+  sheet.getCell("G2").value = order.customer.name;
+  sheet.getCell("C5").value = order.workType;
+  sheet.getCell("J54").value = order.unitCost;
+  sheet.getCell("J56").value = order.millingArea;
+  sheet.getCell("J57").value = order.costOfMilling;
+  sheet.getCell("J58").value = order.handleLength;
+  sheet.getCell("J59").value = order.costOfHandle;
+  sheet.getCell("J60").value = order.costOtherServices;
+  sheet.getCell("J62").value = order.discount;
+  sheet.getCell("J64").value = order.prepayment;
+  sheet.getCell("J66").value = order.itemsCount;
 
   // Добавляем фасады
   let startRow = 9;
@@ -58,10 +69,6 @@ export async function GET(req: Request) {
     row.getCell(3).value = f.width;
     row.getCell(4).value = f.count;
     row.getCell(5).value = f.thickness;
-    row.getCell(6).value = {
-      formula: `B${startRow - 1}*C${startRow - 1}/1000000`,
-    };
-    row.getCell(6).value = { formula: `E${startRow - 1}*D${startRow - 1}` };
     row.commit();
   }
 
