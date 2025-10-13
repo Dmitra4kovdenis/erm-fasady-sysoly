@@ -27,11 +27,25 @@
     margin-top: 12px;
   }
 
-  li:before {
+  ul li:before {
     content: "·";
     padding-right: 16px;
     padding-left: 8px;
     font-size: 20px;
     font-weight: bold;
+  }
+
+  ol {
+    counter-reset: counter;
+  }
+
+  li {
+    counter-increment: counter;
+  }
+
+  ol li:before {
+    content: counter(counter) ".";
+    font-weight: bold;
+    padding-right: 8px;
   }
 }
