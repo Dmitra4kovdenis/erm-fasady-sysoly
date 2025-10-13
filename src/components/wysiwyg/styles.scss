@@ -1,0 +1,37 @@
+
+.wysiwyg {
+  font-size: 14px;
+
+  h1 {
+    font-size: 30px;
+    margin-bottom: 24px;
+    font-weight: bold;
+  }
+
+  h2 {
+    font-size: 24px;
+    margin-bottom: 16px;
+    margin-top: 30px;
+    font-weight: bold;
+  }
+
+  h3 {
+    font-size: 18px;
+    margin-top: 16px;
+    margin-bottom: 8px;
+    font-weight: bold;
+  }
+
+  p {
+    margin-bottom: 12px;
+    margin-top: 12px;
+  }
+
+  li:before {
+    content: "·";
+    padding-right: 16px;
+    padding-left: 8px;
+    font-size: 20px;
+    font-weight: bold;
+  }
+}
