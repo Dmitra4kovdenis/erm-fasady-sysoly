@@ -26,9 +26,9 @@ export const UserDataProvider = ({
     "";
 
   const role =
-    userData.roleId === 0
+    userData.roleId === 1
       ? "admin"
-      : userData.roleId === 2
+      : userData.roleId === 3
         ? "worker"
         : "customer";
 

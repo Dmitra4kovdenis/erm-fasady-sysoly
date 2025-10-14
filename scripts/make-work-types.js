@@ -4,27 +4,21 @@ const prisma = new PrismaClient();
 
 const list = [
   {
-    id: 0,
     title: "Раскройщик",
   },
   {
-    id: 1,
     title: "Маляр",
   },
   {
-    id: 2,
     title: "Полировщик",
   },
   {
-    id: 3,
     title: "Упаковщик",
   },
   {
-    id: 4,
     title: "Прочее",
   },
   {
-    id: 5,
     title: "Бригадир",
   },
 ];

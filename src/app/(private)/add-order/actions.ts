@@ -34,12 +34,23 @@ export const createOrder = async (values: OrderModelType) => {
   // const orderNumber = generateOrderNumber(prevOrder?.orderNumber);
   const calcValues = calcFieldsByEditable(values);
 
+  const { customerId, ...otherValues } = values;
+
   await prisma.order.create({
     data: {
       ...calcValues,
-      ...values,
+      ...otherValues,
       // orderNumber,
-      statusId: 0,
+      customer: {
+        connect: {
+          id: customerId,
+        },
+      },
+      status: {
+        connect: {
+          id: 1,
+        },
+      },
       items: {
         create: values.items.map((item) => item),
       },
@@ -60,13 +71,20 @@ export const updateOrder = async (id: number, values: OrderModelType) => {
   const idsToKeep = itemsToUpdate.map((i) => i.id);
   const idsToDelete = existingIds.filter((id) => !idsToKeep.includes(id));
 
+  const { customerId, ...otherValues } = values;
+
   await prisma.order.update({
     where: {
       id,
     },
     data: {
       ...calcValues,
-      ...values,
+      ...otherValues,
+      customer: {
+        connect: {
+          id: customerId,
+        },
+      },
       items: {
         // 1. Удаляем те, что пропали
         deleteMany: {
