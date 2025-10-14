@@ -61,8 +61,8 @@ export default function Login() {
             mx: "auto",
           }}
         >
-          <Typography variant="h5" align="center" fontWeight="bold" mb={4}>
-            Вход
+          <Typography variant="h3" align="center" fontWeight="bold" mb={4}>
+            ERM v1.0.0
           </Typography>
 
           <Box component="form" onSubmit={form.handleSubmit(submit)}>
