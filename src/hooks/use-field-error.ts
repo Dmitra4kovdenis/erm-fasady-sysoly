@@ -6,7 +6,6 @@ export function useFormError(name: string) {
     formState: { errors },
   } = useFormContext();
 
-  // eslint-disable-next-line
   const getError = (errorObj: any, path: string) => {
     return path.split(".").reduce((acc, part) => acc && acc[part], errorObj);
   };

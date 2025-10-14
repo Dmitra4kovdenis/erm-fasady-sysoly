@@ -9,7 +9,7 @@ import {
   TableRow,
 } from "@mui/material";
 import { formatDate } from "@/utils";
-import { IconEdit } from "@/icons";
+import { Edit } from "@mui/icons-material";
 import { useState } from "react";
 import {
   OrderDetailType,
@@ -39,7 +39,7 @@ export function Timeline({ timelines, order, workers }: TimelineProps) {
                 <TableCell>{formatDate(item.dateEnd)}</TableCell>
                 <TableCell>
                   <IconButton onClick={() => setEditIndex(item.id)}>
-                    <IconEdit />
+                    <Edit />
                   </IconButton>
                 </TableCell>
               </TableRow>
