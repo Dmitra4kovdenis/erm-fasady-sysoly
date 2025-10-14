@@ -5,8 +5,6 @@ import bcrypt from "bcryptjs";
 import * as jwt from "jsonwebtoken";
 
 export async function POST(req: Request) {
-  console.log("login", req?.json());
-
   const { login, password } = await req.json();
 
   const user = await prisma.user.findUnique({ where: { login } });
