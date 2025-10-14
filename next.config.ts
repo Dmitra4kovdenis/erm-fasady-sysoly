@@ -8,6 +8,12 @@ const nextConfig: NextConfig = {
   experimental: {
     serverComponentsExternalPackages: ["pdfkit", "maxrects-packer"],
   },
+  api: {
+    responseLimit: false,
+    bodyParser: {
+      sizeLimit: "1mb",
+    },
+  },
 };
 
 export default nextConfig;
