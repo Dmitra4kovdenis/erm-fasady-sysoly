@@ -1,12 +1,16 @@
 import { PrismaClient } from "@prisma/client";
 export * from "@prisma/client";
 
+console.log("Prisma Init", { database: process.env.PRISMA_DATABASE });
+
 const prismaClientSingleton = () => {
+  console.log("Prisma Singleton", { database: process.env.PRISMA_DATABASE });
+
   return new PrismaClient({
     log:
       process.env.NODE_ENV === "development"
         ? ["query", "error", "warn"]
-        : ["error"],
+        : ["query", "error", "warn"],
   });
 };
 
