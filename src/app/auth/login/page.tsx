@@ -62,7 +62,7 @@ export default function Login() {
           }}
         >
           <Typography variant="h3" align="center" fontWeight="bold" mb={4}>
-            ERM v1.0.2
+            ERM v1.0.3
           </Typography>
 
           <Box component="form" onSubmit={form.handleSubmit(submit)}>

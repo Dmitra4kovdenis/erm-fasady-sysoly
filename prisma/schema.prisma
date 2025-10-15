@@ -10,7 +10,7 @@ generator client {
 
 datasource db {
   provider = "mysql"
-  url      = env("DATABASE_URL")
+  url      = "mysql://kuzovok11_ermdev:Admin123@kuzovok11.beget.tech:3306/kuzovok11_ermdev"
 }
 
 // пользователь как модель для авторизации
