@@ -4,6 +4,8 @@ import { NextResponse } from "next/server";
 import bcrypt from "bcryptjs";
 import * as jwt from "jsonwebtoken";
 
+export const runtime = "nodejs";
+
 export async function POST(req: Request) {
   const { login, password } = await req.json();
 
