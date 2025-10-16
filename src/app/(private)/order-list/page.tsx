@@ -13,7 +13,6 @@ const getOrders = async () => {
     include: {
       customer: true,
       status: true,
-      workers: true,
     },
     orderBy: {
       createdAt: "desc",
