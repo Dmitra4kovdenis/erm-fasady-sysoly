@@ -8,7 +8,7 @@ import Select from "@/components/select/select";
 import {
   OrderTimelinesType,
   Workers,
-} from "@/app/(private)/order-detail/server";
+} from "@/app/(private)/order-detail/actions";
 
 interface FormAddTimelineProps {
   orderId: number;
@@ -17,6 +17,7 @@ interface FormAddTimelineProps {
   onClose: () => void;
   timelines: OrderTimelinesType;
   workers: Workers;
+  update: () => void;
 }
 
 export function FormAddTimeline({
@@ -26,6 +27,7 @@ export function FormAddTimeline({
   onClose,
   timelines,
   workers,
+  update,
 }: FormAddTimelineProps) {
   const defaultValues = timelines.find((item) => item.id === editIndex);
 
@@ -52,6 +54,7 @@ export function FormAddTimeline({
       await editTimeline(editIndex, values);
     }
     onClose();
+    update();
     form.reset();
   });
 

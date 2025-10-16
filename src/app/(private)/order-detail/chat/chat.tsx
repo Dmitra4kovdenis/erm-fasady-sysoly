@@ -10,25 +10,39 @@ import {
   Typography,
 } from "@mui/material";
 import { formatDateTime, getInitials } from "@/utils";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { FormAddComment } from "@/app/(private)/order-detail/chat/form-add-comment";
 import {
   CommentType,
+  getComments,
   OrderDetailType,
-} from "@/app/(private)/order-detail/server";
+} from "@/app/(private)/order-detail/actions";
+import { Loading } from "@/app/(private)/order-detail/loading";
 
 interface ChatProps {
-  comments: CommentType;
   order: NonNullable<OrderDetailType>;
 }
 
-export function Chat({ comments, order }: ChatProps) {
+export function Chat({ order }: ChatProps) {
   const chatRef = useRef<HTMLDivElement>(null);
+
+  const [comments, setComments] = useState<CommentType>();
+
+  useEffect(() => {
+    getComments(order.id).then(setComments);
+  }, [order]);
+
+  const update = () => getComments(order.id).then(setComments);
+
   useEffect(() => {
     setTimeout(() => {
       chatRef.current?.scrollTo(0, chatRef.current.scrollHeight);
     }, 0);
   }, [comments]);
+
+  if (!comments) {
+    return <Loading />;
+  }
 
   return (
     <>
@@ -102,7 +116,7 @@ export function Chat({ comments, order }: ChatProps) {
         </Paper>
       </DialogContent>
       <DialogContent>
-        <FormAddComment orderId={order.id} />
+        <FormAddComment orderId={order.id} update={update} />
       </DialogContent>
     </>
   );

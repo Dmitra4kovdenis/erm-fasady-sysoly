@@ -9,39 +9,20 @@ import {
   Tab,
   Tabs,
 } from "@mui/material";
-import { useRouter, usePathname } from "next/navigation";
+import { useRouter, usePathname, useSearchParams } from "next/navigation";
 import { PrintButtons } from "@/app/(private)/order-detail/components/print-buttons";
 import { Info } from "@/app/(private)/order-detail/components/info";
-import { StatusBar } from "@/app/(private)/order-detail/components/status-bar";
 import { Facades } from "@/app/(private)/order-detail/components/facades";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Chat } from "./chat/chat";
 import { Timeline } from "@/app/(private)/order-detail/timeline/timeline";
 import {
-  CommentType,
+  getOrderDetail,
   OrderDetailType,
-  OrderTimelinesType,
-  Workers,
-} from "@/app/(private)/order-detail/server";
+} from "@/app/(private)/order-detail/actions";
+import { Loading } from "@/app/(private)/order-detail/loading";
 
-interface OrderDetailClientProps {
-  order: NonNullable<OrderDetailType>;
-  statuses: {
-    value: number;
-    label: string;
-  }[];
-  comments: CommentType;
-  timelines: OrderTimelinesType;
-  workers: Workers;
-}
-
-function OrderDetailClient({
-  statuses,
-  order,
-  comments,
-  timelines,
-  workers,
-}: OrderDetailClientProps) {
+function OrderDetailClient() {
   const { push } = useRouter();
   const pathname = usePathname();
   const [tabIndex, setTabIndex] = useState(0);
@@ -49,6 +30,26 @@ function OrderDetailClient({
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setTabIndex(newValue);
   };
+
+  const searchParams = useSearchParams();
+  const orderNumber = searchParams.get("orderNumber");
+  const id = orderNumber ? +orderNumber : -1;
+
+  const [order, setOrder] = useState<OrderDetailType | null>(null);
+
+  useEffect(() => {
+    getOrderDetail(id)
+      .then((res) => setOrder(res))
+      .catch();
+  }, [id]);
+
+  if (!order) {
+    return (
+      <Dialog open onClose={onClose} maxWidth="lg" fullWidth>
+        <Loading />
+      </Dialog>
+    );
+  }
 
   return (
     <Dialog open onClose={onClose} maxWidth="lg" fullWidth>
@@ -67,17 +68,14 @@ function OrderDetailClient({
           <DialogContent>
             <Info order={order} />
             <Facades order={order} />
-            <StatusBar statuses={statuses} order={order} onClose={onClose} />
           </DialogContent>
           <DialogActions>
             <PrintButtons order={order} />
           </DialogActions>
         </>
       )}
-      {tabIndex === 1 && <Chat comments={comments} order={order} />}
-      {tabIndex === 2 && (
-        <Timeline order={order} timelines={timelines} workers={workers} />
-      )}
+      {tabIndex === 1 && <Chat order={order} />}
+      {tabIndex === 2 && <Timeline order={order} />}
     </Dialog>
   );
 }

@@ -7,9 +7,10 @@ import { useUserData } from "@/prisma-helpers/user-data/user-data.provider";
 
 interface FormAddTimelineProps {
   orderId: number;
+  update: () => void;
 }
 
-export function FormAddComment({ orderId }: FormAddTimelineProps) {
+export function FormAddComment({ orderId, update }: FormAddTimelineProps) {
   const { userId } = useUserData();
 
   const form = useForm<AddCommentType>({
@@ -25,6 +26,7 @@ export function FormAddComment({ orderId }: FormAddTimelineProps) {
       orderId,
       userId,
     });
+    update();
   });
 
   const handleKeyPress = (event: any) => {

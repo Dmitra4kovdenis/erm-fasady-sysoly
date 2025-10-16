@@ -10,21 +10,38 @@ import {
 } from "@mui/material";
 import { formatDate } from "@/utils";
 import { Edit } from "@mui/icons-material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { FormAddTimeline } from "@/app/(private)/order-detail/timeline/form-add-timeline";
 import {
-  OrderDetailType,
+  getOrderTimelines,
+  getWorkers,
   OrderTimelinesType,
   Workers,
-} from "@/app/(private)/order-detail/server";
-import { FormAddTimeline } from "@/app/(private)/order-detail/timeline/form-add-timeline";
+  OrderDetailType,
+} from "@/app/(private)/order-detail/actions";
+import { Loading } from "@/app/(private)/order-detail/loading";
 
 interface TimelineProps {
-  timelines: OrderTimelinesType;
   order: NonNullable<OrderDetailType>;
-  workers: Workers;
 }
-export function Timeline({ timelines, order, workers }: TimelineProps) {
+export function Timeline({ order }: TimelineProps) {
   const [editIndex, setEditIndex] = useState<number | undefined>(undefined);
+
+  const [timelines, setTimelines] = useState<OrderTimelinesType>();
+  const [workers, setWorkers] = useState<Workers>();
+
+  const update = () => {
+    getOrderTimelines(order.id).then(setTimelines);
+  };
+
+  useEffect(() => {
+    Promise.all([
+      getWorkers().then(setWorkers),
+      getOrderTimelines(order.id).then(setTimelines),
+    ]);
+  }, [order]);
+
+  if (!timelines || !workers) return <Loading />;
 
   return (
     <Box>
@@ -64,6 +81,7 @@ export function Timeline({ timelines, order, workers }: TimelineProps) {
           editIndex={editIndex}
           timelines={timelines}
           workers={workers}
+          update={update}
         />
       )}
     </Box>
