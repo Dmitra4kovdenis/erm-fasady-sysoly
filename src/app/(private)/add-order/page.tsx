@@ -32,16 +32,21 @@ export default async function AddOrderPage({
 }: {
   searchParams: SearchParams;
 }) {
-  const customers = await getCustomers();
-  const millings = await getMillings();
-  const handles = await getHandles();
-
+  let defaultValues = null;
   const { editId } = await searchParams;
 
-  let defaultValues = null;
+  const [customers, millings, handles, _defaultValues] = await Promise.all([
+    getCustomers(),
+    getMillings(),
+    getHandles(),
+    // Условно выполняем запрос defaultValues только если есть editId
+    typeof editId === "string"
+      ? getDefaultValues(+editId)
+      : Promise.resolve(null),
+  ]);
 
-  if (typeof editId === "string") {
-    defaultValues = await getDefaultValues(+editId);
+  if (_defaultValues) {
+    defaultValues = _defaultValues;
   }
 
   const customersOptions = customers.map((customer) => ({

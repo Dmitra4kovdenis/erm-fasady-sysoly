@@ -69,19 +69,20 @@ async function OrderDetailServer({
 }) {
   if (!orderNumber) return null;
 
-  const result = await getOrderDetail(+orderNumber);
-
+  const [result, statuses, comments, workers, timelines] = await Promise.all([
+    getOrderDetail(+orderNumber),
+    getStatuses(),
+    getComments(+orderNumber),
+    getWorkers(),
+    getOrderTimelines(+orderNumber),
+  ]);
   if (!result) return null;
-
-  const statuses = await getStatuses();
 
   const statusesOptions = statuses.map((item) => ({
     label: item.title,
     value: item.id,
   }));
-  const comments = await getComments(+orderNumber);
-  const workers = await getWorkers();
-  const timelines = await getOrderTimelines(+orderNumber);
+
   return (
     <OrderDetailClient
       order={result}
