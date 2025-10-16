@@ -52,7 +52,7 @@ function HeaderClient() {
             variant="h6"
             sx={{ lineHeight: 1 }}
           >
-            Фасады Сысолы
+            Фасады Сысолы (v1.0.6)
           </Typography>
 
           <Box
