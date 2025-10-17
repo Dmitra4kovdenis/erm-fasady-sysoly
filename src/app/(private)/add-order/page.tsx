@@ -80,6 +80,7 @@ export default async function Page({
 }: {
   searchParams: SearchParams;
 }) {
+  // просто поигрался с suspense, может со временем выпилим
   return (
     <Suspense fallback={<Loader />}>
       <AddOrderPage searchParams={searchParams} />
