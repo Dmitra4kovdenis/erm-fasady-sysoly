@@ -15,7 +15,7 @@ export const addAdmin = async (admin: Admin, user: User) => {
       user: {
         create: {
           ...user,
-          roleId: 0,
+          roleId: 1,
           id: undefined,
           password,
         },

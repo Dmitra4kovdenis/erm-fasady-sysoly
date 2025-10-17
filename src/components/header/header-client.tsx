@@ -55,7 +55,7 @@ function HeaderClient() {
             >
               Фасады Сысолы
             </Typography>
-            <Typography variant="caption">(v1.0.11)</Typography>
+            <Typography variant="caption">(v1.0.12)</Typography>
           </Box>
 
           <Box

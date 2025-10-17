@@ -15,7 +15,7 @@ export const addWorker = async (worker: Worker, user: User) => {
       user: {
         create: {
           ...user,
-          roleId: 1,
+          roleId: 2,
           id: undefined,
           password,
         },
