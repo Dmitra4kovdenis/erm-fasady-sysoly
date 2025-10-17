@@ -39,7 +39,8 @@
     "react-hook-form": "^7.62.0",
     "react-markdown": "^10.1.0",
     "sass": "^1.92.1",
-    "zod": "^4.1.8"
+    "zod": "^4.1.8",
+    "zustand": "^5.0.8"
   },
   "devDependencies": {
     "@chromatic-com/storybook": "^4.1.1",

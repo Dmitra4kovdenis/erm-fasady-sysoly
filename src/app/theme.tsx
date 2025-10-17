@@ -4,6 +4,7 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { ReactNode } from "react";
 import "dayjs/locale/ru";
 import dayjs from "dayjs";
+import { CssBaseline } from "@mui/material";
 
 dayjs.locale("ru");
 
@@ -60,5 +61,10 @@ const theme = createTheme({
 });
 
 export default function Provider({ children }: { children: ReactNode }) {
-  return <ThemeProvider theme={theme}>{children}</ThemeProvider>;
+  return (
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      {children}
+    </ThemeProvider>
+  );
 }

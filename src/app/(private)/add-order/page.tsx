@@ -1,6 +1,9 @@
 import { AddOrderClient } from "@/app/(private)/add-order/client";
 import { SearchParams } from "@/types";
 import { prisma } from "@/prisma-helpers/prisma";
+import { Suspense } from "react";
+import { Loader } from "@/components/loader";
+import ClientOnly from "@/components/client-only";
 
 // получить список всех фрезеровок
 const getMillings = async () => {
@@ -27,11 +30,7 @@ const getDefaultValues = async (id: number) => {
   });
 };
 
-export default async function AddOrderPage({
-  searchParams,
-}: {
-  searchParams: SearchParams;
-}) {
+async function AddOrderPage({ searchParams }: { searchParams: SearchParams }) {
   let defaultValues = null;
   const { editId } = await searchParams;
 
@@ -44,7 +43,6 @@ export default async function AddOrderPage({
       ? getDefaultValues(+editId)
       : Promise.resolve(null),
   ]);
-
   if (_defaultValues) {
     defaultValues = _defaultValues;
   }
@@ -65,12 +63,26 @@ export default async function AddOrderPage({
   }));
 
   return (
-    <AddOrderClient
-      customers={customersOptions}
-      handles={handlesOptions}
-      millings={millingOptions}
-      defaultValues={defaultValues}
-      editId={typeof editId === "string" ? +editId : undefined}
-    />
+    <ClientOnly>
+      <AddOrderClient
+        customers={customersOptions}
+        handles={handlesOptions}
+        millings={millingOptions}
+        defaultValues={defaultValues}
+        editId={typeof editId === "string" ? +editId : undefined}
+      />
+    </ClientOnly>
+  );
+}
+
+export default async function Page({
+  searchParams,
+}: {
+  searchParams: SearchParams;
+}) {
+  return (
+    <Suspense fallback={<Loader />}>
+      <AddOrderPage searchParams={searchParams} />
+    </Suspense>
   );
 }

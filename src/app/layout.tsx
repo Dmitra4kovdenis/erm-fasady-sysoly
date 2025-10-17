@@ -20,13 +20,13 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="en">
-      <body className={`${geist.className} antialiased`}>
-        <Provider>
+    <Provider>
+      <html lang="en">
+        <body className={`${geist.className} antialiased`}>
           <ProgressBar>{children}</ProgressBar>
-        </Provider>
-      </body>
-    </html>
+        </body>
+      </html>
+    </Provider>
   );
 }
 export const runtime = "nodejs";
