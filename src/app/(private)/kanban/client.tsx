@@ -11,12 +11,14 @@ interface KanbanClientProps {
   ordersObj: Record<number, OrdersType[0]>;
   statusesObj: Record<number, StatusesType[0]>;
   columns: Record<number, number[]>;
+  statuses: StatusesType;
 }
 
 function KanbanClient({
   ordersObj,
   columns: columnsDefault,
   statusesObj,
+  statuses,
 }: KanbanClientProps) {
   const [columns, setColumns] = useState(columnsDefault);
 
@@ -68,15 +70,20 @@ function KanbanClient({
     <Box overflow="auto" width={"100%"}>
       <DndContext onDragEnd={onDragEnd}>
         <div className={css.wrapper}>
-          {Object.entries(columns).map(([columnId, orders]) => (
-            <Column
-              title={statusesObj[+columnId].title}
-              id={+columnId}
-              orders={orders}
-              ordersObj={ordersObj}
-              key={columnId}
-            />
-          ))}
+          {statuses.map((status) => {
+            const columnId = status.id;
+            const orders = columns[status.id];
+
+            return (
+              <Column
+                title={statusesObj[+columnId].title}
+                id={+columnId}
+                orders={orders}
+                ordersObj={ordersObj}
+                key={columnId}
+              />
+            );
+          })}
         </div>
       </DndContext>
     </Box>
