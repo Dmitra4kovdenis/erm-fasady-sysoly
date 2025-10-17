@@ -31,7 +31,7 @@ const getOrders = async () =>
 const getStatuses = async () => {
   return prisma.orderStatus.findMany({
     orderBy: {
-      index: "desc",
+      index: "asc",
     },
   });
 };
