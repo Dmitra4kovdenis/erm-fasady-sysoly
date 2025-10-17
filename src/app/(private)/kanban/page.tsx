@@ -29,7 +29,11 @@ const getOrders = async () =>
   });
 
 const getStatuses = async () => {
-  return prisma.orderStatus.findMany({});
+  return prisma.orderStatus.findMany({
+    orderBy: {
+      index: "desc",
+    },
+  });
 };
 
 export type OrdersType = Awaited<ReturnType<typeof getOrders>>;
