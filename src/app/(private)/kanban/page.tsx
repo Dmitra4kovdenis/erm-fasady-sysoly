@@ -75,6 +75,7 @@ export default async function OrderListPage({
           statusesObj={statusesObj}
           columns={columns}
           ordersObj={ordersObj}
+          statuses={statuses}
         />
       </NoSsr>
       <OrderDetailServer orderNumber={data?.orderNumber} />
