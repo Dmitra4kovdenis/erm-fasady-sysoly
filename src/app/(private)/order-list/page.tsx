@@ -1,6 +1,4 @@
 import OrderListClient from "@/app/(private)/order-list/client";
-import { SearchParams } from "@/types";
-import OrderDetailServer from "@/app/(private)/order-detail/server";
 import { prisma } from "@/prisma-helpers/prisma";
 
 const getOrders = async () => {
@@ -22,18 +20,8 @@ const getOrders = async () => {
 
 export type OrdersType = Awaited<ReturnType<typeof getOrders>>;
 
-export default async function OrderListPage({
-  searchParams,
-}: {
-  searchParams?: SearchParams;
-}) {
+export default async function OrderListPage() {
   const orders = await getOrders();
-  const data = await searchParams;
 
-  return (
-    <>
-      <OrderListClient orders={orders} />
-      <OrderDetailServer orderNumber={data?.orderNumber} />
-    </>
-  );
+  return <OrderListClient orders={orders} />;
 }

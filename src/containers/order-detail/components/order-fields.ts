@@ -1,4 +1,4 @@
-import { OrderDetailType } from "@/app/(private)/order-detail/actions";
+import { OrderDetailType } from "@/containers/order-detail/actions";
 
 export const getOrderFields = (order: NonNullable<OrderDetailType>) => {
   return [

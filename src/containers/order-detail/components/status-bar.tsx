@@ -1,6 +1,6 @@
 import { ToggleButton, ToggleButtonGroup, Typography } from "@mui/material";
 import { updateStatus } from "@/actions/update-status";
-import { OrderDetailType } from "@/app/(private)/order-detail/actions";
+import { OrderDetailType } from "@/containers/order-detail/actions";
 
 interface StatusBarProps {
   statuses: {

@@ -1,6 +1,4 @@
 import KanbanClient from "@/app/(private)/kanban/client";
-import OrderDetailServer from "@/app/(private)/order-detail/server";
-import { SearchParams } from "@/types";
 import { prisma } from "@/prisma-helpers/prisma";
 import { NoSsr } from "@mui/material";
 
@@ -39,14 +37,8 @@ const getStatuses = async () => {
 export type OrdersType = Awaited<ReturnType<typeof getOrders>>;
 export type StatusesType = Awaited<ReturnType<typeof getStatuses>>;
 
-export default async function OrderListPage({
-  searchParams,
-}: {
-  searchParams?: SearchParams;
-}) {
+export default async function OrderListPage() {
   const orders = await getOrders();
-
-  const data = await searchParams;
 
   const statuses = await getStatuses();
 
@@ -78,7 +70,6 @@ export default async function OrderListPage({
           statuses={statuses}
         />
       </NoSsr>
-      <OrderDetailServer orderNumber={data?.orderNumber} />
     </>
   );
 }

@@ -2,9 +2,20 @@ import css from "@/app/(private)/kanban/order-list.module.scss";
 import { useDraggable } from "@dnd-kit/core";
 import { formatDate } from "@/utils";
 import { OrdersType } from "@/app/(private)/kanban/page";
-import Link from "next/link";
 
-export function Order({ id, workType, orderNumber, endDate }: OrdersType[0]) {
+type OrderType = OrdersType[0];
+
+interface OrderProps extends OrderType {
+  setOrderId: (id: number) => void;
+}
+
+export function Order({
+  id,
+  workType,
+  orderNumber,
+  endDate,
+  setOrderId,
+}: OrderProps) {
   const { attributes, listeners, setNodeRef, transform, isDragging } =
     useDraggable({
       id,
@@ -18,8 +29,16 @@ export function Order({ id, workType, orderNumber, endDate }: OrdersType[0]) {
   };
 
   return (
-    <div ref={setNodeRef} style={style} {...listeners} {...attributes}>
-      <Link className={css.card} href={`?orderNumber=${id}`}>
+    <div
+      ref={setNodeRef}
+      style={style}
+      {...listeners}
+      {...attributes}
+      onClick={() => {
+        setOrderId(id);
+      }}
+    >
+      <div className={css.card}>
         <div
           className={css.deadline}
         >{`${formatDate(endDate)} - ${formatDate(endDate)}`}</div>
@@ -40,7 +59,7 @@ export function Order({ id, workType, orderNumber, endDate }: OrdersType[0]) {
           {/*  ))}*/}
           {/*</AvatarGroup>*/}
         </div>
-      </Link>
+      </div>
     </div>
   );
 }

@@ -7,7 +7,7 @@ import {
   TableBody,
   Typography,
 } from "@mui/material";
-import { OrderDetailType } from "@/app/(private)/order-detail/actions";
+import { OrderDetailType } from "@/containers/order-detail/actions";
 
 interface InfoProps {
   order: NonNullable<OrderDetailType>;

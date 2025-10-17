@@ -12,30 +12,31 @@ import {
 } from "@mui/material";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import dayjs from "dayjs";
-import { usePathname, useRouter } from "next/navigation";
 import { ArchiveOrdersType } from "./page";
 import Link from "next/link";
 import IconButton from "@mui/material/IconButton";
 import { PageContainer } from "@/components/page-container/page-container";
 import { ScrollOverflow } from "@/components/scroll-overflow/scroll-overflow";
+import { useState } from "react";
+import OrderDetailClient from "@/containers/order-detail/client";
 
 interface ArchiveProps {
   orders: ArchiveOrdersType;
 }
 
 function ArchiveListClient({ orders }: ArchiveProps) {
-  const { push } = useRouter();
-  const pathname = usePathname();
-
   // Определяем, какая кнопка должна быть активна
-  let currentValue: string | null = null;
-  if (pathname.startsWith("/order-list")) {
-    currentValue = "Текущие заказы";
-  } else if (pathname.startsWith("/archive-list")) {
-    currentValue = "Архив";
-  }
+  const currentValue = "Архив";
+  const [orderId, setOrderId] = useState<number>();
+
   return (
     <PageContainer>
+      {orderId && (
+        <OrderDetailClient
+          id={orderId}
+          closeModal={() => setOrderId(undefined)}
+        />
+      )}
       <Grid
         container
         justifyContent="space-between"
@@ -97,7 +98,7 @@ function ArchiveListClient({ orders }: ArchiveProps) {
                 <TableCell align="center">
                   <IconButton
                     color="primary"
-                    onClick={() => push(`?orderNumber=${order.id}`)}
+                    onClick={() => setOrderId(order.id)}
                     sx={{
                       "&:hover": {
                         backgroundColor: "rgb(237 108 2 / 21%)",

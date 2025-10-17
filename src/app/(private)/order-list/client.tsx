@@ -15,12 +15,12 @@ import {
 } from "@mui/material";
 import { OrdersType } from "./page";
 import dayjs from "dayjs";
-import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
 import { pluralize } from "@/utils";
 import { PageContainer } from "@/components/page-container/page-container";
 import { ScrollOverflow } from "@/components/scroll-overflow/scroll-overflow";
+import { useState } from "react";
+import OrderDetailClient from "@/containers/order-detail/client";
 
 interface OrderListProps {
   orders: OrdersType;
@@ -51,19 +51,19 @@ const getDelayVariant = (date: Date) => {
 };
 
 function OrderListClient({ orders }: OrderListProps) {
-  const { push } = useRouter();
-  const pathname = usePathname();
-
   // Определяем, какая кнопка должна быть активна
-  let currentValue: string | null = null;
-  if (pathname.startsWith("/order-list")) {
-    currentValue = "Текущие заказы";
-  } else if (pathname.startsWith("/archive-list")) {
-    currentValue = "Архив";
-  }
+  const currentValue: string | null = "Текущие заказы";
+
+  const [orderId, setOrderId] = useState<number>();
 
   return (
     <PageContainer>
+      {orderId && (
+        <OrderDetailClient
+          id={orderId}
+          closeModal={() => setOrderId(undefined)}
+        />
+      )}
       <Grid
         container
         justifyContent="space-between"
@@ -124,7 +124,7 @@ function OrderListClient({ orders }: OrderListProps) {
                   <Button
                     color="primary"
                     variant="outlined"
-                    onClick={() => push(`?orderNumber=${order.id}`)}
+                    onClick={() => setOrderId(order.id)}
                   >
                     Подробнее
                   </Button>

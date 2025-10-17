@@ -44,7 +44,7 @@ export function FormAddComment({ orderId, update }: FormAddTimelineProps) {
             multiline
             label="Комментарий"
             name="text"
-            onKeyPress={handleKeyPress}
+            onKeyDown={handleKeyPress}
           />
         </Grid>
         <Grid size={1}>

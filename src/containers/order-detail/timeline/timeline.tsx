@@ -11,15 +11,15 @@ import {
 import { formatDate } from "@/utils";
 import { Edit } from "@mui/icons-material";
 import { useEffect, useState } from "react";
-import { FormAddTimeline } from "@/app/(private)/order-detail/timeline/form-add-timeline";
+import { FormAddTimeline } from "@/containers/order-detail/timeline/form-add-timeline";
 import {
   getOrderTimelines,
   getWorkers,
   OrderTimelinesType,
   Workers,
   OrderDetailType,
-} from "@/app/(private)/order-detail/actions";
-import { Loading } from "@/app/(private)/order-detail/loading";
+} from "@/containers/order-detail/actions";
+import { Loading } from "@/containers/order-detail/loading";
 
 interface TimelineProps {
   order: NonNullable<OrderDetailType>;

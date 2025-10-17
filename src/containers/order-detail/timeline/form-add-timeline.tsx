@@ -5,10 +5,7 @@ import { FormProvider, useForm } from "react-hook-form";
 import { addTimeline, editTimeline } from "./actions";
 import type { WorkTimeline } from "@prisma/client";
 import Select from "@/components/select/select";
-import {
-  OrderTimelinesType,
-  Workers,
-} from "@/app/(private)/order-detail/actions";
+import { OrderTimelinesType, Workers } from "@/containers/order-detail/actions";
 
 interface FormAddTimelineProps {
   orderId: number;

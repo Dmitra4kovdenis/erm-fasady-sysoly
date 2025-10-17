@@ -11,13 +11,13 @@ import {
 } from "@mui/material";
 import { formatDateTime, getInitials } from "@/utils";
 import { useEffect, useRef, useState } from "react";
-import { FormAddComment } from "@/app/(private)/order-detail/chat/form-add-comment";
+import { FormAddComment } from "@/containers/order-detail/chat/form-add-comment";
 import {
   CommentType,
   getComments,
   OrderDetailType,
-} from "@/app/(private)/order-detail/actions";
-import { Loading } from "@/app/(private)/order-detail/loading";
+} from "@/containers/order-detail/actions";
+import { Loading } from "@/containers/order-detail/loading";
 
 interface ChatProps {
   order: NonNullable<OrderDetailType>;

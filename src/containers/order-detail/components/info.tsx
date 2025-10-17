@@ -8,8 +8,8 @@ import {
 } from "@mui/material";
 import dayjs from "dayjs";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import { OrderDetailType } from "@/app/(private)/order-detail/actions";
-import { getOrderFields } from "@/app/(private)/order-detail/components/order-fields";
+import { OrderDetailType } from "@/containers/order-detail/actions";
+import { getOrderFields } from "@/containers/order-detail/components/order-fields";
 
 interface InfoProps {
   order: NonNullable<OrderDetailType>;

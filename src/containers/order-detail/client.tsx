@@ -9,31 +9,29 @@ import {
   Tab,
   Tabs,
 } from "@mui/material";
-import { useRouter, usePathname, useSearchParams } from "next/navigation";
-import { PrintButtons } from "@/app/(private)/order-detail/components/print-buttons";
-import { Info } from "@/app/(private)/order-detail/components/info";
-import { Facades } from "@/app/(private)/order-detail/components/facades";
+import { PrintButtons } from "@/containers/order-detail/components/print-buttons";
+import { Info } from "@/containers/order-detail/components/info";
+import { Facades } from "@/containers/order-detail/components/facades";
 import { useEffect, useState } from "react";
 import { Chat } from "./chat/chat";
-import { Timeline } from "@/app/(private)/order-detail/timeline/timeline";
+import { Timeline } from "@/containers/order-detail/timeline/timeline";
 import {
   getOrderDetail,
   OrderDetailType,
-} from "@/app/(private)/order-detail/actions";
-import { Loading } from "@/app/(private)/order-detail/loading";
+} from "@/containers/order-detail/actions";
+import { Loader } from "@/components/loader";
 
-function OrderDetailClient() {
-  const { push } = useRouter();
-  const pathname = usePathname();
+function OrderDetailClient({
+  id,
+  closeModal,
+}: {
+  id: number;
+  closeModal: () => void;
+}) {
   const [tabIndex, setTabIndex] = useState(0);
-  const onClose = () => push(pathname);
-  const handleChange = (event: React.SyntheticEvent, newValue: number) => {
+  const handleChange = (event: any, newValue: number) => {
     setTabIndex(newValue);
   };
-
-  const searchParams = useSearchParams();
-  const orderNumber = searchParams.get("orderNumber");
-  const id = orderNumber ? +orderNumber : -1;
 
   const [order, setOrder] = useState<OrderDetailType | null>(null);
 
@@ -45,14 +43,14 @@ function OrderDetailClient() {
 
   if (!order) {
     return (
-      <Dialog open onClose={onClose} maxWidth="lg" fullWidth>
-        <Loading />
+      <Dialog open onClose={closeModal} maxWidth="lg" fullWidth>
+        <Loader />
       </Dialog>
     );
   }
 
   return (
-    <Dialog open onClose={onClose} maxWidth="lg" fullWidth>
+    <Dialog open onClose={closeModal} maxWidth="lg" fullWidth>
       <DialogTitle>Детали заказа №{order.orderNumber}</DialogTitle>
       <DialogContent>
         <Box sx={{ borderBottom: 1, borderColor: "divider" }}>

@@ -10,9 +10,16 @@ interface ColumnType {
   ordersObj: Record<number, OrdersType[0]>;
   orders: number[];
   title: string;
+  setOrderId: (id: number) => void;
 }
 
-export function Column({ id, ordersObj, orders, title }: ColumnType) {
+export function Column({
+  id,
+  ordersObj,
+  orders,
+  title,
+  setOrderId,
+}: ColumnType) {
   const { setNodeRef, isOver } = useDroppable({
     id,
   });
@@ -28,7 +35,7 @@ export function Column({ id, ordersObj, orders, title }: ColumnType) {
         <span>{pluralize(orders.length, ["задача", "задачи", "задач"])}</span>
       </div>
       {orders?.map((order) => (
-        <Order key={order} {...ordersObj[order]} />
+        <Order key={order} {...ordersObj[order]} setOrderId={setOrderId} />
       ))}
     </div>
   );

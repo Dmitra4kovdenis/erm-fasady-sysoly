@@ -1,11 +1,18 @@
 "use client";
 import { useEffect, useState } from "react";
 import css from "./order-list.module.scss";
-import { DndContext, DragEndEvent } from "@dnd-kit/core";
+import {
+  DndContext,
+  DragEndEvent,
+  PointerSensor,
+  useSensor,
+  useSensors,
+} from "@dnd-kit/core";
 import { Column } from "@/app/(private)/kanban/components/column";
 import { updateStatus } from "@/actions/update-status";
 import type { OrdersType, StatusesType } from "@/app/(private)/kanban/page";
 import { Box } from "@mui/material";
+import OrderDetailClient from "@/containers/order-detail/client";
 
 interface KanbanClientProps {
   ordersObj: Record<number, OrdersType[0]>;
@@ -62,13 +69,27 @@ function KanbanClient({
     }
   };
 
+  const [orderId, setOrderId] = useState<number>();
+  const sensors = useSensors(
+    useSensor(PointerSensor, {
+      activationConstraint: {
+        distance: 8, // минимальное расстояние для начала drag
+      },
+    }),
+  );
   if (!columns) {
     return null;
   }
 
   return (
     <Box overflow="auto" width={"100%"}>
-      <DndContext onDragEnd={onDragEnd}>
+      {orderId && (
+        <OrderDetailClient
+          id={orderId}
+          closeModal={() => setOrderId(undefined)}
+        />
+      )}
+      <DndContext onDragEnd={onDragEnd} sensors={sensors}>
         <div className={css.wrapper}>
           {statuses.map((status) => {
             const columnId = status.id;
@@ -81,6 +102,7 @@ function KanbanClient({
                 orders={orders}
                 ordersObj={ordersObj}
                 key={columnId}
+                setOrderId={setOrderId}
               />
             );
           })}

@@ -46,14 +46,17 @@ function HeaderClient() {
     <AppBar position="fixed">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <Typography
-            component={Link}
-            href={"/"}
-            variant="h6"
-            sx={{ lineHeight: 1 }}
-          >
-            Фасады Сысолы (v1.0.10)
-          </Typography>
+          <Box display="flex" alignItems="center" gap={"8px"}>
+            <Typography
+              component={Link}
+              href={"/"}
+              variant="h6"
+              sx={{ lineHeight: 1 }}
+            >
+              Фасады Сысолы
+            </Typography>
+            <Typography variant="caption">(v1.0.11)</Typography>
+          </Box>
 
           <Box
             sx={{
