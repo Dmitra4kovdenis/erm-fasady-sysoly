@@ -9,8 +9,8 @@ import {
   TableRow,
   Typography,
 } from "@mui/material";
-import { WorkerList, WorkTypes } from "@/app/(private)/workers/page";
-import { FormAddWorker } from "@/app/(private)/workers/components/form-add-worker";
+import { WorkerList, WorkTypes } from "@/app/(private)/(users)/workers/page";
+import { FormAddWorker } from "@/app/(private)/(users)/workers/components/form-add-worker";
 import { useState } from "react";
 import { PageContainer } from "@/components/page-container/page-container";
 import { ScrollOverflow } from "@/components/scroll-overflow/scroll-overflow";

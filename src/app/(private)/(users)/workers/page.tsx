@@ -1,5 +1,5 @@
 import { prisma } from "@/prisma-helpers/prisma";
-import { ClientWorkers } from "@/app/(private)/workers/client";
+import { ClientWorkers } from "@/app/(private)/(users)/workers/client";
 
 const getWorkers = async () => {
   return prisma.worker.findMany({

@@ -7,8 +7,8 @@ import {
   DialogContent,
 } from "@mui/material";
 import Input from "@/components/input/input";
-import { addAdmin, updateAdmin } from "@/app/(private)/admins/actions";
-import { AdminsList } from "@/app/(private)/admins/page";
+import { addAdmin, updateAdmin } from "@/app/(private)/(users)/admins/actions";
+import { AdminsList } from "@/app/(private)/(users)/admins/page";
 import type { Admin, User } from "@prisma/client";
 
 interface FormAddAdminProps {

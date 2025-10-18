@@ -1,5 +1,5 @@
 import { prisma } from "@/prisma-helpers/prisma";
-import { ClientCustomers } from "@/app/(private)/customers/client";
+import { ClientCustomers } from "@/app/(private)/(users)/customers/client";
 
 const getCustomers = async () => {
   return prisma.customer.findMany();

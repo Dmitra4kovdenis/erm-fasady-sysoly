@@ -11,8 +11,8 @@ import {
   addCustomer,
   AddCustomerData,
   updateCustomer,
-} from "@/app/(private)/customers/actions";
-import { CustomerList } from "@/app/(private)/customers/page";
+} from "@/app/(private)/(users)/customers/actions";
+import { CustomerList } from "@/app/(private)/(users)/customers/page";
 
 interface FormAddCustomersProps {
   customers: CustomerList;

@@ -9,8 +9,8 @@ import {
   TableRow,
   Typography,
 } from "@mui/material";
-import { AdminsList } from "@/app/(private)/admins/page";
-import { FormAddAdmin } from "@/app/(private)/admins/components/form-add-worker";
+import { AdminsList } from "@/app/(private)/(users)/admins/page";
+import { FormAddAdmin } from "@/app/(private)/(users)/admins/components/form-add-worker";
 import { useState } from "react";
 import { PageContainer } from "@/components/page-container/page-container";
 import { ScrollOverflow } from "@/components/scroll-overflow/scroll-overflow";

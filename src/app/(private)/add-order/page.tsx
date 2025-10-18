@@ -1,8 +1,6 @@
 import { AddOrderClient } from "@/app/(private)/add-order/client";
 import { SearchParams } from "@/types";
 import { prisma } from "@/prisma-helpers/prisma";
-import { Suspense } from "react";
-import { Loader } from "@/components/loader";
 import ClientOnly from "@/components/client-only";
 
 // получить список всех фрезеровок
@@ -30,7 +28,11 @@ const getDefaultValues = async (id: number) => {
   });
 };
 
-async function AddOrderPage({ searchParams }: { searchParams: SearchParams }) {
+export default async function AddOrderPage({
+  searchParams,
+}: {
+  searchParams: SearchParams;
+}) {
   let defaultValues = null;
   const { editId } = await searchParams;
 
@@ -72,18 +74,5 @@ async function AddOrderPage({ searchParams }: { searchParams: SearchParams }) {
         editId={typeof editId === "string" ? +editId : undefined}
       />
     </ClientOnly>
-  );
-}
-
-export default async function Page({
-  searchParams,
-}: {
-  searchParams: SearchParams;
-}) {
-  // просто поигрался с suspense, может со временем выпилим
-  return (
-    <Suspense fallback={<Loader />}>
-      <AddOrderPage searchParams={searchParams} />
-    </Suspense>
   );
 }

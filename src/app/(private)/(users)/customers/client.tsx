@@ -9,8 +9,8 @@ import {
   TableRow,
   Typography,
 } from "@mui/material";
-import { CustomerList } from "@/app/(private)/customers/page";
-import { FormAddCustomers } from "@/app/(private)/customers/components/form-add-customer";
+import { CustomerList } from "@/app/(private)/(users)/customers/page";
+import { FormAddCustomers } from "@/app/(private)/(users)/customers/components/form-add-customer";
 import { useState } from "react";
 import { PageContainer } from "@/components/page-container/page-container";
 import { ScrollOverflow } from "@/components/scroll-overflow/scroll-overflow";

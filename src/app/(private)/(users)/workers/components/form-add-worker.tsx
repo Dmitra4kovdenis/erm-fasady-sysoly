@@ -7,8 +7,11 @@ import {
   DialogContent,
 } from "@mui/material";
 import Input from "@/components/input/input";
-import { addWorker, updateWorker } from "@/app/(private)/workers/actions";
-import { WorkerList, WorkTypes } from "@/app/(private)/workers/page";
+import {
+  addWorker,
+  updateWorker,
+} from "@/app/(private)/(users)/workers/actions";
+import { WorkerList, WorkTypes } from "@/app/(private)/(users)/workers/page";
 import Select from "@/components/select/select";
 import type { Worker, User } from "@prisma/client";
 

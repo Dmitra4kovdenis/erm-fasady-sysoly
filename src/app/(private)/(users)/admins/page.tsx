@@ -1,5 +1,5 @@
 import { prisma } from "@/prisma-helpers/prisma";
-import { ClientAdmin } from "@/app/(private)/admins/client";
+import { ClientAdmin } from "@/app/(private)/(users)/admins/client";
 
 const getAdmin = async () => {
   return prisma.admin.findMany({
