@@ -13,6 +13,10 @@ export function PrintButtons({ order }: PrintButtonsProps) {
     window.open(`/api/export-order-excel?id=${order.id}`, "_blank");
   };
 
+  const printWork = async () => {
+    window.open(`/api/export-order-work?id=${order.id}`, "_blank");
+  };
+
   const cutting = async () => {
     const res = await fetch(`/api/get-cutting/?id=${order.id}`);
     const blob = await res.blob();
@@ -40,8 +44,7 @@ export function PrintButtons({ order }: PrintButtonsProps) {
         <Button
           startIcon={<Print />}
           color="primary"
-          disabled
-          onClick={cutting}
+          onClick={printWork}
           variant="outlined"
         >
           Табель
