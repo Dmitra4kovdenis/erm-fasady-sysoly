@@ -52,6 +52,7 @@ export default function Input({
             onChange={handleChange}
             helperText={fieldState.error?.message}
             onKeyPress={onKeyPress}
+            autoComplete="off"
             slotProps={{
               input: {
                 endAdornment: postfix && (
