@@ -36,7 +36,7 @@ export const createOrder = async (values: OrderModelType) => {
 
   const { customerId, ...otherValues } = values;
 
-  await prisma.order.create({
+  return await prisma.order.create({
     data: {
       ...calcValues,
       ...otherValues,
@@ -73,7 +73,7 @@ export const updateOrder = async (id: number, values: OrderModelType) => {
 
   const { customerId, ...otherValues } = values;
 
-  await prisma.order.update({
+  return await prisma.order.update({
     where: {
       id,
     },

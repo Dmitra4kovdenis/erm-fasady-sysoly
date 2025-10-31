@@ -21,6 +21,7 @@ import { PageContainer } from "@/components/page-container/page-container";
 import { ScrollOverflow } from "@/components/scroll-overflow/scroll-overflow";
 import { useState } from "react";
 import OrderDetailClient from "@/containers/order-detail/client";
+import { useSearchParams } from "next/navigation";
 
 interface OrderListProps {
   orders: OrdersType;
@@ -54,7 +55,13 @@ function OrderListClient({ orders }: OrderListProps) {
   // Определяем, какая кнопка должна быть активна
   const currentValue: string | null = "Текущие заказы";
 
-  const [orderId, setOrderId] = useState<number>();
+  const searchParams = useSearchParams();
+
+  const paramsOrderId = searchParams.get("orderId");
+
+  const [orderId, setOrderId] = useState<number | undefined>(
+    paramsOrderId ? +paramsOrderId : undefined,
+  );
 
   return (
     <PageContainer>

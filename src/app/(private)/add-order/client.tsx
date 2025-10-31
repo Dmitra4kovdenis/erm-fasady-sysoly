@@ -73,13 +73,14 @@ export function AddOrderClient({
   const { push } = useRouter();
 
   const onSubmit = handleSubmit(async (values) => {
+    let result;
     if (editId) {
-      await updateOrder(editId, values);
+      result = await updateOrder(editId, values);
     } else {
-      await createOrder(values);
+      result = await createOrder(values);
     }
 
-    push("/order-list");
+    push("/order-list?orderId=" + result.id);
   });
 
   return (
