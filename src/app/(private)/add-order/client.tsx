@@ -147,9 +147,10 @@ export function AddOrderClient({
             </Grid>
             <Grid size={{ lg: 4, xs: 12 }}>
               <Input
-                label="Ширина, мм"
+                label="Ширина"
                 name={`items.${index}.width`}
                 type="number"
+                postfix="мм"
               />
             </Grid>
             <Grid size={{ lg: 4, xs: 12 }}>
@@ -212,43 +213,48 @@ export function AddOrderClient({
         <Grid container spacing={2} sx={{ mt: 4 }}>
           <Grid size={{ lg: 4, xs: 12 }}>
             <Input
-              label="Стоимость 1 м.кв.,руб."
+              label="Стоимость 1 м.кв."
               name={orderFields.unitCost}
               type="number"
+              postfix="₽"
             />
           </Grid>
         </Grid>
         <Grid container mt={4} spacing={2}>
           <Grid size={{ lg: 4, xs: 12 }}>
             <Input
-              label="Интегрированная ручка, метр."
+              label="Интегрированная ручка"
               name={orderFields.handleLength}
               type="number"
+              postfix="м"
             />
-          </Grid>{" "}
+          </Grid>
           <Grid size={{ lg: 4, xs: 12 }}>
             <Input
-              label="Интегрированная ручка, руб."
+              label="Интегрированная ручка"
               name={orderFields.costOfHandle}
               type="number"
+              postfix="₽"
             />
           </Grid>
         </Grid>
         <Grid container spacing={2} mt={4}>
           <Grid size={{ lg: 4, xs: 12 }}>
             <Input
-              label="Площадь фрезировки, м.кв"
+              label="Площадь фрезировки"
               name={orderFields.millingArea}
               type="number"
+              postfix="м²"
             />
           </Grid>{" "}
           <Grid size={{ lg: 4, xs: 12 }}>
             <Input
-              label="Стоимость фрезировки, руб."
+              label="Стоимость фрезировки"
               name={orderFields.costOfMilling}
               type="number"
+              postfix="₽"
             />
-          </Grid>{" "}
+          </Grid>
         </Grid>
         <Grid container spacing={2} mt={4}>
           <Grid size={{ lg: 4, xs: 12 }}>
@@ -259,19 +265,30 @@ export function AddOrderClient({
           </Grid>
           <Grid size={{ lg: 4, xs: 12 }}>
             <Input
-              label="Прочие услуги, руб"
+              label="Прочие услуги"
               name={orderFields.costOtherServices}
               type="number"
+              postfix="₽"
             />
           </Grid>
         </Grid>
 
         <Grid container spacing={2} sx={{ mt: 4 }}>
           <Grid size={{ lg: 4, xs: 12 }}>
-            <Input label="Аванс" name={orderFields.prepayment} type="number" />
+            <Input
+              label="Аванс"
+              name={orderFields.prepayment}
+              type="number"
+              postfix="₽"
+            />
           </Grid>
           <Grid size={{ lg: 4, xs: 12 }}>
-            <Input label="Скидка" name={orderFields.discount} type="number" />
+            <Input
+              label="Скидка"
+              name={orderFields.discount}
+              type="number"
+              postfix="₽"
+            />
           </Grid>
         </Grid>
 

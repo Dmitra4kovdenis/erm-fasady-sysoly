@@ -25,25 +25,27 @@ export function TableResults() {
   } = calcFieldsByEditable(values);
 
   const list = [
-    ["Общая площадь, м2", totalArea],
-    ["Стоимость прямых фасадов, руб.", costOfStraightFacades],
-    ["Площадь фрезировки, м.кв", millingArea],
-    ["Итого,руб.", summPrice],
-    ["Общая стоимость, руб", totalPrice],
-    ["Фасадов, штук", itemsCount],
-    ["Остаток", remainder],
+    ["Общая площадь", "м²", totalArea],
+    ["Стоимость прямых фасадов", "₽", costOfStraightFacades],
+    ["Площадь фрезировки, м.кв", "м²", millingArea],
+    ["Итого", "₽", summPrice],
+    ["Общая стоимость", "₽", totalPrice],
+    ["Фасадов", "штук", itemsCount],
+    ["Остаток", "₽", remainder],
   ];
 
   return (
     <TableContainer sx={{ mt: 10 }}>
       <Table sx={{ maxWidth: 600 }}>
         <TableBody>
-          {list.map(([title, value]) => (
+          {list.map(([title, postfix, value]) => (
             <TableRow key={title}>
               <TableCell component="th" scope="row">
                 {title}
               </TableCell>
-              <TableCell align="right">{value}</TableCell>
+              <TableCell align="right">
+                {value} {postfix}
+              </TableCell>
             </TableRow>
           ))}
         </TableBody>
