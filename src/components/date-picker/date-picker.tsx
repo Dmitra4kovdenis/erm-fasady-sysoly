@@ -5,7 +5,6 @@ import {
 import { Controller, useFormContext } from "react-hook-form";
 import { FormControl, FormHelperText } from "@mui/material";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import dayjs from "dayjs";
 
 interface InputProps {
   label: string;
@@ -23,17 +22,14 @@ export default function DatePicker({ label, className, name }: InputProps) {
       render={({ field: { value, onChange }, fieldState }) => {
         const fieldError = fieldState.error;
         // Обеспечиваем, что value никогда не будет undefined
-        const dateValue = value ? dayjs(value) : null;
         return (
           <div className={className}>
             <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="ru">
               <FormControl fullWidth>
                 <DatePickerMui
                   label={label}
-                  value={dateValue} // Конвертируем в dayjs объект
-                  onChange={(newValue) => {
-                    onChange(newValue ? newValue.toISOString() : null); // Конвертируем обратно в строку
-                  }}
+                  value={value} // Конвертируем в dayjs объект
+                  onChange={onChange}
                   slotProps={{
                     textField: {
                       error: !!fieldError,
