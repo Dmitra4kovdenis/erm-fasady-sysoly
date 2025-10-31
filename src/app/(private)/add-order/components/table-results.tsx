@@ -25,7 +25,7 @@ export function TableResults() {
   } = calcFieldsByEditable(values);
 
   const list = [
-    ["Общая площадь", totalArea],
+    ["Общая площадь, м2", totalArea],
     ["Стоимость прямых фасадов, руб.", costOfStraightFacades],
     ["Площадь фрезировки, м.кв", millingArea],
     ["Итого,руб.", summPrice],

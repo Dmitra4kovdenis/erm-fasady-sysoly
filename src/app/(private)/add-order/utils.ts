@@ -9,7 +9,7 @@ export const calcFieldsByEditable = (values: OrderModelType) => {
     const width = item.width ?? 0;
     const count = item.count ?? 0;
 
-    const area: number = height * width * count * 0.01 * 0.01;
+    const area: number = height * width * count * 0.001 * 0.001;
     return acc + area;
   }, 0);
 
