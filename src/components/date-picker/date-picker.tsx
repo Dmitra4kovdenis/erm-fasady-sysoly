@@ -21,14 +21,13 @@ export default function DatePicker({ label, className, name }: InputProps) {
       control={control}
       render={({ field: { value, onChange }, fieldState }) => {
         const fieldError = fieldState.error;
-        // Обеспечиваем, что value никогда не будет undefined
         return (
           <div className={className}>
             <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="ru">
               <FormControl fullWidth>
                 <DatePickerMui
                   label={label}
-                  value={value} // Конвертируем в dayjs объект
+                  value={value}
                   onChange={onChange}
                   slotProps={{
                     textField: {
