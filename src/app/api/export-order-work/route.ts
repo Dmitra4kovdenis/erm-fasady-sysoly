@@ -45,13 +45,13 @@ export async function GET(req: Request) {
   }
 
   // Заполняем верхние данные
-  // sheet.getCell("C2").value = order.orderNumber;
-  // sheet.getCell("G3").value = order.customer.phone;
-  // sheet.getCell("G4").value = order.deliveryAddress;
-  // sheet.getCell("C3").value = order.startDate.toLocaleDateString("ru-RU");
-  // sheet.getCell("C4").value = order.endDate.toLocaleDateString("ru-RU");
-  // sheet.getCell("G2").value = order.customer.name;
-  // sheet.getCell("C5").value = order.workType;
+  sheet.getCell("C2").value = order.orderNumber;
+  sheet.getCell("H3").value = order.customer.phone;
+  sheet.getCell("H4").value = order.deliveryAddress;
+  sheet.getCell("C3").value = order.startDate.toLocaleDateString("ru-RU");
+  sheet.getCell("C4").value = order.endDate.toLocaleDateString("ru-RU");
+  sheet.getCell("H2").value = order.customer.name;
+  sheet.getCell("C5").value = order.workType;
   // sheet.getCell("J54").value = order.unitCost;
   // sheet.getCell("J56").value = order.millingArea;
   // sheet.getCell("J57").value = order.costOfMilling;
@@ -60,10 +60,10 @@ export async function GET(req: Request) {
   // sheet.getCell("J60").value = order.costOtherServices;
   // sheet.getCell("J62").value = order.discount;
   // sheet.getCell("J64").value = order.prepayment;
-  // sheet.getCell("J66").value = order.itemsCount;
+  sheet.getCell("J32").value = order.itemsCount;
 
   // Добавляем фасады
-  let startRow = 9;
+  let startRow = 8;
   for (const f of order.items) {
     const row = sheet.getRow(startRow++);
     row.getCell(1).value = startRow - 8;
@@ -83,7 +83,7 @@ export async function GET(req: Request) {
 
   // Отдаём как файл
   const buffer = await workbook.xlsx.writeBuffer();
-  const filename = `order-${orderId}.xlsx`;
+  const filename = `work-${orderId}.xlsx`;
 
   return new Response(buffer, {
     headers: {
