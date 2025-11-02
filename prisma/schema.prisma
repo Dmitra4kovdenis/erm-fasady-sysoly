@@ -91,19 +91,20 @@ model Milling {
 
 // фасады
 model Facade {
-  id        Int     @id @default(autoincrement())
-  height    Float
-  width     Float
-  thickness Float
-  handle    Handle  @relation(fields: [handleId], references: [id])
-  handleId  Int
-  radius    Float
-  milling   Milling @relation(fields: [millingId], references: [id])
-  millingId Int
-  color     String
-  count     Int
-  order     Order   @relation(fields: [orderId], references: [id])
-  orderId   Int
+  id          Int     @id @default(autoincrement())
+  height      Float
+  width       Float
+  thickness   Float
+  handle      Handle  @relation(fields: [handleId], references: [id])
+  handleId    Int
+  radius      Float
+  milling     Milling @relation(fields: [millingId], references: [id])
+  millingId   Int
+  color       String
+  count       Int
+  order       Order   @relation(fields: [orderId], references: [id])
+  orderId     Int
+  colorTypeId Int?
 }
 
 // статус работы
@@ -111,7 +112,7 @@ model OrderStatus {
   id            Int            @id @default(autoincrement())
   title         String
   index         Int
-  slug          String @unique
+  slug          String         @unique
   orders        Order[]
   workTypeId    Int?
   workType      WorkType?      @relation(fields: [workTypeId], references: [id])

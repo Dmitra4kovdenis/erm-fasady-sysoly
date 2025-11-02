@@ -31,3 +31,19 @@ export const thicknessOptions = [10, 16, 19, 22, 24, 26, 32].map((item) => ({
   label: `${item} мм`,
   value: item,
 }));
+
+export enum ColorType {
+  painting = 1,
+  filmCoating = 2,
+}
+
+export const colorTypes = [
+  {
+    value: ColorType.painting,
+    label: "Покраска",
+  },
+  {
+    value: ColorType.filmCoating,
+    label: "Покрытие пленкой",
+  },
+];

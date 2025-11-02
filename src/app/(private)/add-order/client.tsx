@@ -17,6 +17,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import DatePicker from "@/components/date-picker/date-picker";
 import { createOrder, updateOrder } from "./actions";
 import {
+  colorTypes,
   radiusOptions,
   thicknessOptions,
 } from "@/app/(private)/add-order/constants";
@@ -179,6 +180,13 @@ export function AddOrderClient({
                 label="Фрезеровка"
                 options={millings}
                 name={`items.${index}.millingId`}
+              />
+            </Grid>
+            <Grid size={{ lg: 4, xs: 12 }}>
+              <Select
+                label="Тип покрытия"
+                options={colorTypes}
+                name={`items.${index}.colorTypeId`}
               />
             </Grid>
             <Grid size={{ lg: 4, xs: 12 }}>
