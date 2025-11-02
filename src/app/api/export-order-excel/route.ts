@@ -71,15 +71,12 @@ export async function GET(req: Request) {
     row.getCell(3).value = f.width;
     row.getCell(4).value = f.count;
     row.getCell(5).value = f.thickness;
+    row.getCell(5).value = f.radius;
+    row.getCell(5).value = f.handle.title;
+    row.getCell(5).value = f.milling.title;
+    row.getCell(5).value = f.color;
     row.commit();
   }
-
-  // Итог
-  // const totalRow = sheet.getRow(startRow);
-  // totalRow.getCell(1).value = "Итого:";
-  // totalRow.getCell(4).value = { formula: `SUM(D10:D${startRow - 1})` };
-  // totalRow.getCell(6).value = { formula: `SUM(F10:F${startRow - 1})` };
-  // totalRow.commit();
 
   // Отдаём как файл
   const buffer = await workbook.xlsx.writeBuffer();
