@@ -52,15 +52,8 @@ export async function GET(req: Request) {
   sheet.getCell("C4").value = order.endDate.toLocaleDateString("ru-RU");
   sheet.getCell("H2").value = order.customer.name;
   sheet.getCell("C5").value = order.workType;
-  // sheet.getCell("J54").value = order.unitCost;
-  // sheet.getCell("J56").value = order.millingArea;
-  // sheet.getCell("J57").value = order.costOfMilling;
-  // sheet.getCell("J58").value = order.handleLength;
-  // sheet.getCell("J59").value = order.costOfHandle;
-  // sheet.getCell("J60").value = order.costOtherServices;
-  // sheet.getCell("J62").value = order.discount;
-  // sheet.getCell("J64").value = order.prepayment;
   sheet.getCell("J32").value = order.itemsCount;
+  sheet.getCell("C32").value = order.totalArea;
 
   // Добавляем фасады
   let startRow = 8;
@@ -71,15 +64,13 @@ export async function GET(req: Request) {
     row.getCell(3).value = f.width;
     row.getCell(4).value = f.count;
     row.getCell(5).value = f.thickness;
+    row.getCell(6).value = f.radius;
+    row.getCell(7).value = f.handle.title;
+    row.getCell(8).value = f.milling.title;
+    row.getCell(9).value = f.color;
+    row.getCell(10).value = f.width * f.height * f.count * 0.000001;
     row.commit();
   }
-
-  // Итог
-  // const totalRow = sheet.getRow(startRow);
-  // totalRow.getCell(1).value = "Итого:";
-  // totalRow.getCell(4).value = { formula: `SUM(D10:D${startRow - 1})` };
-  // totalRow.getCell(6).value = { formula: `SUM(F10:F${startRow - 1})` };
-  // totalRow.commit();
 
   // Отдаём как файл
   const buffer = await workbook.xlsx.writeBuffer();
