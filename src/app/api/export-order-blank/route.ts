@@ -2,6 +2,7 @@ import { prisma } from "@/prisma-helpers/prisma";
 import ExcelJS from "exceljs";
 import path from "path";
 import { NextResponse } from "next/server";
+import { ColorType } from "@/app/(private)/add-order/constants";
 
 export const runtime = "nodejs";
 
@@ -18,19 +19,6 @@ export async function GET(req: Request) {
     return NextResponse.json({ error: "Invalid order id" }, { status: 400 });
   }
 
-  // Загружаем шаблон
-  const templatePath = path.join(
-    process.cwd(),
-    "public/templates",
-    "order-template.xlsx",
-  );
-  const workbook = new ExcelJS.Workbook();
-  await workbook.xlsx.readFile(templatePath);
-
-  const sheet = workbook.getWorksheet(1);
-
-  if (!sheet) throw new Error("No worksheet");
-
   // Загружаем заказ
   const order = await prisma.order.findUnique({
     where: { id: orderId },
@@ -43,6 +31,20 @@ export async function GET(req: Request) {
   if (!order) {
     return NextResponse.json({ error: "Order not found" }, { status: 404 });
   }
+
+  const fileName =
+    order.colorTypeId === ColorType.filmCoating
+      ? "blank_zakaza_fasadov_emal.xlsx"
+      : "blank_zakaza_fasadov_plenka.xlsx";
+
+  // Загружаем шаблон
+  const templatePath = path.join(process.cwd(), "public/templates", fileName);
+  const workbook = new ExcelJS.Workbook();
+  await workbook.xlsx.readFile(templatePath);
+
+  const sheet = workbook.getWorksheet(1);
+
+  if (!sheet) throw new Error("No worksheet");
 
   // Заполняем верхние данные
   sheet.getCell("C2").value = order.orderNumber;

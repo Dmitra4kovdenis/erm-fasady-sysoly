@@ -10,7 +10,7 @@ interface PrintButtonsProps {
 
 export function PrintButtons({ order }: PrintButtonsProps) {
   const print = async () => {
-    window.open(`/api/export-order-excel?id=${order.id}`, "_blank");
+    window.open(`/api/export-order-blank?id=${order.id}`, "_blank");
   };
 
   const printWork = async () => {

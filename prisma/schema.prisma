@@ -220,6 +220,8 @@ model Order {
   workers               Worker[]
   // трудо затраты
   timeLines             WorkTimeline[]
+  // тип покрытия
+  colorTypeId Int?
 }
 
 generator erd {

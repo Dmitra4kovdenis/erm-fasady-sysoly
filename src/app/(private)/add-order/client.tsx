@@ -117,6 +117,13 @@ export function AddOrderClient({
           <Grid size={{ lg: 12, xs: 12 }}>
             <Input label="Адрес доставки" name={orderFields.deliveryAddress} />
           </Grid>
+          <Grid size={{ lg: 4, xs: 12 }}>
+            <Select
+              label="Тип покрытия"
+              options={colorTypes}
+              name="colorTypeId"
+            />
+          </Grid>
         </Grid>
 
         {fields.map((field, index) => (
@@ -180,13 +187,6 @@ export function AddOrderClient({
                 label="Фрезеровка"
                 options={millings}
                 name={`items.${index}.millingId`}
-              />
-            </Grid>
-            <Grid size={{ lg: 4, xs: 12 }}>
-              <Select
-                label="Тип покрытия"
-                options={colorTypes}
-                name={`items.${index}.colorTypeId`}
               />
             </Grid>
             <Grid size={{ lg: 4, xs: 12 }}>
