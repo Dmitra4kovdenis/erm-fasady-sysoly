@@ -37,7 +37,7 @@ export function PrintButtons({ order }: PrintButtonsProps) {
           onClick={print}
           variant="outlined"
         >
-          Печать
+          Распечатать заказ
         </Button>
       </Grid>
       <Grid>
@@ -47,7 +47,7 @@ export function PrintButtons({ order }: PrintButtonsProps) {
           onClick={printWork}
           variant="outlined"
         >
-          Табель
+          Распечатать табель
         </Button>
       </Grid>
       <Grid>
@@ -57,7 +57,7 @@ export function PrintButtons({ order }: PrintButtonsProps) {
           onClick={cutting}
           variant="outlined"
         >
-          Раскрой
+          Распечатать раскрой
         </Button>
       </Grid>
       {role === "admin" && (
