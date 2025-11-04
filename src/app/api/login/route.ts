@@ -7,9 +7,9 @@ import * as jwt from "jsonwebtoken";
 export const runtime = "nodejs";
 
 export async function POST(req: Request) {
-  const { login, password } = await req.json();
-
   try {
+    const { login, password } = await req.json();
+
     const user = await prisma.user.findUnique({ where: { login } });
     if (!user)
       return NextResponse.json(
@@ -41,7 +41,7 @@ export async function POST(req: Request) {
     console.log(err);
     return NextResponse.json(
       { error: err, data: err?.message },
-      { status: 500 },
+      { status: 422 },
     );
   }
 }
