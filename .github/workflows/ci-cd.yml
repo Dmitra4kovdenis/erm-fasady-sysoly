@@ -3,7 +3,7 @@ name: Deploy Create React App
 on:
   push:
     branches:
-      - master  # Укажите ветку, на которую будет происходить пуш
+      - master
 
 jobs:
   build:
@@ -19,13 +19,13 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: '20'  # Укажите нужную версию Node.js
+          node-version: '20'
 
       - name: Install dependencies
         run: npm install
 
       - name: Build the project
-        run: npm run build  # Сборка приложения
+        run: npm run build
 
       - name: Archive build artifacts
         run: |
@@ -40,14 +40,7 @@ jobs:
 
   deploy:
     runs-on: ubuntu-latest
-    needs: build  # Зависимость от job'а сборки
-
-    env:
-      SERVER_IP: kuzovok11.beget.tech
-      SERVER_PATH: /home/k/kuzovok11/erm.kuzovok11.ru/website
-      SERVER_USER: kuzovok11
-      PASSWORD: dsfb332#2
-      DATABASE_URL: mysql://kuzovok11_ermdev:Vanya825!@quabeejecubo.beget.app:3306/kuzovok11_ermdev
+    needs: build
 
     steps:
       - name: Download build artifacts
@@ -62,31 +55,22 @@ jobs:
           rm -rf artifacts/next
 
       - name: Install sshpass
-        run: sudo apt-get install -y sshpass  # Установка sshpass для использования пароля
+        run: sudo apt-get install -y sshpass
 
       - name: Add server to known_hosts
         run: |
           mkdir -p ~/.ssh
-          ssh-keyscan -H ${{ secrets.SERVER_IP }} >> ~/.ssh/known_hosts
+          ssh-keyscan -H kuzovok11.beget.tech >> ~/.ssh/known_hosts
 
       - name: Copy files to server via SSH
-        env:
-          SERVER_USER: ${{ secrets.SERVER_USER }}       # Имя пользователя для SSH
-          SERVER_IP: ${{ secrets.SERVER_IP }}           # IP-адрес сервера
-          SERVER_PATH: ${{ secrets.SERVER_PATH }}       # Путь на сервере, куда будут копироваться файлы
-          SERVER_PASSWORD: ${{ secrets.PASSWORD }} # Пароль для SSH
         run: |
-          sshpass -p "$SERVER_PASSWORD" rsync -avz ./artifacts/ $SERVER_USER@$SERVER_IP:$SERVER_PATH
+          sshpass -p "dsfb332#2" rsync -avz ./artifacts/ kuzovok11@kuzovok11.beget.tech:/home/k/kuzovok11/erm.kuzovok11.ru/website
 
       - name: Touch restart file
-        env:
-          SERVER_USER: ${{ secrets.SERVER_USER }}
-          SERVER_IP: ${{ secrets.SERVER_IP }}
-          SERVER_PASSWORD: ${{ secrets.PASSWORD }}
         run: |
-          sshpass -p "$SERVER_PASSWORD" ssh -o StrictHostKeyChecking=no \
-              $SERVER_USER@$SERVER_IP \
-              "touch ${{ secrets.SERVER_PATH }}/tmp/restart.txt"
+          sshpass -p "dsfb332#2" ssh -o StrictHostKeyChecking=no \
+              kuzovok11@kuzovok11.beget.tech \
+              "touch /home/k/kuzovok11/erm.kuzovok11.ru/website/tmp/restart.txt"
 
       - name: Clean up after deployment
-        run: echo "Deployment completed successfully!"  # Сообщение о завершении развертывания
+        run: echo "Deployment completed successfully!"
