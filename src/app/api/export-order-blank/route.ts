@@ -82,7 +82,7 @@ export async function GET(req: Request) {
 
   // Отдаём как файл
   const buffer = await workbook.xlsx.writeBuffer();
-  const filename = `order-${orderId}.xlsx`;
+  const filename = `${order.orderNumber}-${fileName}`;
 
   return new Response(buffer, {
     headers: {
