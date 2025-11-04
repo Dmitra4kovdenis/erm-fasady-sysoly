@@ -28,24 +28,22 @@ export default function GlobalError({
               <strong>Digest:</strong> {error.digest || "N/A"}
             </p>
 
-            {process.env.NODE_ENV === "development" && (
-              <>
-                <p>
-                  <strong>Stack:</strong>
-                </p>
-                <pre
-                  style={{
-                    background: "#fff",
-                    padding: "10px",
-                    borderRadius: "3px",
-                    overflow: "auto",
-                    fontSize: "12px",
-                  }}
-                >
-                  {error.stack}
-                </pre>
-              </>
-            )}
+            <>
+              <p>
+                <strong>Stack:</strong>
+              </p>
+              <pre
+                style={{
+                  background: "#fff",
+                  padding: "10px",
+                  borderRadius: "3px",
+                  overflow: "auto",
+                  fontSize: "12px",
+                }}
+              >
+                {error.stack}
+              </pre>
+            </>
           </div>
           <button
             onClick={() => (window.location.href = "/")}
