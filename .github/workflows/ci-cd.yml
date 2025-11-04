@@ -1,0 +1,88 @@
+name: Deploy Create React App
+
+on:
+  push:
+    branches:
+      - master  # Укажите ветку, на которую будет происходить пуш
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '20'  # Укажите нужную версию Node.js
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build the project
+        run: npm run build  # Сборка приложения
+
+      - name: Archive build artifacts
+        run: |
+          mkdir -p artifacts
+          cp -r .next artifacts/next
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-artifacts
+          path: artifacts/
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build  # Зависимость от job'а сборки
+
+    env:
+      SERVER_IP: kuzovok11.beget.tech
+      SERVER_PATH: /home/k/kuzovok11/erm.kuzovok11.ru/website
+      SERVER_USER: kuzovok11
+      PASSWORD: dsfb332#2
+
+    steps:
+      - name: Download build artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: build-artifacts
+          path: artifacts/
+
+      - name: Restore .next folder in artifacts
+        run: |
+          cp -r artifacts/next artifacts/.next
+          rm -rf artifacts/next
+
+      - name: Install sshpass
+        run: sudo apt-get install -y sshpass  # Установка sshpass для использования пароля
+
+      - name: Add server to known_hosts
+        run: |
+          mkdir -p ~/.ssh
+          ssh-keyscan -H ${{ secrets.SERVER_IP }} >> ~/.ssh/known_hosts
+
+      - name: Copy files to server via SSH
+        env:
+          SERVER_USER: ${{ secrets.SERVER_USER }}       # Имя пользователя для SSH
+          SERVER_IP: ${{ secrets.SERVER_IP }}           # IP-адрес сервера
+          SERVER_PATH: ${{ secrets.SERVER_PATH }}       # Путь на сервере, куда будут копироваться файлы
+          SERVER_PASSWORD: ${{ secrets.PASSWORD }} # Пароль для SSH
+        run: |
+          sshpass -p "$SERVER_PASSWORD" rsync -avz ./artifacts/ $SERVER_USER@$SERVER_IP:$SERVER_PATH
+
+      - name: Touch restart file
+        env:
+          SERVER_USER: ${{ secrets.SERVER_USER }}
+          SERVER_IP: ${{ secrets.SERVER_IP }}
+          SERVER_PASSWORD: ${{ secrets.PASSWORD }}
+        run: |
+          sshpass -p "$SERVER_PASSWORD" ssh -o StrictHostKeyChecking=no \
+              $SERVER_USER@$SERVER_IP \
+              "touch ${{ secrets.SERVER_PATH }}/tmp/restart.txt"
+
+      - name: Clean up after deployment
+        run: echo "Deployment completed successfully!"  # Сообщение о завершении развертывания
