@@ -9,14 +9,14 @@ export const runtime = "nodejs";
 export async function POST(req: Request) {
   const { login, password } = await req.json();
 
-  const user = await prisma.user.findUnique({ where: { login } });
-  if (!user)
-    return NextResponse.json(
-      { error: "Пользователь не найден" },
-      { status: 401 },
-    );
-
   try {
+    const user = await prisma.user.findUnique({ where: { login } });
+    if (!user)
+      return NextResponse.json(
+        { error: "Пользователь не найден" },
+        { status: 401 },
+      );
+
     const isValid = await bcrypt.compare(password, user.password);
     if (!isValid)
       return NextResponse.json({ error: "Неверный пароль" }, { status: 401 });
