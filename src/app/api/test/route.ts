@@ -26,7 +26,7 @@ export async function POST(req: Request) {
         error: error.message,
         stack: process.env.NODE_ENV === "development" ? error.stack : undefined,
       },
-      { status: 500 },
+      { status: 422 },
     );
   }
 }
