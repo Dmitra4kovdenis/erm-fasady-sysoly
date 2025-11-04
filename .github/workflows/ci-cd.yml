@@ -37,6 +37,8 @@ jobs:
           cp -r prisma artifacts/prisma 
           cp -r public artifacts/public 
           cp -r package-lock.json artifacts/package-lock.json 
+          cp -r node_modules/.prisma artifacts/.prisma
+          cp next.config.js artifacts/
 
       - name: Upload build artifacts
         uses: actions/upload-artifact@v4
