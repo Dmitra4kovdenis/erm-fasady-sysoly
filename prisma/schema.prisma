@@ -223,7 +223,7 @@ model Order {
   // тип покрытия
   colorTypeId Int?
 }
-
-generator erd {
-  provider = "prisma-erd-generator"
-}
+//
+// generator erd {
+//   provider = "prisma-erd-generator"
+// }
