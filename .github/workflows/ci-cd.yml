@@ -49,6 +49,9 @@ jobs:
     runs-on: ubuntu-latest
     needs: build
 
+    env:
+      DATABASE_URL: mysql://kuzovok11_ermdev:Y3S!cCUSlQh1@10.19.0.1:3306/kuzovok11_ermdev
+
     steps:
       - name: Download build artifacts
         uses: actions/download-artifact@v4
