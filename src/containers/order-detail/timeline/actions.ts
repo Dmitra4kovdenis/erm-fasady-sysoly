@@ -5,7 +5,6 @@ import { WorkTimeline } from "@prisma/client";
 import { revalidatePath } from "next/cache";
 
 export const addTimeline = async (data: WorkTimeline) => {
-  console.log(data);
   await prisma.workTimeline.create({
     data,
   });

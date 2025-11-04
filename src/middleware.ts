@@ -4,8 +4,6 @@ import * as jose from "jose";
 
 const secret = new TextEncoder().encode(process.env.JWT_SECRET!);
 
-console.log("middleware", process.env.DATABASE_URL);
-
 export async function middleware(req: NextRequest) {
   const url = req.nextUrl.pathname;
 
