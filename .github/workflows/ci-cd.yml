@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      DATABASE_URL: mysql://kuzovok11_ermdev:Vanya825!@quabeejecubo.beget.app:3306/kuzovok11_ermdev
+      DATABASE_URL: mysql://kuzovok11_ermdev:Y3S!cCUSlQh1@10.19.0.1:3306/kuzovok11_ermdev
 
     steps:
       - name: Checkout code
